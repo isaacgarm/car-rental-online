@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Reserva </title>
+    <link rel="stylesheet" href="../style.css" type="text/css">
+</head>
+
+<body>
+    <main>
+        <header>
+            <h1>Car Rental Online</h1>
+        </header>
+
+        <nav>
+            <a href="/cliente/listar-reservas.html">Reservas</a>
+            <a href="/cliente/listar-disponibilidad.html">Disponibilidad</a>
+            <a href="/cliente/perfil.html">Perfil</a>
+            <a href="/index.html">Salir</a>
+        </nav>
+        <div class="status-bar">
+            <ul>
+                <li class="red"><b>Ok</b></li>
+                <li class="green"><b>Error</b></li>
+                <li class="blue">Info</li>
+            </ul>
+        </div>
+        <section>
+            <div class="content">
+                <header>
+                    <h2>Reserva</h2>
+                </header>
+
+                <form action="/cliente/listar-reservas.html" method="get">
+
+                    <div class="form-row">
+                        <label for="reservaCodigo"><b>Código</b></label>
+                        <p class="margin-top0">AAAAAAAAAAAAAAA</p>
+
+                    </div>
+
+
+                    <div class="form-row">
+                        <label for="reservaFecha"><b>Fecha</b></label>
+                        <p class="margin-top0">2001-01-01T 10:00</p>
+
+                    </div>
+
+
+                    <br>
+                    <div class="form-row2">
+                        <label for="reservaInicio"><b>Inicio*</b></label>
+                        <input type="datetime-local" id="reservaInicio" name="reservaInicio" required>
+                    </div>
+
+                    <div class="form-row2">
+                        <label for="reservaFin"><b>Fin*</b></label>
+                        <input type="datetime-local" id="reservaFin" name="reservaFin" required>
+                    </div>
+                    <div class="form-row2">
+                        <label for="reservaEntrega"><b>Entrega*</b></label>
+                        <input type="datetime-local" id="reservaEntrega" name="reservaEntrega" required>
+                    </div>
+
+                    <div class="form-row2">
+                        <label for="reservaDevolucion"><b>Devolución*</b></label>
+                        <input type="datetime-local" id="reservaDevolucion" name="reservaDevolucion" required>
+                    </div>
+                    <br>
+                    <p> <small>*Campos obligatorios</small></p>
+                    <header>
+                        <h2 class="left">Cliente</h2>
+                    </header>
+
+                    <div class="form-row3">
+                        <label for="usuarioDni">DNI</label>
+                        <p class="margin-top0">00000000X</p>
+                    </div>
+
+                    <div class="form-row3">
+                        <label for="usuarioNombres">Nombres</label>
+                        <p class="margin-top0">Nombres</p>
+
+                    </div>
+
+                    <div class="form-row3">
+                        <label for="usuarioApellidos">Apellidos</label>
+                        <p class="margin-top0">Apellidos</p>
+
+                    </div>
+
+                    <label for="usuarioDireccion">Dirección</label>
+                    <p class="margin-top0">Ejemplo de dirección</p>
+
+                    <div class="form-row">
+                        <label for="usuarioTelefono ">Teléfono</label>
+                        <p class="margin-top0">+000 000000000</p>
+
+                    </div>
+                    <div class="form-row">
+                        <label for="usuarioEmail">E-mail</label>
+                        <p class="margin-top0">cliente@email.com</p>
+
+                    </div>
+
+                    <header>
+                        <h1 class="left">Vehículo</h1>
+                    </header>
+
+                    <div class="form-row3">
+                        <label for="matricula">Matrícula</label>
+                        <p class="margin-top0">AAA000</p>
+
+                    </div>
+
+                    <div class="form-row3">
+                        <label for="marca">Marca</label>
+                        <p class="margin-top0">Marca</p>
+
+                    </div>
+
+                    <div class="form-row3">
+                        <label for="modelo">Modelo</label>
+                        <p class="margin-top0">Modelo</p>
+
+                    </div>
+
+                    <div class="form-row3">
+                        <label for="tipo">Tipo</label>
+                        <p class="margin-top0">TIPO</p>
+
+                    </div>
+
+                    <div class="form-row3">
+                        <label for="etiqueta">Etiqueta</label>
+                        <p class="margin-top0">ETIQUETA</p>
+
+                    </div>
+
+                    <div class="form-row3">
+                        <label for="costo">Costo por día €*:</label>
+                        <p class="margin-top0">€ 0.00</p>
+
+                    </div>
+
+                    <label for="descripcion">Descripción</label>
+                    <p class="margin-top0">Ejmplo descripción</p>
+
+                    <div class="form-row3">
+                        <a><b>Disponible:</b> NO</a>
+
+
+                    </div>
+                    <div class="form-row3">
+                        <a><b>Eliminado:</b> NO</a>
+
+
+                    </div>
+                    <div class="form-row3">
+                        <a><b>Revisión:</b> NO</a>
+
+                    </div>
+
+
+
+                    <p class="costo">Costo: € 0.00</p>
+
+
+                    <div class="boton-centrado">
+                        <input type="submit" value="Reservar">
+                    </div>
+        </section>
+
+
+
+        </form>
+        <footer>
+            Tecnologías y Sistemas Web
+        </footer>
+    </main>
+</body>
+
+</html>
