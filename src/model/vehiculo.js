@@ -1,3 +1,6 @@
+const TipoVehiculo = require("./tipo-vehiculo")
+const Etiqueta = require("./etiqueta")
+
 class Vehiculo{
     _id; 
     _matricula; 
