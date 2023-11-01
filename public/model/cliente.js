@@ -1,7 +1,3 @@
-const Usuario = require("./usuario");
-//require con la etiqueta y usarlo directamente
-const rol = require("./rol");
-
 class Cliente extends Usuario {
   constructor(_id) {
     super(_id);
@@ -15,4 +11,3 @@ class Cliente extends Usuario {
     return this._rol;
   }
 }
-module.exports = Cliente;

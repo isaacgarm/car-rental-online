@@ -1,6 +1,3 @@
-const Usuario = require("./usuario");
-const rol = require("./rol");
-
 class Empleado extends Usuario {
   constructor(_id) {
     super(_id);
@@ -14,5 +11,3 @@ class Empleado extends Usuario {
     return this._rol;
   }
 }
-
-module.exports = Empleado;

@@ -1,18 +1,14 @@
-const assert = require("chai").assert;
-const Empleado = require("../../src/model/empleado");
-const Rol = require("../../src/model/rol");
-
 describe("empleado", function () {
   let empleado;
   const eId = "1";
   let rol = Rol.Empleado;
-  const nombres = 'Empleado 1';
-  const dni = '11345678A';
-  const apellidos = 'ApellidoEmpleado 1';
-  const direccion = 'DireccionEmpleado 1';
-  const email = 'empleado1@gmail.com';
-  const password = 'Password1';
-  const telefono = '444222111';
+  const nombres = "Empleado 1";
+  const dni = "11345678A";
+  const apellidos = "ApellidoEmpleado 1";
+  const direccion = "DireccionEmpleado 1";
+  const email = "empleado1@gmail.com";
+  const password = "Password1";
+  const telefono = "444222111";
 
   beforeEach(function () {
     empleado = new Empleado(cId, rol);
@@ -38,7 +34,7 @@ describe("empleado", function () {
   });
 
   it("setter dni", function () {
-    const dni2 = '97654321A';
+    const dni2 = "97654321A";
     empleado.dni = dni2;
     assert.equal(empleado._dni, dni2);
   });
@@ -48,7 +44,7 @@ describe("empleado", function () {
   });
 
   it("setter nombres", function () {
-    const nombres2 = 'Empleado 2';
+    const nombres2 = "Empleado 2";
     empleado.nombres = nombres2;
     assert.equal(empleado._nombres, nombres2);
   });
@@ -58,7 +54,7 @@ describe("empleado", function () {
   });
 
   it("setter apellidos", function () {
-    const apellidos2 = 'Apellido 2';
+    const apellidos2 = "Apellido 2";
     empleado.apellidos = apellidos2;
     assert.equal(empleado._apellidos, apellidos2);
   });
@@ -68,7 +64,7 @@ describe("empleado", function () {
   });
 
   it("setter direccion", function () {
-    const direccion2 = 'Direccion 2';
+    const direccion2 = "Direccion 2";
     empleado.direccion = direccion2;
     assert.equal(empleado._direccion, direccion2);
   });
@@ -78,7 +74,7 @@ describe("empleado", function () {
   });
 
   it("setter email", function () {
-    const email2 = 'empleado2@gmail.com';
+    const email2 = "empleado2@gmail.com";
     empleado.email = email2;
     assert.equal(empleado._email, email2);
   });
@@ -88,7 +84,7 @@ describe("empleado", function () {
   });
 
   it("setter password", function () {
-    const password2 = 'password2';
+    const password2 = "password2";
     empleado.password = password2;
     assert.equal(empleado._password, password2);
   });
@@ -98,11 +94,8 @@ describe("empleado", function () {
   });
 
   it("setter telefono", function () {
-    const telefono2 = '111222333';
+    const telefono2 = "111222333";
     empleado.telefono = telefono2;
     assert.equal(empleado._telefono, telefono2);
   });
-
-
-
 });
