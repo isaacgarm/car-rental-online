@@ -1,4 +1,14 @@
+const Cliente = require("./cliente");
+const Empleado = require("./empleado");
+const vehiculo = require("./vehiculo");
+
 class CarRentalOnline {
+  lastId;
+  _clientes;
+  _empleados;
+  _vehiculos;
+  _reservas;
+  usuario;
   constructor() {
     this._vehiculos = [];
     this._clientes = [];
@@ -9,8 +19,7 @@ class CarRentalOnline {
   }
 
   genId() {
-    this.lastId++;
-    return this.lastId;
+    return ++this.lastId;
   }
 
   getClientes() {
@@ -30,21 +39,21 @@ class CarRentalOnline {
   }
 
   agregarCliente(obj) {
-    if (this._clientes.some((cliente) => cliente.dni === obj.dni)) {
-      throw new Error("Cliente con el mismo DNI ya existe.");
+    if (this._clientes.find((cliente) => cliente.dni === obj.dni)) {
+      throw new Error("El cliente ya existe.");
     }
-
-    const cliente = { ...obj };
+    let cliente = new Cliente(this.genId(), dni);
     this._clientes.push(cliente);
+    return cliente;
   }
 
   agregarEmpleado(obj) {
-    if (this._empleados.some((empleado) => empleado.dni === obj.dni)) {
-      throw new Error("Empleado con el mismo DNI ya existe.");
+    if (this._empleados.find((empleado) => empleado.dni === obj.dni)) {
+      throw new Error("El empleado ya existe.");
     }
-
-    const empleado = { ...obj };
-    this._empleados.push(empleado);
+    let empleado = new Empelado(this.genId(), dni);
+    this.empleados.push(empleado);
+    return empleado;
   }
 
   signin(email, password, rol) {
