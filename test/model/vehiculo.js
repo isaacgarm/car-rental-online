@@ -1,0 +1,109 @@
+const assert = require("chai").assert;
+const Vehiculo = require("../../src/model/vehiculo");
+const TipoVehiculo = require("../../src/model/tipo-vehiculo");
+const Etiqueta = require("../../src/model/etiqueta");
+const TipoVehiculo = require("../../src/model/tipo-vehiculo");
+
+describe("vehiculo", function () {
+    let vehiculo;
+    const vId = "1";
+    let etiqueta = Etiqueta.Vehiculo;
+    let tipo = TipoVehiculo.Vehiculo;
+    const matricula = 'AAA0000';
+    const marca = 'SEAT';
+    const modelo = 'LEON';
+    const disponible = true;
+    const eliminado = false;
+    const costoDia = 50;
+    const descripcion = 'SEAT LEON';
+
+    beforeEach(function () {
+        vehiculo = new Vehiculo(wId, etiqueta, tipo);
+      });
+    
+      it("constructor vehiculo", function () {
+        assert.equal(vehiculo._id, wId);
+        assert.equal(vehiculo._etiqueta, etiqueta);
+        assert.equal(vehiculo._tipoVehiculo, tipo);
+      });
+    
+      it("getter etiqueta", function () {
+        assert.equal(vehiculo.etiqueta, etiqueta);
+      });
+    
+      it("setter etiqueta", function () {
+        const etiqueta2 = Etiqueta.Vehiculo;
+        vehiculo.etiqueta = etiqueta2;
+        assert.equal(vehiculo._etiqueta, etiqueta2);
+      });
+
+      it("getter tipo", function () {
+        assert.equal(vehiculo.tipoVehiculo, tipo);
+      });
+    
+      it("setter tipo", function () {
+        const tipo2 = TipoVehiculo.Vehiculo;
+        vehiculo.tipoVehiculo = tipo2;
+        assert.equal(vehiculo._tipoVehiculo, tipo2);
+      });
+
+      it("getter marca", function () {
+        assert.equal(vehiculo.marca, marca);
+      });
+    
+      it("setter marca", function () {
+        const marca2 = 'TOYOTA';
+        vehiculo.marca = marca2;
+        assert.equal(vehiculo._marca, marca2);
+      });
+
+      it("getter modelo", function () {
+        assert.equal(vehiculo.modelo, modelo);
+      });
+    
+      it("setter modelo", function () {
+        const modelo2 = 'YARIS';
+        vehiculo.modelo = modelo2;
+        assert.equal(vehiculo._modelo, modelo2);
+      });
+
+      it("getter descripcion", function () {
+        assert.equal(vehiculo.descripcion, descripcion);
+      });
+    
+      it("setter descripcion", function () {
+        const descripcion2 = 'TOYOTA YARIS';
+        vehiculo.descripcion = descripcion2;
+        assert.equal(vehiculo._descripcion, descripcion2);
+      });
+
+      it("getter disponible", function () {
+        assert.equal(vehiculo.disponible, disponible);
+      });
+    
+      it("setter disponible", function () {
+        const nuevoDisponible = false; 
+        vehiculo.disponible = nuevoDisponible;
+        assert.equal(vehiculo._disponible, nuevoDisponible);
+      });
+
+      it("getter eliminado", function () {
+        assert.equal(vehiculo.eliminado, eliminado);
+      });
+    
+      it("setter eliminado", function () {
+        const nuevoEliminado = false; 
+        vehiculo.eliminado = nuevoEliminado;
+        assert.equal(vehiculo._eliminado, nuevoEliminado);
+      });
+
+      it("getter costoDia", function () {
+        assert.equal(vehiculo.costoDia, costoDia);
+      });
+    
+      it("setter costoDia", function () {
+        const nuevoCostoDia = 150; 
+        vehiculo.costoDia = nuevoCostoDia;
+        assert.equal(vehiculo._costoDia, nuevoCostoDia);
+      });
+});
