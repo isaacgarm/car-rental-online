@@ -24,7 +24,7 @@ describe("vehiculo", function () {
       it("constructor vehiculo", function () {
         assert.equal(vehiculo._id, wId);
         assert.equal(vehiculo._etiqueta, etiqueta);
-        assert.equal(vehiculo._tipoVehiculo, tipo);
+        assert.equal(vehiculo._tipo, tipo);
       });
     
       it("getter etiqueta", function () {
@@ -38,13 +38,13 @@ describe("vehiculo", function () {
       });
 
       it("getter tipo", function () {
-        assert.equal(vehiculo.tipoVehiculo, tipo);
+        assert.equal(vehiculo.tipo, tipo);
       });
     
       it("setter tipo", function () {
         const tipo2 = TipoVehiculo.Vehiculo;
         vehiculo.tipoVehiculo = tipo2;
-        assert.equal(vehiculo._tipoVehiculo, tipo2);
+        assert.equal(vehiculo._tipo, tipo2);
       });
 
       it("getter marca", function () {
