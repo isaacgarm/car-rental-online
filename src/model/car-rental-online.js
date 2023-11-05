@@ -1,7 +1,6 @@
 const Cliente = require("./cliente");
 const Empleado = require("./empleado");
-const Vehiculo = require("../../src/model/vehiculo");
-const Reserva = require("../../src/model/reserva");
+const vehiculo = require("./vehiculo");
 
 class CarRentalOnline {
   lastId;
@@ -32,10 +31,7 @@ class CarRentalOnline {
   }
 
   getReservas() {
-    
-
     return this._reservas;
-
   }
 
   getEmpleados() {
@@ -75,7 +71,7 @@ class CarRentalOnline {
   }
 
   signin(email, password, rol) {
-    const collection = rol === "cliente" ? this._clientes : this._empleados;
+    const collection = rol === "Cliente" ? this._clientes : this._empleados;
     const user = collection.find(
       (user) => user.email === email && user.password === password
     );
@@ -88,9 +84,9 @@ class CarRentalOnline {
   }
 
   signup(obj) {
-    const collection = obj.rol === "cliente" ? this._clientes : this._empleados;
+    const collection = obj.rol === "Cliente" ? this._clientes : this._empleados;
 
-    if (collection.some((user) => user.email === obj.email)) {
+    if (collection.find((user) => user.email === obj.email)) {
       throw new Error("El email ya está registrado.");
     }
 
@@ -111,49 +107,13 @@ class CarRentalOnline {
       return true;
     }
 
-    // Verificar si las fechas de inicio y fin se superponen con la reserva existente
-    const reservaInicio = new Date(reserva.inicio);
-    const reservaFin = new Date(reserva.fin);
-    const nuevaInicio = new Date(inicio);
-    const nuevaFin = new Date(fin);
-
-    if (
-      (nuevaInicio >= reservaInicio && nuevaInicio <= reservaFin) ||
-      (nuevaFin >= reservaInicio && nuevaFin <= reservaFin)
-    ) {
-      return false; // Hay superposición de fechas, el vehículo no está disponible
-    }
-
-    return true; // No hay superposición de fechas, el vehículo está disponible
+    // Verificar disponibilidad con las fechas de inicio y fin
+    // Implementa tu lógica para verificar las fechas aquí
   }
 
   disponibles(marca, modelo, tipo, etiqueta, costoDia, inicio, fin) {
     // Implementa la lógica para filtrar vehículos disponibles
-    const vehiculosDisponibles = this._vehiculos.filter((vehiculo) => {
-      // Filtrar vehículos basándote en los criterios de búsqueda
-      const coincideMarca = vehiculo.marca === marca;
-      const coincideModelo = vehiculo.modelo === modelo;
-      const coincideTipo = vehiculo.tipo === tipo;
-      const coincideEtiqueta = vehiculo.etiqueta === etiqueta;
-      const coincideCostoDia = vehiculo.costoDia === costoDia;
-
-      // Verificar disponibilidad usando la función disponibilidad()
-      const estaDisponible = this.disponibilidad(vehiculo._id, inicio, fin);
-
-      // Devolver true si el vehículo cumple con todos los criterios y está disponible
-      return (
-        coincideMarca &&
-        coincideModelo &&
-        coincideTipo &&
-        coincideEtiqueta &&
-        coincideCostoDia &&
-        estaDisponible
-      );
-    });
-
-    return vehiculosDisponibles;
   }
-
 
   perfil() {
     if (!this.usuario) {
@@ -165,47 +125,10 @@ class CarRentalOnline {
 
   reservar(vehiculoId, inicio, fin) {
     // Implementa la lógica para realizar una reserva
-    const vehiculoDisponible = this.disponibilidad(vehiculoId, inicio, fin);
-
-    if (!vehiculoDisponible) {
-      throw new Error("El vehículo no está disponible para las fechas seleccionadas.");
-    }
-
-    const numeroReserva = this.generarNumeroReserva();
-    const nuevaReserva = 
-    {
-      //numero: numeroReserva,
-      vehiculoId: vehiculoId,
-      inicio: inicio,
-      fin: fin
-    };
-
-    // Agregar número de reserva al objeto de reserva
-    nuevaReserva.numero = numeroReserva;
-
-    this._reservas.push(nuevaReserva);
-    return nuevaReserva;
-
   }
 
   cancelar(numero) {
-    const reservaIndex = this._reservas.findIndex((reserva) => reserva.numero === numero);
-
-    if (reservaIndex === -1) {
-      throw new Error("No se encontró ninguna reserva con el número proporcionado.");
-    }
-
-    this._reservas.splice(reservaIndex, 1);
-    return "Reserva cancelada correctamente.";
-
-
-  }
-
-  generarNumeroReserva() {
-    // Implementa lógica para generar un número único de reserva, por ejemplo, usando un contador o un generador de UUID
-    // En este ejemplo, se genera un número aleatorio de 6 dígitos como número de reserva
-    const numero = Math.floor(100000 + Math.random() * 900000);
-    return numero;
+    // Implementa la lógica para cancelar una reserva
   }
 
   agregarVehiculo(obj) {
