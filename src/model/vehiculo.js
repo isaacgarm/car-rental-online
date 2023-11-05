@@ -33,7 +33,18 @@ class Vehiculo{
     set costoDia(costoDia) { this._costoDia = costoDia; }
     set descripcion(descripcion) { this._descripcion = descripcion; }
 
-    constructor(id){ this.id = id;}
+    constructor(_id, matricula, marca, modelo, etiqueta, tipo, disponible, eliminado, costoDia, descripcion){ 
+        this._id =_id;
+        this._matricula = matricula; 
+        this._marca = marca;
+        this._modelo = modelo;
+        this._etiqueta = etiqueta;
+        this._tipo = tipo;
+        this._disponible = disponible;
+        this._eliminado = eliminado;
+        this._costoDia = costoDia;
+        this._descripcion = descripcion;
+    }
 
 } 
 module.exports = Vehiculo;
