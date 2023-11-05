@@ -15,7 +15,7 @@ describe("reserva", function () {
   const vehiculoId = '1';
 
   beforeEach(function () {
-    reserva = new Reserva(rId);
+    reserva = new Reserva(rId, inicio, fin, costo, numero, entrega, devolucion, fecha, clienteId, vehiculoId);
   });
 
   it("constructor reserva", function () {
@@ -94,23 +94,23 @@ describe("reserva", function () {
   });
 
   it("getter clienteId", function () {
-    assert.equal(reserva.fecha, fecha);
+    assert.equal(reserva._clienteId, clienteId);
   });
 
   it("setter clienteId", function () {
-    const fecha2 = '2023-06-23';
-    reserva.fecha = fecha2;
-    assert.equal(reserva._fecha, fecha2);
+    const clienteId2 = '2';
+    reserva.clienteId = clienteId2;
+    assert.equal(reserva._clienteId, clienteId2);
   });
 
   it("getter vehiculoId", function () {
-    assert.equal(reserva.fecha, fecha);
+    assert.equal(reserva._vehiculoId, vehiculoId);
   });
 
   it("setter vehiculoId", function () {
-    const fecha2 = '2023-06-23';
-    reserva.fecha = fecha2;
-    assert.equal(reserva._fecha, fecha2);
+    const vehiculoId2 = '2';
+    reserva.vehiculoId = vehiculoId2;
+    assert.equal(reserva._vehiculoId, vehiculoId2);
   });
 
 

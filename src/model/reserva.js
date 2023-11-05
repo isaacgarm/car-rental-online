@@ -13,18 +13,18 @@ class Reserva{
     _clienteId;
     _vehiculoId;
 
-    constructor(_id) {
+    constructor(_id, inicio, fin, costo, numero, entrega, devolucion, fecha, clienteId, vehiculoId) {
         this._id = _id;
-        this._inicio = "";
-        this._fin = "";
-        this._costo = "";
-        this._numero = "";
-        this._entrega = "";
-        this._devolucion = "";
-        this._fecha = "";
-        this._clienteId = "";
-        this._vehiculoid = "";
-      }
+        this._inicio = inicio; 
+        this._fin = fin;
+        this._costo = costo;
+        this._numero = numero;
+        this._entrega = entrega;
+        this._devolucion = devolucion;
+        this._fecha = fecha;
+        this._clienteId = clienteId;
+        this._vehiculoId = vehiculoId;
+    }
     
     set inicio(inicio) { this._inicio = inicio; }
     set fin(fin) { this._fin = fin; }
@@ -42,7 +42,7 @@ class Reserva{
      */
     set vehiculoId(vehiculoId) { this._vehiculoId = vehiculoId; }
     
-    get inicio() { return this.inicio; }
+    get inicio() { return this._inicio; }
     get fin() { return this._fin; }
     get costo() { return this._costo; }
     get numero() { return this._numero; }
