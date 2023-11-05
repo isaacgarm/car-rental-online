@@ -15,7 +15,7 @@ describe("cliente", function () {
   const telefono = '333222111';
 
   beforeEach(function () {
-    cliente = new Cliente(cId, rol);
+    cliente = new Cliente(cId, nombres, apellidos, dni, direccion,email , password, telefono, rol);
   });
 
   it("constructor cliente", function () {

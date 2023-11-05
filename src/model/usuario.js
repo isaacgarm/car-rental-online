@@ -9,7 +9,7 @@ class Usuario {
   _rol;
   _telefono;
 
-  constructor(_id, nombres, apellidos, dni, direccion,email , password, rol, telefono) {
+  constructor(_id, nombres, apellidos, dni, direccion,email , password, telefono, rol) {
     this._id = _id;
     this._dni = dni;
     this._nombres = nombres ;
@@ -17,8 +17,8 @@ class Usuario {
     this._direccion = direccion;
     this._email = email;
     this._password = password;
-    this._rol = rol;
     this._telefono = telefono;
+    this._rol = rol;
 
   }
 
