@@ -15,11 +15,11 @@ describe("empleado", function () {
   const telefono = '444222111';
 
   beforeEach(function () {
-    empleado = new Empleado(cId, rol);
+    empleado = new Empleado(eId, rol);
   });
 
   it("constructor empleado", function () {
-    assert.equal(empleado._id, cId);
+    assert.equal(empleado._id, eId);
     assert.equal(empleado._rol, rol);
   });
 
