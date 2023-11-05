@@ -58,7 +58,7 @@ class CarRentalOnline {
     if (this._empleados.find((empleado) => empleado.dni === obj.dni)) {
       throw new Error("El empleado ya existe.");
     }
-    let empleado = new Empelado(this.genId(), dni);
+    let empleado = new Empleado(this.genId(), dni);
     empleado.nombres = obj.nombres;
     empleado.apellidos = obj.apellidos;
     empleado.direccion = obj.direccion;
@@ -90,8 +90,8 @@ class CarRentalOnline {
       throw new Error("El email ya está registrado.");
     }
 
-    const newUser = { ...obj };
-    collection.push(newUser);
+    const nuevoUsuario = { ...obj };
+    collection.push(nuevoUsuario);
   }
 
   signout() {
@@ -172,8 +172,16 @@ class CarRentalOnline {
     ) {
       throw new Error("Vehículo con la misma matrícula ya existe.");
     }
+    let vehiculo = new Vehiculo(this.genId(), matricula);
+    vehiculo.marca = obj.marca;
+    vehiculo.modelo = obj.modelo;
+    vehiculo.etiqueta = obj.etiqueta;
+    vehiculo.costoDia = obj.costoDia;
+    vehiculo.descripcion = obj.descripcion;
+    this.vehiculo.push(vehiculo);
+    return vehiculo;
 
-    const vehiculo = { ...obj };
+    //const vehiculo = { ...obj };
     this._vehiculos.push(vehiculo);
   }
 

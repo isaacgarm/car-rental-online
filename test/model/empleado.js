@@ -5,7 +5,7 @@ const Rol = require("../../src/model/rol");
 describe("empleado", function () {
   let empleado;
   const eId = "1";
-  let rol = Rol.Empleado;
+  const rol = Rol.Empleado;
   const nombres = 'Empleado 1';
   const dni = '11345678A';
   const apellidos = 'ApellidoEmpleado 1';
@@ -14,13 +14,13 @@ describe("empleado", function () {
   const password = 'Password1';
   const telefono = '444222111';
 
+
   beforeEach(function () {
-    empleado = new Empleado(eId, rol);
+    empleado = new Empleado(eId, nombres, apellidos, dni, direccion,email , password, rol, telefono);
   });
 
   it("constructor empleado", function () {
     assert.equal(empleado._id, eId);
-    assert.equal(empleado._rol, rol);
   });
 
   it("getter rol", function () {

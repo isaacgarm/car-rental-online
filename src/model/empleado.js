@@ -1,18 +1,19 @@
-const Usuario = require("./usuario");
-const rol = require("./rol");
 
-class Empleado extends Usuario {
-  constructor(_id) {
-    super(_id);
-    this._rol = rol.Empleado;
-  }
-  set rol(rol) {
-    this._rol = rol.Empleado;
+  const Usuario = require("./usuario");
+  const Rol = require("./rol");
+
+  class Empleado extends Usuario {
+    constructor(_id, nombres, apellidos, dni, direccion,email , password, rol, telefono) {
+      super(_id, nombres, apellidos, dni, direccion,email , password, telefono);
+      this._rol = Rol.Empleado;
+    }
+    set rol(rol) {
+      this._rol = Rol.Empleado;
+    }
+
+    get rol() {
+      return this._rol;
+    }
   }
 
-  get rol() {
-    return this._rol;
-  }
-}
-
-module.exports = Empleado;
+  module.exports = Empleado;

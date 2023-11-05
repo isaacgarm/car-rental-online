@@ -9,16 +9,17 @@ class Usuario {
   _rol;
   _telefono;
 
-  constructor(_id) {
+  constructor(_id, nombres, apellidos, dni, direccion,email , password, telefono, rol) {
     this._id = _id;
-    this._dni = "";
-    this._nombres = "";
-    this._apellidos = "";
-    this._direccion = "";
-    this._email = "";
-    this._password = "";
-    this._rol = "";
-    this._telefono = "";
+    this._dni = dni;
+    this._nombres = nombres ;
+    this._apellidos = apellidos;
+    this._direccion = direccion;
+    this._email = email;
+    this._password = password;
+    this._telefono = telefono;
+    this._rol = rol;
+
   }
 
   // Setters
