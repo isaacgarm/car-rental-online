@@ -116,9 +116,9 @@ describe("Método agregarCliente(obj)", () => {
       carRental = new CarRentalOnline();
   
       // Agrega al menos 3 clientes antes de cada prueba
-      carRental.agregarCliente(new Cliente("cliente1@example.com", "password", "Cliente", /* otras propiedades */));
-      carRental.agregarCliente(new Cliente("cliente2@example.com", "password", "Cliente", /* otras propiedades */));
-      carRental.agregarCliente(new Cliente("cliente3@example.com", "password", "Cliente", /* otras propiedades */));
+      const cliente1 = new Cliente("1", "Cliente", "Cliente 1", "12345678A", "Apellido 1", "Direccion 1", "cliente1@gmail.com", "Password1", "333222111");
+      const cliente2 = new Cliente("2", "Cliente", "Cliente 2", "23456789B", "Apellido 2", "Direccion 2", "cliente2@gmail.com", "Password2", "444333222");
+      const cliente3 = new Cliente("3", "Cliente", "Cliente 3", "34567890C", "Apellido 3", "Direccion 3", "cliente3@gmail.com", "Password3", "555444333");
     });
   
     it("debería agregar al menos 3 clientes", () => {
