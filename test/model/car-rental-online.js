@@ -43,9 +43,9 @@ describe("car-rental-online", () => {
             carRental = new CarRentalOnline();
 
             // Agrega al menos 3 vehículos antes de cada prueba
-            carRental.agregarVehiculo(new Vehiculo("111AAA", "Toyota", "Corolla", "Sedán", "Auto", true, false, 50, "Descripción del vehículo 1"));
-            carRental.agregarVehiculo(new Vehiculo("222BBB", "Honda", "Civic", "Sedán", "Auto", true, false, 55, "Descripción del vehículo 2"));
-            carRental.agregarVehiculo(new Vehiculo("333CCC", "Ford", "Focus", "Hatchback", "Auto", true, false, 60, "Descripción del vehículo 3"));
+            carRental.agregarVehiculo(new Vehiculo("111AAAA", "Toyota", "Corolla", "Sedán", "Auto", true, false, 50, "Descripción del vehículo 1"));
+            carRental.agregarVehiculo(new Vehiculo("222BBBB", "Honda", "Civic", "Sedán", "Auto", true, false, 55, "Descripción del vehículo 2"));
+            carRental.agregarVehiculo(new Vehiculo("333CCCC", "Ford", "Focus", "Hatchback", "Auto", true, false, 60, "Descripción del vehículo 3"));
         });
 
         it("debería devolver al menos 3 vehículos", () => {
@@ -62,9 +62,9 @@ describe("car-rental-online", () => {
 
         it("debería devolver los vehículos agregados", () => {
             const vehiculos = carRental.getVehiculos();
-            expect(vehiculos.map(v => v.matricula)).to.include("111AAA");
-            expect(vehiculos.map(v => v.matricula)).to.include("222BBB");
-            expect(vehiculos.map(v => v.matricula)).to.include("333CCC");
+            expect(vehiculos.map(v => v.matricula)).to.include("111AAAA");
+            expect(vehiculos.map(v => v.matricula)).to.include("222BBBB");
+            expect(vehiculos.map(v => v.matricula)).to.include("333CCCC");
         });
     });
 
