@@ -7,8 +7,8 @@ const Etiqueta = require("../../src/model/etiqueta");
 describe("vehiculo", function () {
     let vehiculo;
     const vId = "1";
-    let etiqueta = Etiqueta.Vehiculo;
-    let tipo = TipoVehiculo.Vehiculo;
+    let etiqueta = Etiqueta.ECO;
+    let tipo = TipoVehiculo.A;
     const matricula = 'AAA0000';
     const marca = 'SEAT';
     const modelo = 'LEON';
@@ -18,11 +18,11 @@ describe("vehiculo", function () {
     const descripcion = 'SEAT LEON';
 
     beforeEach(function () {
-        vehiculo = new Vehiculo(wId, etiqueta, tipo);
+        vehiculo = new Vehiculo(vId, etiqueta, tipo);
       });
     
       it("constructor vehiculo", function () {
-        assert.equal(vehiculo._id, wId);
+        assert.equal(vehiculo._id, vId);
         assert.equal(vehiculo._etiqueta, etiqueta);
         assert.equal(vehiculo._tipo, tipo);
       });
