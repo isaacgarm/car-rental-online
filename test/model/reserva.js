@@ -15,14 +15,11 @@ describe("reserva", function () {
   const vehiculoId = '1';
 
   beforeEach(function () {
-    reserva = new Reserva(rId,clienteId,vehiculoId);
+    reserva = new Reserva(rId);
   });
 
   it("constructor reserva", function () {
     assert.equal(reserva._id, rId);
-    assert.equal(reserva._clienteId, clienteId);
-    assert.equal(reserva._vehiculoId, vehiculoId)
-    //assert.equal(empleado._rol, rol);
   });
 
 
