@@ -99,20 +99,55 @@ class CarRentalOnline {
   }
 
   disponibilidad(vehiculoId, inicio, fin) {
-    const reserva = this._reservas.find(
+    const reservaExistente = this._reservas.find(
       (reserva) => reserva.vehiculoId === vehiculoId
     );
 
-    if (!reserva) {
-      return true;
+    if (!reservaExistente) {
+      return true; // El vehículo no tiene reservas existentes, está disponible
     }
 
-    // Verificar disponibilidad con las fechas de inicio y fin
-    // Implementa tu lógica para verificar las fechas aquí
+    // Verificar si las fechas de inicio y fin se superponen con la reserva existente
+    const reservaInicio = new Date(reservaExistente.inicio);
+    const reservaFin = new Date(reservaExistente.fin);
+    const nuevaInicio = new Date(inicio);
+    const nuevaFin = new Date(fin);
+
+    if (
+      (nuevaInicio >= reservaInicio && nuevaInicio <= reservaFin) ||
+      (nuevaFin >= reservaInicio && nuevaFin <= reservaFin)
+    ) {
+      return false; // Hay superposición de fechas, el vehículo no está disponible
+    }
+
+    return true; // No hay superposición de fechas, el vehículo está disponible
   }
 
   disponibles(marca, modelo, tipo, etiqueta, costoDia, inicio, fin) {
     // Implementa la lógica para filtrar vehículos disponibles
+    const vehiculosDisponibles = this._vehiculos.filter((vehiculo) => {
+      // Filtrar vehículos basándote en los criterios de búsqueda
+      const coincideMarca = vehiculo.marca === marca;
+      const coincideModelo = vehiculo.modelo === modelo;
+      const coincideTipo = vehiculo.tipo === tipo;
+      const coincideEtiqueta = vehiculo.etiqueta === etiqueta;
+      const coincideCostoDia = vehiculo.costoDia === costoDia;
+
+      // Verificar disponibilidad usando la función disponibilidad()
+      const estaDisponible = this.disponibilidad(vehiculo._id, inicio, fin);
+
+      // Devolver true si el vehículo cumple con todos los criterios y está disponible
+      return (
+        coincideMarca &&
+        coincideModelo &&
+        coincideTipo &&
+        coincideEtiqueta &&
+        coincideCostoDia &&
+        estaDisponible
+      );
+    });
+
+    return vehiculosDisponibles;
   }
 
   perfil() {
