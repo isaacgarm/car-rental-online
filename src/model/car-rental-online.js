@@ -43,6 +43,13 @@ class CarRentalOnline {
       throw new Error("El cliente ya existe.");
     }
     let cliente = new Cliente(this.genId(), dni);
+    cliente.nombres = obj.nombres;
+    cliente.apellidos = obj.apellidos;
+    cliente.direccion = obj.direccion;
+    cliente.rol = obj.rol;
+    cliente.email = obj.email;
+    cliente.password = obj.password;
+    cliente.telefono = obj.telefono;
     this._clientes.push(cliente);
     return cliente;
   }
@@ -52,6 +59,13 @@ class CarRentalOnline {
       throw new Error("El empleado ya existe.");
     }
     let empleado = new Empelado(this.genId(), dni);
+    empleado.nombres = obj.nombres;
+    empleado.apellidos = obj.apellidos;
+    empleado.direccion = obj.direccion;
+    empleado.rol = obj.rol;
+    empleado.email = obj.email;
+    empleado.password = obj.password;
+    empleado.telefono = obj.telefono;
     this.empleados.push(empleado);
     return empleado;
   }
