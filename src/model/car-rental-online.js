@@ -119,9 +119,10 @@ class CarRentalOnline {
     reserva.clienteId = obj.clienteId;
     reserva.vehiculoId = obj.vehiculoId;
     
-
+    console.log('Reserva agregada:', reserva);
     this._reservas.push(reserva);
     return reserva;
+    
 }
 
 
@@ -231,7 +232,7 @@ class CarRentalOnline {
     const vehiculo = this._vehiculos.find((vehiculo) => vehiculo._id === vehiculoId); //encuentrame un vehiculo dentro de vehiculos[] cuya id sea igual a la pasada por parametro
   
     if (!vehiculo) {
-      throw new Error("Vehículo no encontrado.");
+      throw new Error("Vehiculo no encontrado.");
     }
   
     const estaDisponible = this.disponibilidad(vehiculoId, inicio, fin);

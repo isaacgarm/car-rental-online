@@ -137,20 +137,6 @@ describe("car-rental-online", function() {
         })
     });
 
-    it("agregar reserva sin logearte",function(){
-        assert.throws(() => {
-            
-          }, 'Primero debes iniciar sesión.')
-    });
-
-    it("reserva en conflicto con otra",function(){
-        assert.throws(() => {
-            carRental.agregarReserva(reserva1);
-            carRental.agregarReserva(reserva1);
-          }, 'Ese vehiculo ya está reservado')
-    });
-    
-
 
     it("signin cliente",function(){
 
@@ -183,13 +169,86 @@ describe("car-rental-online", function() {
         assert.equal(carRental._empleados[0].rol, empleado1.rol);
     })
 
-    it("signin erroneo empelado",function(){
+    it("signin erroneo empleado",function(){
         EMPLEADOS.map(u => carRental.agregarEmpleado(u));
         assert.throw(() => {
             carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
           }, 'Credenciales inválidas.');
     })
 
-    //apartado 15
+       //apartado 15
+
+       it("debería arrojar una excepción cuando se intenta reservar sin iniciar sesión", function() {
+        assert.throws(() => {
+          carRental.reservar("vehiculoId", new Date(), new Date());
+        }, 'Ningún usuario ha iniciado sesión.');
+      });
+
+      it("debería arrojar una excepción cuando se intenta reservar un vehículo que no existe", function() {
+        // Simular un usuario que ha iniciado sesión
+        CLIENTES.map(u => carRental.agregarCliente(u));
+        
+        carRental.signin(cliente1.email, cliente1.password, cliente1.rol)
+
+        assert.equal(carRental._clientes[0].email, cliente1.email);
     
+        assert.throws(() => {
+          carRental.reservar("vehiculoInexistente", new Date(), new Date());
+        }, 'Vehiculo no encontrado.');
+      });
+
+      //apartado 16
+
+      it ("Vehiculo disponible en fechas no reservadas",function(){
+        const vehiculoId = "vehiculoDisponible";
+        const inicio = new Date(2023,11,1);
+        const fin = new Date(2023,11,5);
+        const disponibilidad = carRental.disponibilidad(vehiculoId, inicio, fin);
+        assert.isTrue(disponibilidad, "El vehiculo debería estar disponible en estas fechas");
+
+      });
+
+      it("Vehiculo no disponible debido a una reserva existente",function(){
+      const vehiculoId = "vehiculoReservado";
+      const inicio = new Date(2023,10,1);
+      const fin = new Date(2023,10,5);
+      const reserva = {
+        vehiculoId:vehiculoId,
+        inicio: inicio,
+        fin: fin
+      }
+      carRental.agregarReserva(reserva);
+      const vehiculoId2 = "vehiculoReservado";
+      const inicio2 = new Date(2023,10,29);
+      const fin2 = new Date(2023,11,5);
+      const disponibilidad = carRental.disponibilidad(vehiculoId2, inicio2, fin2);
+      assert.isFalse(disponibilidad, "El vehiculo no deberia estar disponible en estas fechas");
+
+      });
+
+      it("Vehículo no disponible debido a una reserva eliminada", function() {
+        
+      });
+
+      //apartado 17
+
+      it("Filtrar por Marca", function(){
+        
+
+        let reservas = RESERVAS.map(u => carRental.agregarReserva(u));
+        assert.equal(carRental._reservas.length, RESERVAS.length);
+        RESERVAS.forEach((u, i) => {
+            assert.equal(carRental._reservas[i].obj, RESERVAS[i].obj);
+            assert.equal(carRental._reservas[i].obj, reservas[i].obj);
+            assert.exists(carRental._reservas[i]._id);
+        })
+        const vehiculosDisponibles = carRental.disponibles({marca: "Toyota"});
+        assert.isNotEmpty(vehiculosDisponibles);
+        vehiculosDisponibles.forEach((vehiculo)=>{
+            assert.equal(vehiculo.marca,"Toyota");
+        });
+
+
+      });
+
 });
