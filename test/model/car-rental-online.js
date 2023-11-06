@@ -24,7 +24,7 @@ describe("car-rental-online", function() {
         { nombres: "Empleado 2", apellidos: "Apellido 2", dni: "12345678B", direccion: "Direccion 2", email: "empleado2@gmail.com", password: "Password2", telefono: "444222111", rol: Rol.Empleado },
         { nombres: "Empleado 3", apellidos: "Apellido 3", dni: "12345678C", direccion: "Direccion 3", email: "empleado3@gmail.com", password: "Password3", telefono: "555222111", rol: Rol.Empleado }
       ];
-      const empleado1 = { nombres: "Empleado 1", apellidos: "Apellido 1", dni: "12345678A", direccion: "Direccion 1", email: "cliente1@gmail.com", password: "Password1", telefono: "333222111", rol: Rol.Empleado };
+      const empleado1 = { nombres: "Empleado 1", apellidos: "Apellido 1", dni: "12345678A", direccion: "Direccion 1", email: "empleado1@gmail.com", password: "Password1", telefono: "333222111", rol: Rol.Empleado };
 
     const VEHICULOS = [
         {etiqueta: Etiqueta.Vehiculo, tipo: TipoVehiculo.Vehiculo, matricula:"AAA0000", marca:"SEAT", modelo:"LEON", disponible:true, eliminado:false, costoDia:50, descripcion:"SEAT LEON"},
