@@ -24,6 +24,17 @@ describe("vehiculo", function () {
       it("constructor vehiculo", function () {
         assert.equal(vehiculo._id, vId);
       });
+
+           it("getter etiqueta", function () {
+        assert.equal(vehiculo.etiqueta, etiqueta);
+      });
+    
+      it("setter etiqueta", function () {
+        const etiqueta2 = Etiqueta.Vehiculo;
+        vehiculo.etiqueta = etiqueta2;
+        assert.equal(vehiculo._etiqueta, etiqueta2);
+      });
+
     
       it("getter etiqueta", function () {
         assert.equal(vehiculo.etiqueta, etiqueta);
@@ -44,6 +55,17 @@ describe("vehiculo", function () {
         vehiculo.tipo = tipo2;
         assert.equal(vehiculo._tipo, tipo2);
       });
+
+      it("getter matricula", function () {
+        assert.equal(vehiculo.matricula, matricula);
+      });
+    
+      it("setter matricula", function () {
+        const matricula2 = matricula.Vehiculo;
+        vehiculo.matricula = matricula2;
+        assert.equal(vehiculo._matricula, matricula2);
+      });
+
 
       it("getter marca", function () {
         assert.equal(vehiculo.marca, marca);
