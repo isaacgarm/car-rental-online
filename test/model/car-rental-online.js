@@ -22,7 +22,7 @@ describe("car-rental-online", function() {
         { nombres: "Empleado 2", apellidos: "Apellido 2", dni: "12345678B", direccion: "Direccion 2", email: "empleado2@gmail.com", password: "Password2", telefono: "444222111", rol: Rol.Empleado },
         { nombres: "Empleado 3", apellidos: "Apellido 3", dni: "12345678C", direccion: "Direccion 3", email: "empleado3@gmail.com", password: "Password3", telefono: "555222111", rol: Rol.Empleado }
       ];
-      const empleado1 = { nombres: "Empleado 1", apellidos: "Apellido 1", dni: "12345678A", direccion: "Direccion 1", email: "cliente1@gmail.com", password: "Password1", telefono: "333222111", rol: Rol.Empleado };
+      const empleado1 = { nombres: "Empleado 1", apellidos: "Apellido 1", dni: "12345678A", direccion: "Direccion 1", email: "empleado1@gmail.com", password: "Password1", telefono: "333222111", rol: Rol.Empleado };
     let carRental;
 
     beforeEach(function () { carRental = new CarRentalOnline(); });
@@ -94,4 +94,42 @@ describe("car-rental-online", function() {
             carRental.agregarEmpleado(cliente1);
           }, "El objeto no es un empleado.")
     });
+
+    it("signin cliente",function(){
+
+        CLIENTES.map(u => carRental.agregarCliente(u));
+        
+        carRental.signin(cliente1.email, cliente1.password, cliente1.rol)
+
+        assert.equal(carRental._clientes[0].email, cliente1.email);
+        assert.equal(carRental._clientes[0].password, cliente1.password);
+        assert.equal(carRental._clientes[0].rol, cliente1.rol);
+    })
+
+    it("signin erroneo cliente",function(){
+        CLIENTES.map(u => carRental.agregarCliente(u));
+        assert.throw(() => {
+            carRental.signin(empleado1.email, empleado1.password, empleado1.rol);
+          }, 'Credenciales inválidas.');
+    })
+
+
+    
+    it("signin empleado",function(){
+
+        EMPLEADOS.map(u => carRental.agregarEmpleado(u));
+        
+        carRental.signin(empleado1.email, empleado1.password, empleado1.rol)
+
+        assert.equal(carRental._empleados[0].email, empleado1.email);
+        assert.equal(carRental._empleados[0].password, empleado1.password);
+        assert.equal(carRental._empleados[0].rol, empleado1.rol);
+    })
+
+    it("signin erroneo empelado",function(){
+        EMPLEADOS.map(u => carRental.agregarEmpleado(u));
+        assert.throw(() => {
+            carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
+          }, 'Credenciales inválidas.');
+    })
 });
