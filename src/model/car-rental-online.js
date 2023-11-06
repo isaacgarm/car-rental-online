@@ -1,6 +1,7 @@
 const Cliente = require("./cliente");
 const Empleado = require("./empleado");
-const vehiculo = require("./vehiculo");
+const Vehiculo = require("../../src/model/vehiculo");
+const Reserva = require("../../src/model/reserva");
 
 class CarRentalOnline {
   lastId;
@@ -14,12 +15,17 @@ class CarRentalOnline {
     this._clientes = [];
     this._empleados = [];
     this.lastId = 0;
+    this.lastNumRes = 0;
     this.usuario = null;
     this._reservas = [];
   }
 
   genId() {
     return ++this.lastId;
+  }
+
+  genNumeroReserva(){
+    return ++this.lastNumRes;
   }
 
   getClientes() {
@@ -42,7 +48,7 @@ class CarRentalOnline {
     if (this._clientes.find((cliente) => cliente.dni === obj.dni)) {
       throw new Error("El cliente ya existe.");
     }
-    let cliente = new Cliente(this.genId(), dni);
+    let cliente = new Cliente(this.genId(), obj.dni);
     cliente.nombres = obj.nombres;
     cliente.apellidos = obj.apellidos;
     cliente.direccion = obj.direccion;
@@ -58,7 +64,7 @@ class CarRentalOnline {
     if (this._empleados.find((empleado) => empleado.dni === obj.dni)) {
       throw new Error("El empleado ya existe.");
     }
-    let empleado = new Empleado(this.genId(), dni);
+    let empleado = new Empleado(this.genId(), obj.dni);
     empleado.nombres = obj.nombres;
     empleado.apellidos = obj.apellidos;
     empleado.direccion = obj.direccion;
@@ -66,9 +72,47 @@ class CarRentalOnline {
     empleado.email = obj.email;
     empleado.password = obj.password;
     empleado.telefono = obj.telefono;
-    this.empleados.push(empleado);
+    this._empleados.push(empleado);
     return empleado;
   }
+
+  agregarVehiculo(obj) {
+    if (this._vehiculos.find((vehiculo) => vehiculo.vehiculoId === obj.vehiculoId)) {
+      throw new Error("El vehículo ya existe.");
+    }
+    let vehiculo = new Vehiculo(this.genId());
+    vehiculo.matricula = obj.matricula;
+    vehiculo.marca = obj.marca;
+    vehiculo.modelo = obj.modelo;
+    vehiculo.etiqueta = obj.etiqueta;
+    vehiculo.tipo = obj.tipo;
+    vehiculo.disponible = obj.disponible;
+    vehiculo.eliminado = obj.eliminado;
+    vehiculo.costoDia = obj.costoDia;
+    vehiculo.descripcion = obj.descripcion;
+    this._vehiculos.push(vehiculo);
+    return vehiculo;
+  }
+
+  agregarReserva(obj) {
+ 
+    const nuevaReserva = new Reserva(
+        this.genId(),
+        obj.inicio,
+        obj.fin,
+        obj.costo,
+        obj.numero,
+        null, // entrega, inicialmente nula
+        null, // devolucion, inicialmente nula
+        new Date(),
+        obj.clienteId,
+        obj.vehiculoId
+    );
+
+    this._reservas.push(nuevaReserva);
+    return nuevaReserva;
+}
+
 
   signin(email, password, rol) {
     const collection = rol === "Cliente" ? this._clientes : this._empleados;
@@ -123,19 +167,27 @@ class CarRentalOnline {
     return true; // No hay superposición de fechas, el vehículo está disponible
   }
 
-  disponibles(marca, modelo, tipo, etiqueta, costoDia, inicio, fin) {
-    // Implementa la lógica para filtrar vehículos disponibles
+  //apartado 14
+  disponibles({ marca, modelo, tipo, etiqueta, costoDia, inicio, fin }) {
     const vehiculosDisponibles = this._vehiculos.filter((vehiculo) => {
-      // Filtrar vehículos basándote en los criterios de búsqueda
-      const coincideMarca = vehiculo.marca === marca;
-      const coincideModelo = vehiculo.modelo === modelo;
-      const coincideTipo = vehiculo.tipo === tipo;
-      const coincideEtiqueta = vehiculo.etiqueta === etiqueta;
-      const coincideCostoDia = vehiculo.costoDia === costoDia;
-
+      const {
+        marca: vehiculoMarca,
+        modelo: vehiculoModelo,
+        tipo: vehiculoTipo,
+        etiqueta: vehiculoEtiqueta,
+        costoDia: vehiculoCostoDia
+      } = vehiculo;
+  
+      // Verificar si los parámetros no son undefined y coinciden con los del vehículo
+      const coincideMarca = !marca || vehiculoMarca === marca;
+      const coincideModelo = !modelo || vehiculoModelo === modelo;
+      const coincideTipo = !tipo || vehiculoTipo === tipo;
+      const coincideEtiqueta = !etiqueta || vehiculoEtiqueta === etiqueta;
+      const coincideCostoDia = !costoDia || vehiculoCostoDia <= costoDia;
+  
       // Verificar disponibilidad usando la función disponibilidad()
       const estaDisponible = this.disponibilidad(vehiculo._id, inicio, fin);
-
+  
       // Devolver true si el vehículo cumple con todos los criterios y está disponible
       return (
         coincideMarca &&
@@ -146,9 +198,10 @@ class CarRentalOnline {
         estaDisponible
       );
     });
-
+  
     return vehiculosDisponibles;
   }
+  
 
   perfil() {
     if (!this.usuario) {
@@ -158,8 +211,46 @@ class CarRentalOnline {
     return this.usuario;
   }
 
+  //Apartado 16
   reservar(vehiculoId, inicio, fin) {
-    // Implementa la lógica para realizar una reserva
+    if (!this.usuario) {
+      throw new Error("Ningún usuario ha iniciado sesión.");
+    }
+  
+    const vehiculo = this._vehiculos.find((vehiculo) => vehiculo._id === vehiculoId); //encuentrame un vehiculo dentro de vehiculos[] cuya id sea igual a la pasada por parametro
+  
+    if (!vehiculo) {
+      throw new Error("Vehículo no encontrado.");
+    }
+  
+    const estaDisponible = this.disponibilidad(vehiculoId, inicio, fin);
+  
+    if (!estaDisponible) {
+      throw new Error("El vehículo no está disponible en las fechas seleccionadas.");
+    }
+  
+    const costoPorDia = vehiculo.costoDia;
+    const fechaInicio = new Date(inicio);
+    const fechaFin = new Date(fin);
+    const diasReserva = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
+    const costoTotal = costoPorDia * diasReserva;
+  
+    const nuevaReserva = new Reserva(
+      this.genId(),
+      inicio,
+      fin,
+      costoTotal,
+      this.genNumeroReserva(),
+      new Date(),
+      null,
+      new Date(),
+      this.usuario._id,
+      vehiculoId
+    );
+  
+    this._reservas.push(nuevaReserva);
+  
+    return nuevaReserva;
   }
 
   cancelar(numero) {

@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const CarRentalOnline = require("../../src/model/car-rental-online");
-const Cliente = require("../../src/model/reserva");
+const Cliente = require("../../src/model/cliente");
 const Empleado = require("../../src/model/empleado");
 const Vehiculo = require("../../src/model/vehiculo");
 const Reserva = require("../../src/model/reserva");
@@ -32,6 +32,73 @@ describe("car-rental-online", () => {
         expect(carRental.lastId).to.equal(0);
     });
 
+//Apartado 3
+    describe("Método getClientes()", () => {
+        let carRental;
+    
+        beforeEach(() => {
+            carRental = new CarRentalOnline();
+    
+            // Agrega al menos 3 clientes antes de cada prueba
+            carRental.agregarCliente({ nombres: "Nombre1", apellidos: "Apellido1", dni: "12345678A", direccion: "Dirección1", email: "cliente1@example.com", password: "password1", telefono: "111222333", rol: "Cliente" });
+            carRental.agregarCliente({ nombres: "Nombre2", apellidos: "Apellido2", dni: "23456789B", direccion: "Dirección2", email: "cliente2@example.com", password: "password2", telefono: "444555666", rol: "Cliente" });
+            carRental.agregarCliente({ nombres: "Nombre3", apellidos: "Apellido3", dni: "34567890C", direccion: "Dirección3", email: "cliente3@example.com", password: "password3", telefono: "777888999", rol: "Cliente" });
+        });
+    
+        it("debería devolver al menos 3 clientes", () => {
+            const clientes = carRental.getClientes();
+            expect(clientes).to.be.an("array").that.has.lengthOf.at.least(3);
+        });
+    
+        it("debería devolver objetos de tipo Cliente", () => {
+            const clientes = carRental.getClientes();
+            clientes.forEach((cliente) => {
+                expect(cliente).to.be.instanceOf(Cliente);
+            });
+        });
+    
+        it("debería devolver los clientes agregados", () => {
+            const clientes = carRental.getClientes();
+            expect(clientes.map(c => c.email)).to.include("cliente1@example.com");
+            expect(clientes.map(c => c.email)).to.include("cliente2@example.com");
+            expect(clientes.map(c => c.email)).to.include("cliente3@example.com");
+        });
+    });
+    
+    //Apartado 4
+
+    describe("Método getEmpleados()", () => {
+        let carRental;
+    
+        beforeEach(() => {
+            carRental = new CarRentalOnline();
+    
+            // Agrega al menos 3 empleados antes de cada prueba
+            carRental.agregarEmpleado({ nombres: "Nombre4", apellidos: "Apellido1", dni: "11111111A", direccion: "Dirección1", email: "empleado4@example.com", password: "password1", telefono: "111222333", rol: "Empleado" });
+            carRental.agregarEmpleado({ nombres: "Nombre5", apellidos: "Apellido2", dni: "22222222B", direccion: "Dirección2", email: "empleado5@example.com", password: "password2", telefono: "444555666", rol: "Empleado" });
+            carRental.agregarEmpleado({ nombres: "Nombre6", apellidos: "Apellido3", dni: "33333333C", direccion: "Dirección3", email: "empleado6@example.com", password: "password3", telefono: "777888999", rol: "Empleado" });
+        });
+    
+        it("debería devolver al menos 3 empleados", () => {
+            const empleados = carRental.getEmpleados();
+            expect(empleados).to.be.an("array").that.has.lengthOf.at.least(3);
+        });
+    
+        it("debería devolver objetos de tipo Empleado", () => {
+            const empleados = carRental.getEmpleados();
+            empleados.forEach((empleado) => {
+                expect(empleado).to.be.instanceOf(Empleado);
+            });
+        });
+    
+        it("debería devolver los empleados agregados", () => {
+            const empleados = carRental.getEmpleados();
+            expect(empleados.map(e => e.email)).to.include("empleado4@example.com");
+            expect(empleados.map(e => e.email)).to.include("empleado5@example.com");
+            expect(empleados.map(e => e.email)).to.include("empleado6@example.com");
+        });
+    });
+
 
     //Apartado 5
 
@@ -43,9 +110,9 @@ describe("car-rental-online", () => {
             carRental = new CarRentalOnline();
 
             // Agrega al menos 3 vehículos antes de cada prueba
-            carRental.agregarVehiculo(new Vehiculo("111AAAA", "Toyota", "Corolla", "Sedán", "Auto", true, false, 50, "Descripción del vehículo 1"));
-            carRental.agregarVehiculo(new Vehiculo("222BBBB", "Honda", "Civic", "Sedán", "Auto", true, false, 55, "Descripción del vehículo 2"));
-            carRental.agregarVehiculo(new Vehiculo("333CCCC", "Ford", "Focus", "Hatchback", "Auto", true, false, 60, "Descripción del vehículo 3"));
+            carRental.agregarVehiculo({matricula: "111AAAA", marca: "Toyota", modelo: "Corolla", etiqueta: "B",  tipo:"A", disponible: true, eliminado: false, costoDia: 50, descripcion: "Descripción del vehículo 1"});
+            carRental.agregarVehiculo({matricula:"222BBBB", marca:"Honda",    modelo:"Civic",    etiqueta:"C",   tipo:"B", disponible:true, eliminado:false, costoDia:55, descripcion:"Descripción del vehículo 2"});
+            carRental.agregarVehiculo({matricula:"333CCCC", marca:"Ford",     modelo:"Focus",    etiqueta:"ECO", tipo:"C", disponible:true, eliminado:false, costoDia:60, descripcion:"Descripción del vehículo 3"});
         });
 
         it("debería devolver al menos 3 vehículos", () => {
@@ -70,7 +137,6 @@ describe("car-rental-online", () => {
 
     //Apartado 6
 
-
     describe("Método getReservas()", () => {
         let carRental;
 
@@ -80,9 +146,9 @@ describe("car-rental-online", () => {
 
 
             // Agrega al menos 3 reservas antes de cada prueba
-            carRental.reservar(new Reserva("2023-11-01", "2023-11-03", 150, /*"R123",*/ "2023-11-01", "2023-11-03", "2023-10-31", 1, 123));
-            carRental.reservar(new Reserva("2023-11-05", "2023-11-07", 180, /*"R124",*/ "2023-11-05", "2023-11-07", "2023-11-04", 2, 456));
-            carRental.reservar(new Reserva("2023-11-10", "2023-11-12", 200, /*"R125",*/ "2023-11-10", "2023-11-12", "2023-11-09", 3, 789));
+            carRental.agregarReserva(new Reserva("2023-11-01", "2023-11-03", 150, "R123", "2023-11-01", "2023-11-03", "2023-10-31", 1, 123));
+            carRental.agregarReserva(new Reserva("2023-11-05", "2023-11-07", 180, "R124", "2023-11-05", "2023-11-07", "2023-11-04", 2, 456));
+            carRental.agregarReserva(new Reserva("2023-11-10", "2023-11-12", 200, "R125", "2023-11-10", "2023-11-12", "2023-11-09", 3, 789));
         });
 
         it("debería devolver al menos 3 reservas", () => {
@@ -97,6 +163,7 @@ describe("car-rental-online", () => {
             });
         });
 
+        
         it("debería devolver las reservas agregadas", () => {
             const reservas = carRental.getReservas();
             expect(reservas.map(r => r.numero)).to.include("R123");

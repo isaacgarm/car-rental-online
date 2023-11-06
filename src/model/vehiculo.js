@@ -13,6 +13,8 @@ class Vehiculo{
     _costoDia; 
     _descripcion;
 
+ 
+
     get matricula() { return this._matricula; }
     get marca() { return this._marca; }
     get modelo() { return this._modelo; }
