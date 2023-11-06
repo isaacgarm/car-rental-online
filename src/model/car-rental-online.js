@@ -88,8 +88,8 @@ class CarRentalOnline {
   }
 
   agregarVehiculo(obj) {
-    if (this._vehiculos.find((vehiculo) => vehiculo.vehiculoId === obj.vehiculoId)) {
-      throw new Error("El vehículo ya existe.");
+    if (this._vehiculos.find((vehiculo) => vehiculo.matricula === obj.matricula)) {
+        throw new Error("La matrícula ya existe.");
     }
     let vehiculo = new Vehiculo(this.genId());
     vehiculo.matricula = obj.matricula;
@@ -104,7 +104,6 @@ class CarRentalOnline {
     this._vehiculos.push(vehiculo);
     return vehiculo;
   }
-
   agregarReserva(obj) {
  
     const nuevaReserva = new Reserva(
@@ -266,25 +265,6 @@ class CarRentalOnline {
 
   cancelar(numero) {
     // Implementa la lógica para cancelar una reserva
-  }
-
-  agregarVehiculo(obj) {
-    if (
-      this._vehiculos.some((vehiculo) => vehiculo.matricula === obj.matricula)
-    ) {
-      throw new Error("Vehículo con la misma matrícula ya existe.");
-    }
-    let vehiculo = new Vehiculo(this.genId(), matricula);
-    vehiculo.marca = obj.marca;
-    vehiculo.modelo = obj.modelo;
-    vehiculo.etiqueta = obj.etiqueta;
-    vehiculo.costoDia = obj.costoDia;
-    vehiculo.descripcion = obj.descripcion;
-    this.vehiculo.push(vehiculo);
-    return vehiculo;
-
-    //const vehiculo = { ...obj };
-    this._vehiculos.push(vehiculo);
   }
 
   eliminarVehiculo(vehiculoId) {

@@ -5,7 +5,9 @@ const Empleado = require("../../src/model/empleado");
 const Vehiculo = require("../../src/model/vehiculo");
 const Reserva = require("../../src/model/reserva");
 const Rol = require("../../src/model/rol");
+const Etiqueta = require("../../src/model/etiqueta");
 const chai = require('chai');
+const TipoVehiculo = require("../../src/model/tipo-vehiculo");
 const assert = chai.assert;
 
 
@@ -23,6 +25,13 @@ describe("car-rental-online", function() {
         { nombres: "Empleado 3", apellidos: "Apellido 3", dni: "12345678C", direccion: "Direccion 3", email: "empleado3@gmail.com", password: "Password3", telefono: "555222111", rol: Rol.Empleado }
       ];
       const empleado1 = { nombres: "Empleado 1", apellidos: "Apellido 1", dni: "12345678A", direccion: "Direccion 1", email: "cliente1@gmail.com", password: "Password1", telefono: "333222111", rol: Rol.Empleado };
+
+    const VEHICULOS = [
+        {etiqueta: Etiqueta.Vehiculo, tipo: TipoVehiculo.Vehiculo, matricula:"AAA0000", marca:"SEAT", modelo:"LEON", disponible:true, eliminado:false, costoDia:50, descripcion:"SEAT LEON"},
+        {etiqueta: Etiqueta.Vehiculo, tipo: TipoVehiculo.Vehiculo, matricula:"AAA0001", marca:"OPEL", modelo:"ASTRA", disponible:true, eliminado:false, costoDia:100, descripcion:"OPEL ASTRA"},
+        {etiqueta: Etiqueta.Vehiculo, tipo: TipoVehiculo.Vehiculo, matricula:"AAA0002", marca:"TOYOTA", modelo:"YARIS", disponible:true, eliminado:false, costoDia:75, descripcion:"TOYOTA YARIS"}
+    ]
+    const vehiculo1 = {etiqueta: Etiqueta.Vehiculo, tipo: TipoVehiculo.Vehiculo, matricula:"AAA0000", marca:"SEAT", modelo:"LEON", disponible:true, eliminado:false, costoDia:50, descripcion:"OPEL ASTRA"}
     let carRental;
 
     beforeEach(function () { carRental = new CarRentalOnline(); });
@@ -94,4 +103,21 @@ describe("car-rental-online", function() {
             carRental.agregarEmpleado(cliente1);
           }, "El objeto no es un empleado.")
     });
+
+    it("agregar vehiculo", function () {
+        let vehiculos = VEHICULOS.map(u => carRental.agregarVehiculo(u));
+        assert.equal(carRental._vehiculos.length, VEHICULOS.length);
+        VEHICULOS.forEach((u, i) => {
+            assert.equal(carRental._vehiculos[i].obj, VEHICULOS[i].obj);
+            assert.equal(carRental._vehiculos[i].obj, vehiculos[i].obj);
+            assert.exists(carRental._vehiculos[i]._id);
+        })
+    });
+    it("agregar matricula que ya existe",function(){
+        assert.throws(() => {
+            carRental.agregarVehiculo(vehiculo1);
+            carRental.agregarVehiculo(vehiculo1);
+          }, 'La matrícula ya existe.')
+    });
+
 });
