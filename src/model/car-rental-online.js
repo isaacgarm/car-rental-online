@@ -1,6 +1,7 @@
 const Cliente = require("./cliente");
 const Empleado = require("./empleado");
-const vehiculo = require("./vehiculo");
+const Vehiculo = require("./vehiculo");
+const Rol = require("./rol")
 
 class CarRentalOnline {
   lastId;
@@ -39,34 +40,44 @@ class CarRentalOnline {
   }
 
   agregarCliente(obj) {
-    if (this._clientes.find((cliente) => cliente.dni === obj.dni)) {
+    if (this._clientes.find((cliente) => cliente.email === obj.email)) {
       throw new Error("El cliente ya existe.");
     }
-    let cliente = new Cliente(this.genId(), dni);
+    if (obj.rol !== Rol.Cliente){
+      throw new Error("El objeto no es un cliente.");
+
+    }
+    let cliente = new Cliente(this.genId(), obj);
     cliente.nombres = obj.nombres;
     cliente.apellidos = obj.apellidos;
+    cliente.dni= obj.dni;
     cliente.direccion = obj.direccion;
     cliente.rol = obj.rol;
     cliente.email = obj.email;
     cliente.password = obj.password;
     cliente.telefono = obj.telefono;
-    this._clientes.push(cliente);
+    this._clientes.push(cliente); 
     return cliente;
   }
 
   agregarEmpleado(obj) {
-    if (this._empleados.find((empleado) => empleado.dni === obj.dni)) {
+    if (this._empleados.find((empleado) => empleado.email === obj.email)) {
       throw new Error("El empleado ya existe.");
     }
-    let empleado = new Empleado(this.genId(), dni);
+    if (obj.rol !== Rol.Empleado){
+      throw new Error("El objeto no es un empleado.");
+
+    }
+    let empleado = new Empleado(this.genId(), obj);
     empleado.nombres = obj.nombres;
     empleado.apellidos = obj.apellidos;
+    empleado.dni = obj.dni;
     empleado.direccion = obj.direccion;
     empleado.rol = obj.rol;
     empleado.email = obj.email;
     empleado.password = obj.password;
     empleado.telefono = obj.telefono;
-    this.empleados.push(empleado);
+    this._empleados.push(empleado);
     return empleado;
   }
 
