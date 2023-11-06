@@ -105,7 +105,9 @@ class CarRentalOnline {
     return vehiculo;
   }
   agregarReserva(obj) {
- 
+    if (this._reservas.find((reserva) => reserva.vehiculoId === obj.vehiculoId)) {
+      throw new Error("Ese vehículo ya está reservado.");
+  }
     const nuevaReserva = new Reserva(
         this.genId(),
         obj.inicio,

@@ -28,7 +28,7 @@ describe("reserva", function () {
   });
 
   it("setter inicio", function () {
-    const inicio2 = '2023-06-26';
+    const inicio2 = new Date(2023,6,25);
     reserva.inicio = inicio2;
     assert.equal(reserva._inicio, inicio2);
   });
@@ -38,7 +38,7 @@ describe("reserva", function () {
   });
 
   it("setter fin", function () {
-    const fin2 = '2023-06-27';
+    const fin2 = new Date(2023,6,27);
     reserva.fin = fin2;
     assert.equal(reserva._fin, fin2);
   });
@@ -48,7 +48,7 @@ describe("reserva", function () {
   });
 
   it("setter costo", function () {
-    const costo2 = '105.00';
+    const costo2 = 105.00;
     reserva.costo = costo2;
     assert.equal(reserva._costo, costo2);
   });
@@ -68,7 +68,7 @@ describe("reserva", function () {
   });
 
   it("setter entrega", function () {
-    const entrega2 = '2023-06-25';
+    const entrega2 = new Date(2023,6,25);
     reserva.entrega = entrega2;
     assert.equal(reserva._entrega, entrega2);
   });
@@ -78,7 +78,7 @@ describe("reserva", function () {
   });
 
   it("setter devolucion", function () {
-    const devolucion2 = '2023-06-30';
+    const devolucion2 = new Date(2023,6,30);
     reserva.devolucion = devolucion2;
     assert.equal(reserva._devolucion, devolucion2);
   });
@@ -88,7 +88,7 @@ describe("reserva", function () {
   });
 
   it("setter fecha", function () {
-    const fecha2 = '2023-06-23';
+    const fecha2 = new Date(2023,6,25);
     reserva.fecha = fecha2;
     assert.equal(reserva._fecha, fecha2);
   });

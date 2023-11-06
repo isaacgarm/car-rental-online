@@ -31,7 +31,14 @@ describe("car-rental-online", function() {
         {etiqueta: Etiqueta.Vehiculo, tipo: TipoVehiculo.Vehiculo, matricula:"AAA0001", marca:"OPEL", modelo:"ASTRA", disponible:true, eliminado:false, costoDia:100, descripcion:"OPEL ASTRA"},
         {etiqueta: Etiqueta.Vehiculo, tipo: TipoVehiculo.Vehiculo, matricula:"AAA0002", marca:"TOYOTA", modelo:"YARIS", disponible:true, eliminado:false, costoDia:75, descripcion:"TOYOTA YARIS"}
     ]
-    const vehiculo1 = {etiqueta: Etiqueta.Vehiculo, tipo: TipoVehiculo.Vehiculo, matricula:"AAA0000", marca:"SEAT", modelo:"LEON", disponible:true, eliminado:false, costoDia:50, descripcion:"OPEL ASTRA"}
+        const vehiculo1 = {etiqueta: Etiqueta.Vehiculo, tipo: TipoVehiculo.Vehiculo, matricula:"AAA0000", marca:"SEAT", modelo:"LEON", disponible:true, eliminado:false, costoDia:50, descripcion:"OPEL ASTRA"}
+    
+    const RESERVAS = [
+            {inicio:new Date(2023,6,24), fin:new Date(2023,6,30), costo: 98.13, numero:'1', entrega:new Date(2023,6,25), devolucion:new Date(2023,6,29), fecha:new Date(2023,6,22), clienteId:'1', vehiculoId:'1'},
+            {inicio:new Date(2023,6,24), fin:new Date(2023,6,30), costo: 94.15, numero:'2', entrega:new Date(2023,6,25), devolucion:new Date(2023,6,29), fecha:new Date(2023,6,22), clienteId:'2', vehiculoId:'2'},
+            {inicio:new Date(2023,6,24), fin:new Date(2023,6,30), costo: 88.74, numero:'3', entrega:new Date(2023,6,25), devolucion:new Date(2023,6,29), fecha:new Date(2023,6,22), clienteId:'3', vehiculoId:'3'}
+    ]
+        const reserva1 = {inicio:new Date(2023,6,24), fin:new Date(2023,6,30), costo: 98.13, numero:'1', entrega:new Date(2023,6,25), devolucion:new Date(2023,6,29), fecha:new Date(2023,6,22), clienteId:'1', vehiculoId:'1'}
     let carRental;
 
     beforeEach(function () { carRental = new CarRentalOnline(); });
@@ -119,6 +126,30 @@ describe("car-rental-online", function() {
             carRental.agregarVehiculo(vehiculo1);
           }, 'La matrícula ya existe.')
     });
+
+    it("agregar reserva", function () {
+        let reservas = RESERVAS.map(u => carRental.agregarReserva(u));
+        assert.equal(carRental._reservas.length, RESERVAS.length);
+        RESERVAS.forEach((u, i) => {
+            assert.equal(carRental._reservas[i].obj, RESERVAS[i].obj);
+            assert.equal(carRental._reservas[i].obj, reservas[i].obj);
+            assert.exists(carRental._reservas[i]._id);
+        })
+    });
+
+    it("agregar reserva sin logearte",function(){
+        assert.throws(() => {
+            
+          }, 'Primero debes iniciar sesión.')
+    });
+
+    it("reserva en conflicto con otra",function(){
+        assert.throws(() => {
+            carRental.agregarReserva(reserva1);
+            carRental.agregarReserva(reserva1);
+          }, 'Ese vehiculo ya está reservado')
+    });
+    
 
 
     it("signin cliente",function(){
