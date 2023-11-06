@@ -108,21 +108,20 @@ class CarRentalOnline {
     if (this._reservas.find((reserva) => reserva.vehiculoId === obj.vehiculoId)) {
       throw new Error("Ese vehículo ya está reservado.");
   }
-    const nuevaReserva = new Reserva(
-        this.genId(),
-        obj.inicio,
-        obj.fin,
-        obj.costo,
-        obj.numero,
-        null, // entrega, inicialmente nula
-        null, // devolucion, inicialmente nula
-        new Date(),
-        obj.clienteId,
-        obj.vehiculoId
-    );
+    let reserva = new Reserva(this.genId());
+    reserva.inicio = obj.inicio;
+    reserva.fin = obj.fin;
+    reserva.costo = obj.costo;
+    reserva.numero = obj.numero;
+    reserva.entrega = obj.entrega;
+    reserva.devolucion = obj.devolucion;
+    reserva.fecha = obj.fecha;
+    reserva.clienteId = obj.clienteId;
+    reserva.vehiculoId = obj.vehiculoId;
+    
 
-    this._reservas.push(nuevaReserva);
-    return nuevaReserva;
+    this._reservas.push(reserva);
+    return reserva;
 }
 
 
@@ -266,23 +265,110 @@ class CarRentalOnline {
   }
 
   cancelar(numero) {
-    // Implementa la lógica para cancelar una reserva
+    const reservaCancelarIndex = this._reservas.findIndex((reserva) => reserva.numero === numero);
+
+    if (reservaCancelarIndex === -1) {
+      throw new Error("Reserva no encontrada.");
+    }
+
+    const reservaCancelar = this._reservas[reservaCancelarIndex];
+
+    if (reservaCancelar.clienteId !== this.usuario._id) {
+      throw new Error("No tienes permisos para cancelar esta reserva.");
+    }
+
+    if (reservaCancelar.entrega) {
+      throw new Error("La reserva ya ha sido entregada, no se puede cancelar.");
+    }
+
+    // Elimina la reserva del array de reservas
+    this._reservas.splice(reservaCancelarIndex, 1);
+
+    return "Reserva cancelada con éxito.";
   }
 
   eliminarVehiculo(vehiculoId) {
-    // Implementa la lógica para eliminar un vehículo
+    const vehiculoIndex = this._vehiculos.findIndex((vehiculo) => vehiculo._id === vehiculoId);
+
+    if (vehiculoIndex === -1) {
+      throw new Error("Vehículo no encontrado.");
+    }
+
+    const vehiculoEliminar = this._vehiculos[vehiculoIndex];
+
+    if (vehiculoEliminar.eliminado) {
+      throw new Error("El vehículo ya ha sido eliminado previamente.");
+    }
+
+    if (!vehiculoEliminar.disponible) {
+      throw new Error("El vehículo no está disponible para ser eliminado.");
+    }
+
+    // Realizar el borrado lógico del vehículo
+    vehiculoEliminar.eliminado = true;
+
+    return "Vehículo eliminado con éxito.";
   }
 
   entregarVehiculo(numero) {
-    // Implementa la lógica para cambiar el estado del vehículo
+    const reservaEntregar = this._reservas.find((reserva) => reserva.numero === numero);
+
+    if (!reservaEntregar) {
+      throw new Error("Reserva no encontrada.");
+    }
+
+    const vehiculoEntregar = this._vehiculos.find((vehiculo) => vehiculo._id === reservaEntregar.vehiculoId);
+
+    if (!vehiculoEntregar || !vehiculoEntregar.disponible) {
+      throw new Error("El vehículo no está disponible para ser entregado.");
+    }
+
+    // Cambia el estado del vehículo a no disponible
+    vehiculoEntregar.disponible = false;
+
+    // Establece la fecha de entrega en la reserva
+    reservaEntregar.entrega = new Date();
+
+    return "Vehículo entregado con éxito.";
   }
 
   devolverVehiculo(numero) {
-    // Implementa la lógica para cambiar el estado del vehículo
+    const reservaDevolver = this._reservas.find((reserva) => reserva.numero == numero);
+
+    if (!reservaDevolver){
+      throw new Error("Reserva no encontrada");
+    }
+
+    if (!reservaDevolver.entrega){
+      throw new Error ("El vehiculo no ha sido entregado")
+    }
+
+    const vehiculoDevolver = this._vehiculos.find((vehiculo) => vehiculo._id === reservaDevolver.vehiculoId);
+
+    if (!vehiculoDevolver || vehiculoDevolver.disponible) {
+      throw new Error("El vehículo no está disponible para ser devuelto.");
+    }
+
+    // Cambia el estado del vehículo a disponible
+    vehiculoDevolver.disponible = true;
+
+    // Establece la fecha de devolución en la reserva
+    reservaDevolver.devolucion = new Date();
+
+    return "Vehículo devuelto con éxito.";
+
   }
 
   reservas(clienteId) {
-    // Implementa la lógica para obtener las reservas de un cliente
+    const cliente = this._clientes.find((cliente) => cliente._id === clienteId);
+
+    if (!cliente) {
+      throw new Error("Cliente no encontrado.");
+    }
+
+    const reservasCliente = this._reservas.filter((reserva) => reserva.clienteId === clienteId);
+
+    return reservasCliente;
   }
 
   clienteByEmail(email) {
