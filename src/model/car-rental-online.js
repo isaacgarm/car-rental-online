@@ -84,7 +84,6 @@ class CarRentalOnline {
     empleado.password = obj.password;
     empleado.telefono = obj.telefono;
     this._empleados.push(empleado);
-    this._empleados.push(empleado);
     return empleado;
   }
 
