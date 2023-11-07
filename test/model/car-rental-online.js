@@ -616,6 +616,8 @@ describe("car-rental-online", function () {
     }, "Ningún usuario ha iniciado sesión.");
   });
 
+  //apartado 20
+
   it("eliminar vehiculo", function () {
     let vehiculos = VEHICULOS.map((u) => carRental.agregarVehiculo(u));
     carRental.eliminarVehiculo(1);
@@ -629,13 +631,16 @@ describe("car-rental-online", function () {
   });
   it("no esta disponible", function () {
     let vehiculos = VEHICULOS.map((u) => carRental.agregarVehiculo(u));
-    cliente = carRental.agregarEmpleado(empleado1);
+    empleado = carRental.agregarEmpleado(empleado1);
     carRental.signin(empleado1);
     carRental.reservar(1);
     assert.throws(() => {
         carRental.eliminarVehiculo(1);
       }, "El vehículo no está disponible para ser eliminado.");
   });
+
+  //apartado 19
+
   //apartado 24
   it("clienteByEmail", function () {
     let clientes = CLIENTES.map((u) => carRental.agregarCliente(u));
