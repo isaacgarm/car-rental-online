@@ -328,7 +328,7 @@ describe("car-rental-online", function() {
         });
     
         it("debería ingresar con un empleado y verificar que el empleado ha ingresado", function() {
-            let clientes = EMPLEADOS.map(u => carRental.signup(u));
+            let empleados = EMPLEADOS.map(u => carRental.signup(u));
         
             carRental.signin(carRental._empleados[0].email, carRental._empleados[0].password, carRental._empleados[0].rol);
         
@@ -426,6 +426,33 @@ describe("car-rental-online", function() {
 
 
       });
+
+      //Apartado 18
+
+      it("perfil cliente que ha iniciado sesion", function(){
+    
+        cliente = carRental.agregarCliente(cliente1);
+        carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
+        const perfilCliente = carRental.perfil();
+        assert.deepEqual(perfilCliente, cliente);
+
+      });
+
+      it("perfil empleado que ha iniciado sesion", function(){
+    
+        empleado = carRental.agregarEmpleado(empleado1);
+        carRental.signin(empleado1.email, empleado1.password, empleado1.rol);
+        const perfilEmpleado = carRental.perfil();
+        assert.deepEqual(perfilEmpleado, empleado);
+
+      });   
+      
+      it("no tiene perfil porque es invitado", function(){
+        assert.throws(() => {
+            carRental.perfil();
+          }, "Ningún usuario ha iniciado sesión.");
+
+      });   
 
       //apartado 24
       it("clienteByEmail", function () {

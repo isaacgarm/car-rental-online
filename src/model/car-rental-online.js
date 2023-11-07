@@ -128,10 +128,9 @@ class CarRentalOnline {
 
   signin(email, password, rol) {
     const collection = rol === "Cliente" ? this._clientes : this._empleados;
-    const user = collection.find(
-      (user) => user.email === email && user.password === password
+    let user = collection.find(
+      (u) => u.email === email && u.password === password
     );
-
     if (user) {
       this.usuario = user;
     } else {
