@@ -216,57 +216,57 @@ describe("car-rental-online", function() {
     //Apartado 13
 
     it("comprobar el inicio sin usuarios en cliente",function(){
-        assert.isNull(carRental.usuario);
+        assert.notExists(carRental.usuario);
     });
 
-    it('debería ingresar con un cliente y verificar que el cliente ha ingresado', function() {
+    it("debería ingresar con un cliente y verificar que el cliente ha ingresado", function() {
         let clientes = CLIENTES.map(u => carRental.signup(u));
     
         carRental.signin(carRental._clientes[0].email, carRental._clientes[0].password, carRental._clientes[0].rol);
     
-        assert.isNotNull(carRental.usuario);
+        assert.exists(carRental.usuario);
         assert.equal(carRental.usuario.email, carRental._clientes[0].email);
       });
 
-      it('debería ingresar con un cliente y hacer singout', function() {
+      it("debería ingresar con un cliente y hacer singout", function() {
         let clientes = CLIENTES.map(u => carRental.signup(u));
     
         carRental.signin(carRental._clientes[0].email, carRental._clientes[0].password, carRental._clientes[0].rol);
     
-        assert.isNotNull(carRental.usuario);
+        assert.exists(carRental.usuario);
         assert.equal(carRental.usuario.email, carRental._clientes[0].email);
 
         carRental.signout();
 
-        assert.isNull(carRental.usuario);
+        assert.notExists(carRental.usuario);
       });
   
         //Apartado 14
 
         it("comprobar el inicio sin usuarios en empleado",function(){
-            assert.isNull(carRental.usuario);
+            assert.notExists(carRental.usuario);
         });
     
-        it('debería ingresar con un empleado y verificar que el empleado ha ingresado', function() {
+        it("debería ingresar con un empleado y verificar que el empleado ha ingresado", function() {
             let clientes = EMPLEADOS.map(u => carRental.signup(u));
         
             carRental.signin(carRental._empleados[0].email, carRental._empleados[0].password, carRental._empleados[0].rol);
         
-            assert.isNotNull(carRental.usuario);
+            assert.exists(carRental.usuario);
             assert.equal(carRental.usuario.email, carRental._empleados[0].email);
           });
     
-          it('debería ingresar con un empleado y hacer singout', function() {
+          it("debería ingresar con un empleado y hacer singout", function() {
             let empleados = EMPLEADOS.map(u => carRental.signup(u));
         
             carRental.signin(carRental._empleados[0].email, carRental._empleados[0].password, carRental._empleados[0].rol);
         
-            assert.isNotNull(carRental.usuario);
+            assert.exists(carRental.usuario);
             assert.equal(carRental.usuario.email, carRental._empleados[0].email);
     
             carRental.signout();
     
-            assert.isNull(carRental.usuario);
+            assert.notExists(carRental.usuario);
           });
 
 
