@@ -10,7 +10,7 @@ const chai = require('chai');
 const TipoVehiculo = require("../../src/model/tipo-vehiculo");
 const assert = chai.assert;
 
-
+//Apartado 1
 describe("car-rental-online", function() {
     const CLIENTES =  [
         { nombres: "Cliente 1", apellidos: "Apellido 1", dni: "12345678A", direccion: "Direccion 1", email: "cliente1@gmail.com", password: "Password1", telefono: "333222111", rol: Rol.Cliente },
@@ -44,6 +44,7 @@ describe("car-rental-online", function() {
 
     beforeEach(function () { carRental = new CarRentalOnline(); });
 
+    //Apartado 2
     it("debería inicializar _clientes como un array vacío", () => {
         expect(carRental._clientes).to.be.an("array").that.is.empty;
     });
@@ -63,6 +64,79 @@ describe("car-rental-online", function() {
     it("lastId debería ser 0", () => {
         expect(carRental.lastId).to.equal(0);
     });
+
+
+    //Apartado 3
+    it("getClientes vacío", () => {
+        const clientes = carRental.getClientes();
+
+        assert.isArray(clientes);
+        assert.lengthOf(clientes, 0);
+    });
+
+    it("getClientes al menos 3", () => {
+        CLIENTES.map(u => carRental.agregarCliente(u));
+
+        const gClientes = carRental.getClientes();
+
+        assert.isArray(gClientes);
+        assert.lengthOf(gClientes, 3);
+    });
+
+    //Apartado 4
+    it("getEmpleados vacío", () => {
+        const empleados = carRental.getEmpleados();
+
+        assert.isArray(empleados);
+        assert.lengthOf(empleados, 0);
+    });
+
+    it("getEmpleados al menos 3", () => {
+        EMPLEADOS.map(u => carRental.agregarEmpleado(u));
+
+        const gEmpleados = carRental.getEmpleados();
+
+        assert.isArray(gEmpleados);
+        assert.lengthOf(gEmpleados, 3);
+    });
+
+    //Apartado 5
+
+    it("getVehiculos vacío", () => {
+        const vehiculos = carRental.getVehiculos();
+
+        assert.isArray(vehiculos);
+        assert.lengthOf(vehiculos, 0);
+    });
+
+    it("getVehiculos al menos 3", () => {
+        VEHICULOS.map(u => carRental.agregarVehiculo(u));
+
+        const gVehiculos = carRental.getVehiculos();
+
+        assert.isArray(gVehiculos);
+        assert.lengthOf(gVehiculos, 3);
+    });
+
+        //Apartado 6
+
+        it("getReservas vacío", () => {
+            const reservas = carRental.getReservas();
+    
+            assert.isArray(reservas);
+            assert.lengthOf(reservas, 0);
+        });
+    
+        it("getReservas al menos 3", () => {
+            RESERVAS.map(u => carRental.agregarReserva(u));
+    
+            const gReservas = carRental.getReservas();
+    
+            assert.isArray(gReservas);
+            assert.lengthOf(gReservas, 3);
+        });
+
+    //Apartado 7
 
     it("agregar cliente", function () {
         let clientes = CLIENTES.map(u => carRental.agregarCliente(u));
@@ -88,6 +162,8 @@ describe("car-rental-online", function() {
           }, "El objeto no es un cliente.")
     });
 
+    //Apartado 8
+
     it("agregar empleado", function () {
         let empleados = EMPLEADOS.map(u => carRental.agregarEmpleado(u));
         assert.equal(carRental._empleados.length, EMPLEADOS.length);
@@ -112,6 +188,8 @@ describe("car-rental-online", function() {
           }, "El objeto no es un empleado.")
     });
 
+    //Apartado 9
+
     it("agregar vehiculo", function () {
         let vehiculos = VEHICULOS.map(u => carRental.agregarVehiculo(u));
         assert.equal(carRental._vehiculos.length, VEHICULOS.length);
@@ -128,7 +206,9 @@ describe("car-rental-online", function() {
           }, 'La matrícula ya existe.')
     });
 
-    it("agregar reserva", function () {
+    //Apartado 16
+
+    it("reservar", function () {
         let reservas = RESERVAS.map(u => carRental.agregarReserva(u));
         assert.equal(carRental._reservas.length, RESERVAS.length);
         RESERVAS.forEach((u, i) => {
