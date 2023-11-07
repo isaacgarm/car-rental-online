@@ -544,7 +544,7 @@ describe("car-rental-online", function () {
   //apartado 16
 
   it("Vehiculo disponible en fechas no reservadas", function () {
-    const vehiculoId = "vehiculoDisponible";
+    const vehiculoId = "1";
     const inicio = new Date(2023, 11, 1);
     const fin = new Date(2023, 11, 5);
     const disponibilidad = carRental.disponibilidad(vehiculoId, inicio, fin);
@@ -622,6 +622,16 @@ describe("car-rental-online", function () {
     }, "Ningún usuario ha iniciado sesión.");
   });
 
+  it("eliminar vehiculo", function () {
+    let vehiculos = VEHICULOS.map((u) => carRental.agregarVehiculo(u));
+    carRental.eliminarVehiculo(1);
+  });
+  it("eliminado previamente", function () {
+    let vehiculos = VEHICULOS.map((u) => carRental.agregarVehiculo(u));
+    carRental.eliminarVehiculo(1);
+    carRental.eliminarVehiculo(1);
+    
+  });
   //apartado 24
   it("clienteByEmail", function () {
     let clientes = CLIENTES.map((u) => carRental.agregarCliente(u));
