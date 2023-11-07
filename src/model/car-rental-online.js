@@ -119,7 +119,7 @@ class CarRentalOnline {
     reserva.clienteId = obj.clienteId;
     reserva.vehiculoId = obj.vehiculoId;
     
-    console.log('Reserva agregada:', reserva);
+    //console.log('Reserva agregada:', reserva);
     this._reservas.push(reserva);
     return reserva;
     
@@ -164,10 +164,10 @@ class CarRentalOnline {
     }
 
     // Verificar si las fechas de inicio y fin se superponen con la reserva existente
-    const reservaInicio = new Date(reservaExistente.inicio);
-    const reservaFin = new Date(reservaExistente.fin);
-    const nuevaInicio = new Date(inicio);
-    const nuevaFin = new Date(fin);
+    const reservaInicio = reservaExistente.inicio.getTime();
+    const reservaFin = reservaExistente.fin.getTime();
+    const nuevaInicio = inicio.getTime();
+    const nuevaFin = fin.getTime();
 
     if (
       (nuevaInicio >= reservaInicio && nuevaInicio <= reservaFin) ||

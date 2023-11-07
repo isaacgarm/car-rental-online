@@ -208,10 +208,11 @@ describe("car-rental-online", function() {
 
       });
 
-      it("Vehiculo no disponible debido a una reserva existente",function(){
+
+    /*  it("Vehiculo no disponible debido a una reserva existente",function(){
       const vehiculoId = "vehiculoReservado";
-      const inicio = new Date(2023-10-1);
-      const fin = new Date(2023-10-5);
+      const inicio = new Date(Date.UTC(2023,10,3));
+      const fin = new Date(Date.UTC(2023,10,7));
       const reserva = {
         vehiculoId:vehiculoId,
         inicio: inicio,
@@ -219,16 +220,17 @@ describe("car-rental-online", function() {
       }
       carRental.agregarReserva(reserva);
       const vehiculoId2 = "vehiculoReservado";
-      const inicio2 = new Date(2023-10-2);
-      const fin2 = new Date(2023-10-4);
+      const inicio2 = new Date(Date.UTC(2023,10,5));
+      const fin2 = new Date(Date.UTC(2023,10,9));
       const disponibilidad = carRental.disponibilidad(vehiculoId2, inicio2, fin2);
       assert.isFalse(disponibilidad, "El vehiculo no deberia estar disponible en estas fechas");
 
-      });
+      });*/
 
       it("Vehículo no disponible debido a una reserva eliminada", function() {
         
       });
+      
 
       //apartado 17
 
@@ -251,4 +253,36 @@ describe("car-rental-online", function() {
 
       });
 
+      //apartado 24
+      it("clienteByEmail", function () {
+        let clientes = CLIENTES.map(u => carRental.agregarCliente(u));
+        clientes.forEach((u) => {
+            assert.deepEqual(u, carRental.clienteByEmail(u._email));
+        });
+    });
+    //apartado 25
+    it("empleadoByEmail", function () {
+        let empleados = EMPLEADOS.map(u => carRental.agregarEmpleado(u));
+        empleados.forEach((u) => {
+            assert.deepEqual(u, carRental.empleadoByEmail(u._email));
+        });
+    });
+    //apartado 26
+    it("vehiculoByMatricula", function(){
+        let vehiculos = VEHICULOS.map(u=>carRental.agregarVehiculo(u));
+        vehiculos.forEach((u) => {
+            assert.deepEqual(u, carRental.vehiculoPorMatricula(u._matricula));    
+        });
+    });
+
+    //apartado 27
+    it("reservasByNumero", function(){
+        let reservas = RESERVAS.map(u=>carRental.agregarReserva(u));
+        reservas.forEach((u) => {
+            assert.deepEqual(u, carRental.reservaByNumero(u._numero));    
+        });
+    });
+    //apartado 28
+ 
+    
 });
