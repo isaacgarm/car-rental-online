@@ -210,8 +210,8 @@ describe("car-rental-online", function() {
 
       it("Vehiculo no disponible debido a una reserva existente",function(){
       const vehiculoId = "vehiculoReservado";
-      const inicio = new Date(2023,10,1);
-      const fin = new Date(2023,10,5);
+      const inicio = new Date(2023-10-1);
+      const fin = new Date(2023-10-5);
       const reserva = {
         vehiculoId:vehiculoId,
         inicio: inicio,
@@ -219,8 +219,8 @@ describe("car-rental-online", function() {
       }
       carRental.agregarReserva(reserva);
       const vehiculoId2 = "vehiculoReservado";
-      const inicio2 = new Date(2023,10,29);
-      const fin2 = new Date(2023,11,5);
+      const inicio2 = new Date(2023-10-2);
+      const fin2 = new Date(2023-10-4);
       const disponibilidad = carRental.disponibilidad(vehiculoId2, inicio2, fin2);
       assert.isFalse(disponibilidad, "El vehiculo no deberia estar disponible en estas fechas");
 
