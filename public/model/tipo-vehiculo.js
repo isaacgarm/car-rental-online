@@ -6,5 +6,5 @@ const TipoVehiculo = {
   E: "E",
 };
 
-//Exportamos el tipo vehículo
-module.exports = TipoVehiculo;
+
+

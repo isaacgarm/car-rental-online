@@ -6,4 +6,4 @@ const Etiqueta = {
 };
 
 // Exportar la eriqueta
-module.exports = Etiqueta;
+
