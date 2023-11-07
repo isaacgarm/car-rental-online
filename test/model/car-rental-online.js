@@ -18,6 +18,7 @@ describe("car-rental-online", function() {
         { nombres: "Cliente 3", apellidos: "Apellido 3", dni: "12345678C", direccion: "Direccion 3", email: "cliente3@gmail.com", password: "Password3", telefono: "555222111", rol: Rol.Cliente }
       ];
       const cliente1 = { nombres: "Cliente 1", apellidos: "Apellido 1", dni: "12345678A", direccion: "Direccion 1", email: "cliente1@gmail.com", password: "Password1", telefono: "333222111", rol: Rol.Cliente };
+      const clienteEmpleado = { nombres: "ClienteEmpleado 1", apellidos: "Apellido 1", dni: "12345678A", direccion: "Direccion 1", email: "cliente1@gmail.com", password: "Password5", telefono: "333222111", rol: Rol.Empelado };
 
       const EMPLEADOS =  [
         { nombres: "Empleado 1", apellidos: "Apellido 1", dni: "12345678A", direccion: "Direccion 1", email: "empleado1@gmail.com", password: "Password1", telefono: "333222111", rol: Rol.Empleado },
@@ -98,7 +99,7 @@ describe("car-rental-online", function() {
     });
 
     it("agregar empleado que ya existe",function(){
-        assert.throw(() => {
+        assert.throws(() => {
             carRental.agregarEmpleado(empleado1);
             carRental.agregarEmpleado(empleado1);
           }, "El empleado ya existe.")
@@ -106,7 +107,7 @@ describe("car-rental-online", function() {
 
 
     it("agregar cliente en empleado",function(){
-        assert.throw(() => {
+        assert.throws(() => {
             carRental.agregarEmpleado(cliente1);
           }, "El objeto no es un empleado.")
     });
@@ -137,6 +138,7 @@ describe("car-rental-online", function() {
         })
     });
 
+//Apartado 10
 
     it("signin cliente",function(){
 
@@ -151,12 +153,12 @@ describe("car-rental-online", function() {
 
     it("signin erroneo cliente",function(){
         CLIENTES.map(u => carRental.agregarCliente(u));
-        assert.throw(() => {
+        assert.throws(() => {
             carRental.signin(empleado1.email, empleado1.password, empleado1.rol);
           }, 'Credenciales inválidas.');
     })
 
-
+//Apartado 11
     
     it("signin empleado",function(){
 
@@ -171,10 +173,102 @@ describe("car-rental-online", function() {
 
     it("signin erroneo empleado",function(){
         EMPLEADOS.map(u => carRental.agregarEmpleado(u));
-        assert.throw(() => {
+        assert.throws(() => {
             carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
           }, 'Credenciales inválidas.');
     })
+
+    //Apartado 12
+
+    it("signup clientes",function(){
+        let clientes = CLIENTES.map(u => carRental.signup(u));
+        assert.equal(carRental._clientes.length, CLIENTES.length);
+
+    })
+
+    it("signup empleados",function(){
+        let empleados = EMPLEADOS.map(u => carRental.signup(u));
+        assert.equal(carRental._empleados.length, EMPLEADOS.length);
+
+    })
+
+    it("signup cliente que ya existe",function(){
+        carRental.signup(cliente1);
+        assert.throws(() => {   
+            carRental.signup(cliente1);
+          }, "El email ya está registrado.")
+    });
+
+    it("signup empleado que ya existe",function(){
+        carRental.signup(empleado1);
+        assert.throws(() => {   
+            carRental.signup(empleado1);
+          }, "El email ya está registrado.")
+    });
+
+    it("signup de cliente como empelado con el mismo email",function(){
+        carRental.signup(cliente1);
+        carRental.signup(clienteEmpleado);
+        assert.equal(carRental._empleados.length, 1);
+
+    });
+
+    //Apartado 13
+
+    it("comprobar el inicio sin usuarios en cliente",function(){
+        assert.isNull(carRental.usuario);
+    });
+
+    it('debería ingresar con un cliente y verificar que el cliente ha ingresado', function() {
+        let clientes = CLIENTES.map(u => carRental.signup(u));
+    
+        carRental.signin(carRental._clientes[0].email, carRental._clientes[0].password, carRental._clientes[0].rol);
+    
+        assert.isNotNull(carRental.usuario);
+        assert.equal(carRental.usuario.email, carRental._clientes[0].email);
+      });
+
+      it('debería ingresar con un cliente y hacer singout', function() {
+        let clientes = CLIENTES.map(u => carRental.signup(u));
+    
+        carRental.signin(carRental._clientes[0].email, carRental._clientes[0].password, carRental._clientes[0].rol);
+    
+        assert.isNotNull(carRental.usuario);
+        assert.equal(carRental.usuario.email, carRental._clientes[0].email);
+
+        carRental.signout();
+
+        assert.isNull(carRental.usuario);
+      });
+  
+        //Apartado 14
+
+        it("comprobar el inicio sin usuarios en empleado",function(){
+            assert.isNull(carRental.usuario);
+        });
+    
+        it('debería ingresar con un empleado y verificar que el empleado ha ingresado', function() {
+            let clientes = EMPLEADOS.map(u => carRental.signup(u));
+        
+            carRental.signin(carRental._empleados[0].email, carRental._empleados[0].password, carRental._empleados[0].rol);
+        
+            assert.isNotNull(carRental.usuario);
+            assert.equal(carRental.usuario.email, carRental._empleados[0].email);
+          });
+    
+          it('debería ingresar con un empleado y hacer singout', function() {
+            let empleados = EMPLEADOS.map(u => carRental.signup(u));
+        
+            carRental.signin(carRental._empleados[0].email, carRental._empleados[0].password, carRental._empleados[0].rol);
+        
+            assert.isNotNull(carRental.usuario);
+            assert.equal(carRental.usuario.email, carRental._empleados[0].email);
+    
+            carRental.signout();
+    
+            assert.isNull(carRental.usuario);
+          });
+
 
        //apartado 15
 
