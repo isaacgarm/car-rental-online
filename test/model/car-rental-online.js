@@ -9,7 +9,7 @@ const Etiqueta = require("../../src/model/etiqueta");
 const chai = require('chai');
 const TipoVehiculo = require("../../src/model/tipo-vehiculo");
 const assert = chai.assert;
-
+const { Console } = require("console");
 //Apartado 1
 describe("car-rental-online", function() {
     const CLIENTES =  [
@@ -383,8 +383,15 @@ describe("car-rental-online", function() {
       });
 
 
-    /*  it("Vehiculo no disponible debido a una reserva existente",function(){
-      const vehiculoId = "vehiculoReservado";
+      it("Vehiculo no disponible debido a una reserva existente",function(){
+    carRental.usuario ="usuario";
+      const vehiculo = new Vehiculo(1);
+      console.log('Vehiculo agregado', vehiculo);
+      carRental.agregarVehiculo(vehiculo);
+      //getVehiculos().push(vehiculo);
+      
+      
+      const vehiculoId = 1;
       const inicio = new Date(Date.UTC(2023,10,3));
       const fin = new Date(Date.UTC(2023,10,7));
       const reserva = {
@@ -392,14 +399,15 @@ describe("car-rental-online", function() {
         inicio: inicio,
         fin: fin
       }
-      carRental.agregarReserva(reserva);
-      const vehiculoId2 = "vehiculoReservado";
+      carRental.reservar(reserva);
+      console.log('Reserva agregada:', reserva);
+      const vehiculoId2 = 1;
       const inicio2 = new Date(Date.UTC(2023,10,5));
       const fin2 = new Date(Date.UTC(2023,10,9));
       const disponibilidad = carRental.disponibilidad(vehiculoId2, inicio2, fin2);
       assert.isFalse(disponibilidad, "El vehiculo no deberia estar disponible en estas fechas");
 
-      });*/
+      });
 
       it("Vehículo no disponible debido a una reserva eliminada", function() {
         
@@ -484,6 +492,12 @@ describe("car-rental-online", function() {
         });
     });
     //apartado 28
- 
+    it("clienteById", function () {
+        let clientes = CLIENTES.map(u => carRental.agregarCliente(u));
+        clientes.forEach((u) => {
+            assert.deepEqual(u, carRental.clienteByEmail(u._id));
+        });
+    });
+    
     
 });

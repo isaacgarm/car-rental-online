@@ -246,7 +246,18 @@ class CarRentalOnline {
     const diasReserva = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
     const costoTotal = costoPorDia * diasReserva;
   
-    const nuevaReserva = new Reserva(
+   let reserva = new Reserva(this.genId());
+    nuevaReserva.inicio = inicio;
+    nuevaReserva.fin = fin;
+    nuevaReserva.costoTotal = costoTotal;
+    nuevaReserva.numero = numero;
+    nuevaReserva.entrega = entrega;
+    nuevaReserva.devolucion = devolucion;
+    nuevaReserva.fecha = fecha;
+    nuevaReserva.clienteId = clienteId;
+    nuevaReserva.vehiculoId = vehiculoId;
+
+    /* const nuevaReserva = new Reserva(
       this.genId(),
       inicio,
       fin,
@@ -257,9 +268,12 @@ class CarRentalOnline {
       new Date(),
       this.usuario._id,
       vehiculoId
-    );
+    );*/
+
   
-    this._reservas.push(nuevaReserva);
+
+
+    this.getReservas.push(nuevaReserva);
   
     return nuevaReserva;
   }
