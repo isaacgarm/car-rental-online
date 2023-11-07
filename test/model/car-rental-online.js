@@ -622,6 +622,8 @@ describe("car-rental-online", function () {
     }, "Ningún usuario ha iniciado sesión.");
   });
 
+  //apartado 20
+
   it("eliminar vehiculo", function () {
     let vehiculos = VEHICULOS.map((u) => carRental.agregarVehiculo(u));
     carRental.eliminarVehiculo(1);
@@ -643,13 +645,7 @@ describe("car-rental-online", function () {
       }, "El vehículo no está disponible para ser eliminado.");
   });
 
-  //apartado 20
-
-  //apartado 21
-
-  //apartado 22
-
-  //apartado 23
+  //apartado 19
 
   //apartado 24
   it("clienteByEmail", function () {
