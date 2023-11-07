@@ -310,14 +310,13 @@ class CarRentalOnline {
 
     const vehiculoEliminar = this._vehiculos[vehiculoIndex];
 
-    if (vehiculoEliminar.eliminado) {
-      throw new Error("El vehículo ya ha sido eliminado previamente.");
-    }
-
     if (!vehiculoEliminar.disponible) {
       throw new Error("El vehículo no está disponible para ser eliminado.");
     }
 
+    if (vehiculoEliminar.eliminado) {
+      throw new Error ("El vehículo ya ha sido eliminado previamente.");
+    }
     // Realizar el borrado lógico del vehículo
     vehiculoEliminar.eliminado = true;
 
