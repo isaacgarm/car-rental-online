@@ -457,6 +457,12 @@ describe("car-rental-online", function() {
         });
     });
     //apartado 28
- 
+    it("clienteById", function () {
+        let clientes = CLIENTES.map(u => carRental.agregarCliente(u));
+        clientes.forEach((u) => {
+            assert.deepEqual(u, carRental.clienteByEmail(u._id));
+        });
+    });
+    
     
 });
