@@ -555,31 +555,25 @@ describe("car-rental-online", function () {
   });
 
   it("Vehiculo no disponible debido a una reserva existente", function () {
-    carRental.usuario = "usuario";
-    const vehiculo = new Vehiculo(1);
-    console.log("Vehiculo agregado", vehiculo);
-    carRental.agregarVehiculo(vehiculo);
-    //getVehiculos().push(vehiculo);
 
-    const vehiculoId = 1;
-    const inicio = new Date(Date.UTC(2023, 10, 3));
-    const fin = new Date(Date.UTC(2023, 10, 7));
-    const reserva = {
-      vehiculoId: vehiculoId,
-      inicio: inicio,
-      fin: fin,
-    };
-    carRental.reservar(reserva);
-    console.log("Reserva agregada:", reserva);
-    const vehiculoId2 = 1;
-    const inicio2 = new Date(Date.UTC(2023, 10, 5));
-    const fin2 = new Date(Date.UTC(2023, 10, 9));
-    const disponibilidad = carRental.disponibilidad(vehiculoId2, inicio2, fin2);
-    assert.isFalse(
-      disponibilidad,
-      "El vehiculo no deberia estar disponible en estas fechas"
-    );
+    vehiculo = carRental.agregarVehiculo(vehiculo1);
+
+    cliente = carRental.agregarCliente(cliente1);
+    carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
+
+    const inicio = new Date('2023-01-06');
+    const fin = new Date('2023-01-10');
+
+    carRental.reservar(vehiculo._id, inicio, fin);
+
+    const nuevaInicio = new Date('2023-01-06');
+    const nuevaFin = new Date('2023-01-10');
+
+    assert.throws(() => {
+      carRental.reservar(vehiculo1.id, nuevaInicio, nuevaFin);
+    }, 'El vehículo no está disponible en las fechas seleccionadas.');
   });
+ 
 
   it("Vehículo no disponible debido a una reserva eliminada", function () {});
 
@@ -693,9 +687,11 @@ describe("car-rental-online", function () {
     //Apartado 31
 
   it("reservasById", function () {
+
+    vehiculo = carRental.agregarVehiculo(vehiculo1);
     cliente = carRental.agregarCliente(cliente1);
-    carRental.signin(cliente1);
-    reserva = carRental.reservar(reserva1.vehiculoId, reserva1.inicio, reserva1.fin);
+    carRental.signin(cliente1.email,cliente1.password,cliente1.rol);
+    reserva = carRental.agregarReserva(reserva1.vehiculoId, reserva1.inicio, reserva1.fin);
     assert.deepEqual(reserva, carRental.reservaById(reserva1._id));
   });
 });

@@ -257,22 +257,6 @@ class CarRentalOnline {
     nuevaReserva.clienteId = clienteId;
     nuevaReserva.vehiculoId = vehiculoId;
 
-    /* const nuevaReserva = new Reserva(
-      this.genId(),
-      inicio,
-      fin,
-      costoTotal,
-      this.genNumeroReserva(),
-      new Date(),
-      null,
-      new Date(),
-      this.usuario._id,
-      vehiculoId
-    );*/
-
-  
-
-
     this.getReservas.push(nuevaReserva);
   
     return nuevaReserva;
