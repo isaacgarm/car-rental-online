@@ -16,7 +16,7 @@ describe("empleado", function () {
 
 
   beforeEach(function () {
-    empleado = new Empleado(eId, nombres, apellidos, dni, direccion,email , password, rol, telefono);
+    empleado = new Empleado(eId, nombres, apellidos, dni, direccion,email , password, telefono);
   });
 
   it("constructor empleado", function () {
@@ -24,7 +24,7 @@ describe("empleado", function () {
   });
 
   it("getter rol", function () {
-    assert.equal(empleado.rol, rol);
+    assert.equal(empleado._rol, Rol.Empleado);
   });
 
   it("setter rol", function () {

@@ -1,5 +1,4 @@
-const assert = require("chai").assert;
-const Reserva = require("../../src/model/reserva");
+
 
 describe("reserva", function () {
   let reserva;

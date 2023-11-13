@@ -1,13 +1,14 @@
 class Cliente extends Usuario {
-  constructor(_id) {
-    super(_id);
-    this._rol = rol.Cliente;
-  }
-  set rol(rol) {
-    this._rol = rol.Cliente;
+  constructor(_id, nombres, apellidos, dni, direccion,email , password, telefono) {
+    super(_id, nombres, apellidos, dni, direccion,email , password, telefono);
+    this._rol = Rol.Cliente;
+    this.nombres=nombres;
+    this.apellidos=apellidos;
+    this.dni=dni;
+    this.direccion=direccion;
+    this.email=email;
+    this.password=password;
+    this.telefono=telefono;
   }
 
-  get rol() {
-    return this._rol;
-  }
 }

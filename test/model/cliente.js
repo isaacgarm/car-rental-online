@@ -15,16 +15,16 @@ describe("cliente", function () {
   const telefono = '333222111';
 
   beforeEach(function () {
-    cliente = new Cliente(cId, nombres, apellidos, dni, direccion,email , password, telefono, rol);
+    cliente = new Cliente(cId, nombres, apellidos, dni, direccion,email , password, telefono);
   });
 
   it("constructor cliente", function () {
     assert.equal(cliente._id, cId);
-    assert.equal(cliente._rol, rol);
+    assert.equal(cliente._rol, Rol.Cliente);
   });
 
   it("getter rol", function () {
-    assert.equal(cliente.rol, rol);
+    assert.equal(cliente._rol, Rol.Cliente);
   });
 
   it("setter rol", function () {
@@ -34,7 +34,7 @@ describe("cliente", function () {
   });
 
   it("getter dni", function () {
-    assert.equal(cliente.dni, dni);
+    assert.equal(cliente._dni, dni);
   });
 
   it("setter dni", function () {

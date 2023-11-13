@@ -3,7 +3,7 @@
   const Rol = require("./rol");
 
   class Empleado extends Usuario {
-    constructor(_id, nombres, apellidos, dni, direccion,email , password, rol, telefono) {
+    constructor(_id, nombres, apellidos, dni, direccion,email , password, telefono) {
       super(_id, nombres, apellidos, dni, direccion,email , password, telefono);
       this._rol = Rol.Empleado;
     }

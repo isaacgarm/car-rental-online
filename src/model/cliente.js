@@ -3,7 +3,7 @@ const Usuario = require("./usuario");
 const Rol = require("./rol");
 
 class Cliente extends Usuario {
-  constructor(_id, nombres, apellidos, dni, direccion,email , password, telefono, rol) {
+  constructor(_id, nombres, apellidos, dni, direccion,email , password, telefono) {
     super(_id, nombres, apellidos, dni, direccion,email , password, telefono);
     this._rol = Rol.Cliente;
   }

@@ -1,15 +1,4 @@
-const { expect } = require("chai");
-const CarRentalOnline = require("../../src/model/car-rental-online");
-const Cliente = require("../../src/model/cliente");
-const Empleado = require("../../src/model/empleado");
-const Vehiculo = require("../../src/model/vehiculo");
-const Reserva = require("../../src/model/reserva");
-const Rol = require("../../src/model/rol");
-const Etiqueta = require("../../src/model/etiqueta");
-const chai = require("chai");
-const TipoVehiculo = require("../../src/model/tipo-vehiculo");
-const assert = chai.assert;
-const { Console } = require("console");
+
 //Apartado 1
 describe("car-rental-online", function () {
   const CLIENTES = [
