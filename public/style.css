@@ -410,4 +410,8 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover {
   background-color: #DAC0A3;
+
+  .content{
+    flex: 1;
+  }
 }
