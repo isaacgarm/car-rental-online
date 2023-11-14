@@ -36,5 +36,6 @@ app.use(
   app.use(/^\/car-rental-online/, (req, res) => {
     //sirve para crear expresion regular
     res.sendFile(path.join(__dirname, "public/index.html"));
+    //
   });
 
