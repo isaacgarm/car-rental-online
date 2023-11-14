@@ -28,10 +28,13 @@ app.use(
     express.static(path.join(__dirname, "public/test"))
   );
 
-  app.use(
-    "/car-rental-online/css",
-    express.static(path.join(__dirname, "public/css"))
-  );
+  
+  app.use("/car-rental-online/style.css", (req, res) => {
+    //sirve para crear expresion regular
+    res.sendFile(path.join(__dirname, "public/style.css"));
+  });
+
+
 
   app.use(/^\/car-rental-online/, (req, res) => {
     //sirve para crear expresion regular
