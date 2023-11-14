@@ -239,6 +239,8 @@ class CarRentalOnline {
     if (!estaDisponible) {
       throw new Error("El vehículo no está disponible en las fechas seleccionadas.");
     }
+
+    
   
     const costoPorDia = vehiculo.costoDia;
     const fechaInicio = new Date(inicio);
@@ -246,18 +248,18 @@ class CarRentalOnline {
     const diasReserva = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
     const costoTotal = costoPorDia * diasReserva;
   
-   let reserva = new Reserva(this.genId());
+   let nuevaReserva = new Reserva(this.genId());
     nuevaReserva.inicio = inicio;
     nuevaReserva.fin = fin;
     nuevaReserva.costoTotal = costoTotal;
-    nuevaReserva.numero = numero;
-    nuevaReserva.entrega = entrega;
-    nuevaReserva.devolucion = devolucion;
-    nuevaReserva.fecha = fecha;
-    nuevaReserva.clienteId = clienteId;
+    nuevaReserva.numero = vehiculoId;
+    nuevaReserva.entrega = inicio;
+    nuevaReserva.devolucion = fin;
+    nuevaReserva.fecha = inicio;
+    nuevaReserva.clienteId = this.usuario._id;
     nuevaReserva.vehiculoId = vehiculoId;
 
-    this.getReservas.push(nuevaReserva);
+    this._reservas.push(nuevaReserva);
   
     return nuevaReserva;
   }
@@ -293,6 +295,7 @@ class CarRentalOnline {
     }
 
     const vehiculoEliminar = this._vehiculos[vehiculoIndex];
+
 
     if (!vehiculoEliminar.disponible) {
       throw new Error("El vehículo no está disponible para ser eliminado.");

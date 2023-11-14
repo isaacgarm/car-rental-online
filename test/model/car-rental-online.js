@@ -629,11 +629,14 @@ describe("car-rental-online", function () {
         carRental.eliminarVehiculo(1);
       }, "El vehículo ya ha sido eliminado previamente.");
   });
-  it("no esta disponible", function () {
+  it("no esta disponible para ser eliminado", function () {
     let vehiculos = VEHICULOS.map((u) => carRental.agregarVehiculo(u));
+    cliente = carRental.agregarCliente(cliente1);
+    carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
+    carRental.reservar(1, reserva1.inicio, reserva1.fin);
+    carRental.signout();
     empleado = carRental.agregarEmpleado(empleado1);
-    carRental.signin(empleado1);
-    carRental.reservar(1);
+    carRental.signin(empleado1.email, empleado1.password, empleado1.rol);
     assert.throws(() => {
         carRental.eliminarVehiculo(1);
       }, "El vehículo no está disponible para ser eliminado.");
