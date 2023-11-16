@@ -221,54 +221,40 @@ class CarRentalOnline {
     if (!this.usuario) {
       throw new Error("Ningún usuario ha iniciado sesión.");
     }
-  
+
     const vehiculo = this._vehiculos.find((vehiculo) => vehiculo._id === vehiculoId); //encuentrame un vehiculo dentro de vehiculos[] cuya id sea igual a la pasada por parametro
-  
+
     if (!vehiculo) {
       throw new Error("Vehiculo no encontrado.");
     }
-  
+
     const estaDisponible = this.disponibilidad(vehiculoId, inicio, fin);
-  
+
     if (!estaDisponible) {
       throw new Error("El vehículo no está disponible en las fechas seleccionadas.");
     }
-  
+
+
+
     const costoPorDia = vehiculo.costoDia;
     const fechaInicio = new Date(inicio);
     const fechaFin = new Date(fin);
     const diasReserva = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
     const costoTotal = costoPorDia * diasReserva;
-  
-   let reserva = new Reserva(this.genId());
+
+   let nuevaReserva = new Reserva(this.genId());
     nuevaReserva.inicio = inicio;
     nuevaReserva.fin = fin;
     nuevaReserva.costoTotal = costoTotal;
-    nuevaReserva.numero = numero;
-    nuevaReserva.entrega = entrega;
-    nuevaReserva.devolucion = devolucion;
-    nuevaReserva.fecha = fecha;
-    nuevaReserva.clienteId = clienteId;
+    nuevaReserva.numero = vehiculoId;
+    nuevaReserva.entrega = inicio;
+    nuevaReserva.devolucion = fin;
+    nuevaReserva.fecha = inicio;
+    nuevaReserva.clienteId = this.usuario._id;
     nuevaReserva.vehiculoId = vehiculoId;
 
-    /* const nuevaReserva = new Reserva(
-      this.genId(),
-      inicio,
-      fin,
-      costoTotal,
-      this.genNumeroReserva(),
-      new Date(),
-      null,
-      new Date(),
-      this.usuario._id,
-      vehiculoId
-    );*/
+    this._reservas.push(nuevaReserva);
 
-  
-
-
-    this.getReservas.push(nuevaReserva);
-  
     return nuevaReserva;
   }
 
