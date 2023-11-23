@@ -155,7 +155,7 @@ class CarRentalOnline {
 
   disponibilidad(vehiculoId, inicio, fin) {
     const reservaExistente = this._reservas.find(
-      (reserva) => reserva.vehiculoId === vehiculoId
+      (reserva) => reserva._vehiculoId === vehiculoId
     );
 
     if (!reservaExistente) {
@@ -223,48 +223,51 @@ class CarRentalOnline {
 
   //Apartado 16
   reservar(vehiculoId, inicio, fin) {
+    // Verificar que el cliente ha iniciado sesión
     if (!this.usuario) {
-      throw new Error("Ningún usuario ha iniciado sesión.");
+        throw new Error("Ningún usuario ha iniciado sesión.");
     }
 
-    const vehiculo = this._vehiculos.find(
-      (vehiculo) => vehiculo._id === vehiculoId
-    ); //encuentrame un vehiculo dentro de vehiculos[] cuya id sea igual a la pasada por parametro
-
+    // Verificar que el vehículo existe
+    let vehiculo = this._vehiculos.find((vehiculo) => vehiculo._id === vehiculoId);
     if (!vehiculo) {
-      throw new Error("Vehiculo no encontrado.");
+        throw new Error("Vehiculo no encontrado.");
     }
-
+    // Verificar disponibilidad del vehículo en las fechas de reserva
     const estaDisponible = this.disponibilidad(vehiculoId, inicio, fin);
-
+    
     if (!estaDisponible) {
-      throw new Error(
-        "El vehículo no está disponible en las fechas seleccionadas."
-      );
+        throw new Error("El vehículo no está disponible en las fechas seleccionadas.");
     }
+   // console.log("¿Disponible:",estaDisponible);
+    // Calcular el costo de la reserva
 
     const costoPorDia = vehiculo.costoDia;
     const fechaInicio = new Date(inicio);
     const fechaFin = new Date(fin);
-    const diasReserva =
-      Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
+    const diasReserva = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
     const costoTotal = costoPorDia * diasReserva;
 
-    let nuevaReserva = new Reserva(this.genId());
-    nuevaReserva.inicio = inicio;
-    nuevaReserva.fin = fin;
-    nuevaReserva.costoTotal = costoTotal;
-    nuevaReserva.numero = vehiculoId;
-    nuevaReserva.entrega = inicio;
-    nuevaReserva.devolucion = fin;
-    nuevaReserva.fecha = inicio;
-    nuevaReserva.clienteId = this.usuario._id;
-    nuevaReserva.vehiculoId = vehiculoId;
+    // Crear objeto reserva
+    let reserva = new Reserva(this.genId());
+    reserva.inicio = inicio;
+    reserva.fin = fin;
+    reserva.costo = costoTotal;
+    reserva.numero = this.genNumeroReserva(); // Asumo que tienes un método para generar el número de reserva
+    reserva.entrega = null; // Asumo que estos valores se asignarán más adelante
+    reserva.devolucion = null;
+    reserva.fecha = new Date();
+    reserva.clienteId = this.usuario._id;
+    reserva.vehiculoId = vehiculoId;
 
-    this._reservas.push(nuevaReserva);
+    // Cambiar el atributo "disponible" del vehículo a false
+    vehiculo.disponible = false;
 
-    return nuevaReserva;
-  }
+    // Agregar reserva a la colección
+    this._reservas.push(reserva);
+
+    return reserva;
+}
 
   cancelar(numero) {
     const reservaCancelarIndex = this._reservas.findIndex(
