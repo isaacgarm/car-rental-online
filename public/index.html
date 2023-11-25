@@ -7,6 +7,23 @@
    <meta charset="UTF-8">
 </head>
 
+<script src="./components/invitado-signup-page/invitado-signup-page-controller.js"></script>
+<script src="./components/invitado-signup-page/invitado-signup-page-view.js"></script>
+
+<script>
+   let router, mensajes;
+   async function init() {
+       let model = new GestorServicios();
+
+       router = new Router();
+       mensajes = new Mensajes();
+   
+       router.addRouter(/\/gestor\-servicios\-online\/signup$/, new InvitadoSignupPageController(model));
+
+       router.handleLocation();
+   }
+</script>
+
 <body>
    <main>
       <header>
