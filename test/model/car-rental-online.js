@@ -21,7 +21,7 @@ describe("car-rental-online", function () {
       email: "cliente1@gmail.com",
       password: "Password1",
       telefono: "333222111",
-      rol: Rol.Cliente,
+      rol: Rol.Cliente,      
     },
     {
       nombres: "Cliente 2",
@@ -158,7 +158,7 @@ describe("car-rental-online", function () {
   const RESERVAS = [
     {
       inicio: new Date(2023, 6, 24),
-      fin: new Date(2023, 6, 30),
+      fin: new Date(2030, 6, 30),
       costo: 98.13,
       numero: "1",
       entrega: new Date(2023, 6, 25),
@@ -169,7 +169,7 @@ describe("car-rental-online", function () {
     },
     {
       inicio: new Date(2023, 6, 24),
-      fin: new Date(2023, 6, 30),
+      fin: new Date(2030, 6, 30),
       costo: 94.15,
       numero: "2",
       entrega: new Date(2023, 6, 25),
@@ -180,7 +180,7 @@ describe("car-rental-online", function () {
     },
     {
       inicio: new Date(2023, 6, 24),
-      fin: new Date(2023, 6, 30),
+      fin: new Date(2030, 6, 30),
       costo: 88.74,
       numero: "3",
       entrega: new Date(2023, 6, 25),
@@ -199,7 +199,7 @@ describe("car-rental-online", function () {
     devolucion: new Date(2023, 6, 29),
     fecha: new Date(2023, 6, 22),
     clienteId: "1",
-    vehiculoId: "1",
+    vehiculoId: "2",
   };
   let carRental;
 
@@ -378,6 +378,8 @@ describe("car-rental-online", function () {
     });
   });
 
+
+
   //Apartado 10
 
   it("signin cliente", function () {
@@ -554,25 +556,26 @@ describe("car-rental-online", function () {
     );
   });
 
-  it("Vehiculo no disponible debido a una reserva existente", function () {
 
-    vehiculo = carRental.agregarVehiculo(vehiculo1);
 
-    cliente = carRental.agregarCliente(cliente1);
-    carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
-
-    const inicio = new Date('2023-01-06');
-    const fin = new Date('2023-01-10');
-
-    carRental.reservar(vehiculo._id, inicio, fin);
-
-    const nuevaInicio = new Date('2023-01-06');
-    const nuevaFin = new Date('2023-01-10');
-
-    assert.throws(() => {
-      carRental.reservar(vehiculo1.id, nuevaInicio, nuevaFin);
-    }, 'El vehículo no está disponible en las fechas seleccionadas.');
-  });
+      it("Tira una excepción cuando existe otra reserva en conflicto con el mismo vehículo", function () {
+        const cliente = carRental.agregarCliente(cliente1);
+        const vehiculo = carRental.agregarVehiculo(vehiculo1);
+        carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
+    
+    
+        // Realiza una reserva para el vehículo
+       const primeraReserva =  carRental.reservar(
+           vehiculo._id,
+           new Date('2023-01-06'),
+           new Date('2023-01-10'),
+      );
+    
+          // Intenta realizar otra reserva para el mismo vehículo en las mismas fechas
+        assert.throws(() => {
+          carRental.reservar(vehiculo._id, new Date('2023-01-07'), new Date('2023-01-09'));
+        }, 'El vehículo no está disponible en las fechas seleccionadas.');
+      });
  
 
   it("Vehículo no disponible debido a una reserva eliminada", function () {});
@@ -629,14 +632,11 @@ describe("car-rental-online", function () {
         carRental.eliminarVehiculo(1);
       }, "El vehículo ya ha sido eliminado previamente.");
   });
-  it("no esta disponible para ser eliminado", function () {
+  it("no esta disponible", function () {
+    const empleado = carRental.agregarEmpleado(empleado1);
+    carRental.signin(empleado1.email, empleado1.password, empleado1.rol); 
     let vehiculos = VEHICULOS.map((u) => carRental.agregarVehiculo(u));
-    cliente = carRental.agregarCliente(cliente1);
-    carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
-    carRental.reservar(1, reserva1.inicio, reserva1.fin);
-    carRental.signout();
-    empleado = carRental.agregarEmpleado(empleado1);
-    carRental.signin(empleado1.email, empleado1.password, empleado1.rol);
+    carRental.reservar(1);
     assert.throws(() => {
         carRental.eliminarVehiculo(1);
       }, "El vehículo no está disponible para ser eliminado.");
@@ -668,6 +668,9 @@ describe("car-rental-online", function () {
 
   //apartado 27
   it("reservasByNumero", function () {
+    const cliente = carRental.agregarCliente(cliente1);
+    const vehiculo = carRental.agregarVehiculo(vehiculo1);
+    carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
     let reservas = RESERVAS.map((u) => carRental.agregarReserva(u));
     reservas.forEach((u) => {
       assert.deepEqual(u, carRental.reservaByNumero(u._numero));

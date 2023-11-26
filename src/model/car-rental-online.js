@@ -2,7 +2,7 @@ const Cliente = require("./cliente");
 const Empleado = require("./empleado");
 const Vehiculo = require("./vehiculo");
 const Reserva = require("../../src/model/reserva");
-const Rol = require("./rol")
+const Rol = require("./rol");
 
 class CarRentalOnline {
   lastId;
@@ -25,7 +25,7 @@ class CarRentalOnline {
     return ++this.lastId;
   }
 
-  genNumeroReserva(){
+  genNumeroReserva() {
     return ++this.lastNumRes;
   }
 
@@ -49,20 +49,19 @@ class CarRentalOnline {
     if (this._clientes.find((cliente) => cliente.email === obj.email)) {
       throw new Error("El cliente ya existe.");
     }
-    if (obj.rol !== Rol.Cliente){
+    if (obj.rol !== Rol.Cliente) {
       throw new Error("El objeto no es un cliente.");
-
     }
     let cliente = new Cliente(this.genId(), obj);
     cliente.nombres = obj.nombres;
     cliente.apellidos = obj.apellidos;
-    cliente.dni= obj.dni;
+    cliente.dni = obj.dni;
     cliente.direccion = obj.direccion;
     cliente.rol = obj.rol;
     cliente.email = obj.email;
     cliente.password = obj.password;
     cliente.telefono = obj.telefono;
-    this._clientes.push(cliente); 
+    this._clientes.push(cliente);
     return cliente;
   }
 
@@ -70,9 +69,8 @@ class CarRentalOnline {
     if (this._empleados.find((empleado) => empleado.email === obj.email)) {
       throw new Error("El empleado ya existe.");
     }
-    if (obj.rol !== Rol.Empleado){
+    if (obj.rol !== Rol.Empleado) {
       throw new Error("El objeto no es un empleado.");
-
     }
     let empleado = new Empleado(this.genId(), obj);
     empleado.nombres = obj.nombres;
@@ -88,8 +86,10 @@ class CarRentalOnline {
   }
 
   agregarVehiculo(obj) {
-    if (this._vehiculos.find((vehiculo) => vehiculo.matricula === obj.matricula)) {
-        throw new Error("La matrícula ya existe.");
+    if (
+      this._vehiculos.find((vehiculo) => vehiculo.matricula === obj.matricula)
+    ) {
+      throw new Error("La matrícula ya existe.");
     }
     let vehiculo = new Vehiculo(this.genId());
     vehiculo.matricula = obj.matricula;
@@ -105,9 +105,11 @@ class CarRentalOnline {
     return vehiculo;
   }
   agregarReserva(obj) {
-    if (this._reservas.find((reserva) => reserva.vehiculoId === obj.vehiculoId)) {
+    if (
+      this._reservas.find((reserva) => reserva.vehiculoId === obj.vehiculoId)
+    ) {
       throw new Error("Ese vehículo ya está reservado.");
-  }
+    }
     let reserva = new Reserva(this.genId());
     reserva.inicio = obj.inicio;
     reserva.fin = obj.fin;
@@ -118,13 +120,11 @@ class CarRentalOnline {
     reserva.fecha = obj.fecha;
     reserva.clienteId = obj.clienteId;
     reserva.vehiculoId = obj.vehiculoId;
-    
+
     //console.log('Reserva agregada:', reserva);
     this._reservas.push(reserva);
     return reserva;
-    
-}
-
+  }
 
   signin(email, password, rol) {
     const collection = rol === "Cliente" ? this._clientes : this._empleados;
@@ -155,7 +155,7 @@ class CarRentalOnline {
 
   disponibilidad(vehiculoId, inicio, fin) {
     const reservaExistente = this._reservas.find(
-      (reserva) => reserva.vehiculoId === vehiculoId
+      (reserva) => reserva._vehiculoId === vehiculoId
     );
 
     if (!reservaExistente) {
@@ -186,19 +186,19 @@ class CarRentalOnline {
         modelo: vehiculoModelo,
         tipo: vehiculoTipo,
         etiqueta: vehiculoEtiqueta,
-        costoDia: vehiculoCostoDia
+        costoDia: vehiculoCostoDia,
       } = vehiculo;
-  
+
       // Verificar si los parámetros no son undefined y coinciden con los del vehículo
       const coincideMarca = !marca || vehiculoMarca === marca;
       const coincideModelo = !modelo || vehiculoModelo === modelo;
       const coincideTipo = !tipo || vehiculoTipo === tipo;
       const coincideEtiqueta = !etiqueta || vehiculoEtiqueta === etiqueta;
       const coincideCostoDia = !costoDia || vehiculoCostoDia <= costoDia;
-  
+
       // Verificar disponibilidad usando la función disponibilidad()
       const estaDisponible = this.disponibilidad(vehiculo._id, inicio, fin);
-  
+
       // Devolver true si el vehículo cumple con todos los criterios y está disponible
       return (
         coincideMarca &&
@@ -209,10 +209,9 @@ class CarRentalOnline {
         estaDisponible
       );
     });
-  
+
     return vehiculosDisponibles;
   }
-  
 
   perfil() {
     if (!this.usuario) {
@@ -224,48 +223,56 @@ class CarRentalOnline {
 
   //Apartado 16
   reservar(vehiculoId, inicio, fin) {
+    // Verificar que el cliente ha iniciado sesión
     if (!this.usuario) {
-      throw new Error("Ningún usuario ha iniciado sesión.");
-    }
-  
-    const vehiculo = this._vehiculos.find((vehiculo) => vehiculo._id === vehiculoId); //encuentrame un vehiculo dentro de vehiculos[] cuya id sea igual a la pasada por parametro
-  
-    if (!vehiculo) {
-      throw new Error("Vehiculo no encontrado.");
-    }
-  
-    const estaDisponible = this.disponibilidad(vehiculoId, inicio, fin);
-  
-    if (!estaDisponible) {
-      throw new Error("El vehículo no está disponible en las fechas seleccionadas.");
+        throw new Error("Ningún usuario ha iniciado sesión.");
     }
 
+    // Verificar que el vehículo existe
+    let vehiculo = this._vehiculos.find((vehiculo) => vehiculo._id === vehiculoId);
+    if (!vehiculo) {
+        throw new Error("Vehiculo no encontrado.");
+    }
+    // Verificar disponibilidad del vehículo en las fechas de reserva
+    const estaDisponible = this.disponibilidad(vehiculoId, inicio, fin);
     
-  
+    if (!estaDisponible) {
+        throw new Error("El vehículo no está disponible en las fechas seleccionadas.");
+    }
+   // console.log("¿Disponible:",estaDisponible);
+    // Calcular el costo de la reserva
+
     const costoPorDia = vehiculo.costoDia;
     const fechaInicio = new Date(inicio);
     const fechaFin = new Date(fin);
     const diasReserva = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
     const costoTotal = costoPorDia * diasReserva;
-  
-   let nuevaReserva = new Reserva(this.genId());
-    nuevaReserva.inicio = inicio;
-    nuevaReserva.fin = fin;
-    nuevaReserva.costoTotal = costoTotal;
-    nuevaReserva.numero = vehiculoId;
-    nuevaReserva.entrega = inicio;
-    nuevaReserva.devolucion = fin;
-    nuevaReserva.fecha = inicio;
-    nuevaReserva.clienteId = this.usuario._id;
-    nuevaReserva.vehiculoId = vehiculoId;
 
-    this._reservas.push(nuevaReserva);
-  
-    return nuevaReserva;
-  }
+    // Crear objeto reserva
+    let reserva = new Reserva(this.genId());
+    reserva.inicio = inicio;
+    reserva.fin = fin;
+    reserva.costo = costoTotal;
+    reserva.numero = this.genNumeroReserva(); // Asumo que tienes un método para generar el número de reserva
+    reserva.entrega = null; // Asumo que estos valores se asignarán más adelante
+    reserva.devolucion = null;
+    reserva.fecha = new Date();
+    reserva.clienteId = this.usuario._id;
+    reserva.vehiculoId = vehiculoId;
+
+    // Cambiar el atributo "disponible" del vehículo a false
+    vehiculo.disponible = false;
+
+    // Agregar reserva a la colección
+    this._reservas.push(reserva);
+
+    return reserva;
+}
 
   cancelar(numero) {
-    const reservaCancelarIndex = this._reservas.findIndex((reserva) => reserva.numero === numero);
+    const reservaCancelarIndex = this._reservas.findIndex(
+      (reserva) => reserva.numero === numero
+    );
 
     if (reservaCancelarIndex === -1) {
       throw new Error("Reserva no encontrada.");
@@ -288,7 +295,9 @@ class CarRentalOnline {
   }
 
   eliminarVehiculo(vehiculoId) {
-    const vehiculoIndex = this._vehiculos.findIndex((vehiculo) => vehiculo._id === vehiculoId);
+    const vehiculoIndex = this._vehiculos.findIndex(
+      (vehiculo) => vehiculo._id === vehiculoId
+    );
 
     if (vehiculoIndex === -1) {
       throw new Error("Vehículo no encontrado.");
@@ -296,13 +305,12 @@ class CarRentalOnline {
 
     const vehiculoEliminar = this._vehiculos[vehiculoIndex];
 
-
     if (!vehiculoEliminar.disponible) {
       throw new Error("El vehículo no está disponible para ser eliminado.");
     }
 
     if (vehiculoEliminar.eliminado) {
-      throw new Error ("El vehículo ya ha sido eliminado previamente.");
+      throw new Error("El vehículo ya ha sido eliminado previamente.");
     }
     // Realizar el borrado lógico del vehículo
     vehiculoEliminar.eliminado = true;
@@ -311,13 +319,17 @@ class CarRentalOnline {
   }
 
   entregarVehiculo(numero) {
-    const reservaEntregar = this._reservas.find((reserva) => reserva.numero === numero);
+    const reservaEntregar = this._reservas.find(
+      (reserva) => reserva.numero === numero
+    );
 
     if (!reservaEntregar) {
       throw new Error("Reserva no encontrada.");
     }
 
-    const vehiculoEntregar = this._vehiculos.find((vehiculo) => vehiculo._id === reservaEntregar.vehiculoId);
+    const vehiculoEntregar = this._vehiculos.find(
+      (vehiculo) => vehiculo._id === reservaEntregar.vehiculoId
+    );
 
     if (!vehiculoEntregar || !vehiculoEntregar.disponible) {
       throw new Error("El vehículo no está disponible para ser entregado.");
@@ -333,17 +345,21 @@ class CarRentalOnline {
   }
 
   devolverVehiculo(numero) {
-    const reservaDevolver = this._reservas.find((reserva) => reserva.numero == numero);
+    const reservaDevolver = this._reservas.find(
+      (reserva) => reserva.numero == numero
+    );
 
-    if (!reservaDevolver){
+    if (!reservaDevolver) {
       throw new Error("Reserva no encontrada");
     }
 
-    if (!reservaDevolver.entrega){
-      throw new Error ("El vehiculo no ha sido entregado")
+    if (!reservaDevolver.entrega) {
+      throw new Error("El vehiculo no ha sido entregado");
     }
 
-    const vehiculoDevolver = this._vehiculos.find((vehiculo) => vehiculo._id === reservaDevolver.vehiculoId);
+    const vehiculoDevolver = this._vehiculos.find(
+      (vehiculo) => vehiculo._id === reservaDevolver.vehiculoId
+    );
 
     if (!vehiculoDevolver || vehiculoDevolver.disponible) {
       throw new Error("El vehículo no está disponible para ser devuelto.");
@@ -356,7 +372,6 @@ class CarRentalOnline {
     reservaDevolver.devolucion = new Date();
 
     return "Vehículo devuelto con éxito.";
-
   }
 
   reservas(clienteId) {
@@ -366,7 +381,9 @@ class CarRentalOnline {
       throw new Error("Cliente no encontrado.");
     }
 
-    const reservasCliente = this._reservas.filter((reserva) => reserva.clienteId === clienteId);
+    const reservasCliente = this._reservas.filter(
+      (reserva) => reserva.clienteId === clienteId
+    );
 
     return reservasCliente;
   }
@@ -412,3 +429,12 @@ class CarRentalOnline {
 }
 
 module.exports = CarRentalOnline;
+
+
+
+
+
+
+
+
+
