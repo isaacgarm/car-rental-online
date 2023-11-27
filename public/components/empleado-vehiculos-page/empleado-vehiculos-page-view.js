@@ -1,0 +1,3 @@
+class EmpleadoVehiculosPageView extends PageView{
+    
+}
