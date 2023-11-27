@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de vehículos</title>
+    <link rel="stylesheet" href="../style.css" type="text/css">
+</head>
+
+<body>
+    <main>
+    <header>
+        <h1>Car Rental Online</h1>
+    </header>
+    <nav>
+        <li><a href="empleado-reservas-page" onclick="router.route(event);">Reservas</a></li>
+        <li><a href="empleado-perfil-page" onclick="router.route(event);">Perfil</a></li>
+        <li><a href="invitado-home-page" onclick="router.route(event);">Salir</a></li>
+    </nav>
+    <div class="status-bar">
+        <ul>
+            <li class="red"><b>Ok</b></li>
+            <li class="green"><b>Error</b></li>
+            <li class="blue">Info</li>
+        </ul>
+    </div>
+    <section>
+        <h2>Listado Vehículos</h2>
+        <table width="80%">
+            <thead>
+                <tr>
+                    <th>Matrícula</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Eliminado</th>
+                    <th>Disponible</th>
+                    <th>Revision</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="/empleado/ver-vehiculo.html?matricula=AAA001">AAA001</a></td>
+                    <td>Marca 1</td>
+                    <td>Modelo 1</td>
+                    <td>Si</td>
+                    <td>No</td>
+                    <td>No</td>
+                </tr>
+
+                <tr>
+                    <td><a href="/empleado/ver-vehiculo.html?matricula=AAA002">AAA002</a></td>
+                    <td>Marca 2</td>
+                    <td>Modelo 2</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>Si</td>
+                </tr>
+
+                <tr>
+                    <td><a href="/empleado/ver-vehiculo.html?matricula=AAA003">AAA003</a></td>
+                    <td>Marca 3</td>
+                    <td>Modelo 3</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>No</td>
+                </tr>
+
+                <tr>
+                    <td><a href="/empleado/ver-vehiculo.html?matricula=AAA004">AAA004</a></td>
+                    <td>Marca 4</td>
+                    <td>Modelo 4</td>
+                    <td>No</td>
+                    <td>Si</td>
+                    <td>No</td>
+                </tr>
+
+                <tr>
+                    <td><a href="/empleado/ver-vehiculo.html?matricula=AAA005">AAA005</a></td>
+                    <td>Marca 5</td>
+                    <td>Modelo 5</td>
+                    <td>No</td>
+                    <td>Si</td>
+                    <td>No</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </section>
+    <div class="boton-centrado">
+        <input type="submit" value="Agregar">
+        <form method="GET" action="">
+            <ul id="vehiculosListId">
+            </ul>
+            <a href="agregarVehiculo" onclick="router.route(event);">Agregar</a>
+        </form>
+    </div>
+
+    <footer>
+        Tecnologías y Sistemas Web
+    </footer>
+    </main>
+</body>
+
+</html>

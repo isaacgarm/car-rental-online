@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Car Rental Online Web Site</title>
+   <link rel="stylesheet" href="../style.css" type="text/css">
+   <meta charset="UTF-8">
+</head>
+
+<body>
+   <main>
+
+      <header>
+         <h1>Car Rental Online</h1>
+      </header>
+
+      <nav>
+        <li><a href="empleado-reservas-page" onclick="router.route(event);">Reservas</a></li>
+        <li><a href="empleado-vehiculos-page" onclick="router.route(event);">Vehiculos</a></li>
+        <li><a href="empleado-perfil-page" onclick="router.route(event);">Perfil</a></li>
+        <li><a href="invitado-home-page" onclick="router.route(event);">Salir</a></li>
+      </nav>
+
+      <div class="status-bar">
+         <ul>
+            <li class="red"><b>Ok</b></li>
+            <li class="green"><b>Error</b></li>
+            <li class="blue">Info</li>
+         </ul>
+      </div>
+
+      <section>
+         <article>
+
+
+
+            <form method="POST" action="listar-vehiculos.html">
+               <h2 class="left">Vehiculo</h2>
+
+               <!-- Campo oculto para almacenar el valor del botón -->
+               <input type="hidden" name="accion" id="accion" value="">
+
+               <div class="form-row3">
+                  <label for="Matricula">Matricula</label>
+                  <p class="margin-top0">AAA000</p>
+               </div><br>
+
+               <div class="form-row3">
+                  <label for="Marca">Marca</label>
+                  <p class="margin-top0">Marca</p>
+               </div>
+
+               <div class="form-row3">
+                  <label for="Modelo">Modelo</label><br>
+                  <p class="margin-top0">Modelo</p>
+               </div><br>
+
+               <div class="form-row3">
+                  <label for="Tipo">Tipo</label>
+                  <p class="margin-top0">Modelo</p>
+               </div>
+
+               <div class="form-row3">
+                  <label for="Etiqueta">Etiqueta</label>
+                  <p class="margin-top0">ETIQUETA</p>
+               </div><br>
+
+               <div class="form-row3">
+                  <label for="Descripcion">Descripcion</label><br>
+                  <p class="margin-top0">Es un ejemplo de descripcion</p>
+               </div>
+               <br>
+
+               <div class="form-row3">
+                  <label for="Costo por dia">Costo por dia</label><br>
+                  <p class="margin-top0">€ 0.00</p>
+               </div><br>
+
+               <div class="form-row3">
+                  <label for="Disponible">Disponible</label><br>
+                  <p class="margin-top0">NO</p>
+               </div>
+
+               <div class="form-row3">
+                  <label for="Eliminado">Eliminado</label>
+                  <p class="margin-top0">NO</p>
+               </div>
+
+               <div class="form-row3">
+                  <label for="Revision">Revision</label><br>
+                  <p class="margin-top0">NO</p>
+               </div>
+
+               <!-- Botones que establecerán el valor del campo oculto y enviarán el formulario -->
+
+               <div class="form-row2">
+                  <input type="submit" value="Entregar" onclick="setAccion('Entregar')">
+               </div>
+               <div class="form-row2">
+                  <input type="submit" value="Devolver" onclick="setAccion('Devolver')">
+               </div>
+               <div class="form-row2">
+                  <input type="submit" value="Revisar" onclick="setAccion('Revisar')">
+               </div>
+               <div class="form-row2">
+                  <input type="submit" value="Eliminar" onclick="setAccion('Eliminar')">
+               </div>
+            </form>
+         </article>
+      </section>
+
+      <footer>
+         Tecnologías y Sistemas Web
+      </footer>
+
+   </main>
+</body>
+
+</html>

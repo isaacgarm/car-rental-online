@@ -1,0 +1,3 @@
+class EmpleadoVehiculoPageController extends PageController{
+    
+}
