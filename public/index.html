@@ -22,7 +22,10 @@
    
        router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSignupPageController(model));
        router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSigninPageController(model));
-
+       router.addRouter(/\/car\-rental\-online\/invitado$/, new InvitadoHomePageController(model));
+       router.addRouter(/\/car\-rental\-online\/cliente$/, new ClienteHomePageController(model));
+       router.addRouter(/\/car\-rental\-online\/empleado$/, new EmpleadoHomePageController(model));
+       
        router.handleLocation();
    }
 </script>
