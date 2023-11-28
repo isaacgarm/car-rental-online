@@ -62,9 +62,4 @@ class InvitadoSignupPageController extends PageController {
     }
   }
 
-
-  async refresh(url){
-    super.refresh(url);
-    console.log('refreshing',url)
-  }
 }
