@@ -5,5 +5,5 @@ const Etiqueta = {
   CERO: "Etiqueta CERO",
 };
 
-// Exportar la eriqueta
+
 

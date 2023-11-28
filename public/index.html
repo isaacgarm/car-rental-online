@@ -7,10 +7,39 @@
    <meta charset="UTF-8">
 </head>
 
+<script src="./model/car-rental-online.js"></script>
+<script src="./model/usuario.js"></script>
+<script src="./model/rol.js"></script>
+<script src="./model/empleado.js"></script>
+<script src="./model/cliente.js"></script>
+<script src="./model/etiqueta.js"></script>
+<script src="./model/tipo-vehiculo.js"></script>
+<script src="./model/vehiculo.js"></script>
+<script src="./model/reserva.js"></script>
+<script src="./components/commons/view.js"></script>
+<script src="./components/commons/page-view.js"></script>
+<script src="./components/commons/router.js"></script>
+<script src="./components/commons/controller.js"></script>
+<script src="./components/commons/page-controller.js"></script>
+<!-- <script src="./components/mensajes/mensajes-view.js"></script>
+<script src="./components/mensajes/mensajes.js"></script> -->
+<script src="./components/invitado-home-page/invitado-home-page-controller.js"></script>
+<script src="./components/invitado-home-page/invitado-home-page-view.js"></script>
+<script src="./components/cliente-home-page/cliente-home-page-controller.js"></script>
+<script src="./components/cliente-home-page/cliente-home-page-view.js"></script> 
+<script src="./components/empleado-home-page/empleado-home-page-controller.js"></script>
+<script src="./components/empleado-home-page/empleado-home-page-view.js"></script> 
+
 <script src="./components/invitado-signup-page/invitado-signup-page-controller.js"></script>
 <script src="./components/invitado-signup-page/invitado-signup-page-view.js"></script>
 <script src="./components/invitado-signin-page/invitado-signin-page-controller.js"></script>
 <script src="./components/invitado-signin-page/invitado-signin-page-view.js"></script>
+
+<script src="./components/cliente-perfil-page/cliente-perfil-page-controller.js"></script>
+<script src="./components/cliente-perfil-page/cliente-perfil-page-view.js"></script>
+<script src="./components/empleado-perfil-page/empleado-perfil-page-controller.js"></script>
+<script src="./components/empleado-perfil-page/empleado-perfil-page-view.js"></script>
+
 <script src="./components/empleado-agregar-vehiculo-page/empleado-agregar-vehiculo-page-controller.js"></script>
 <script src="./components/empleado-agregar-vehiculo-page/empleado-agregar-vehiculo-page-view.js"></script>
 <script src="./components/empleado-vehiculo-page/empleado-vehiculo-page-controller.js"></script>
@@ -18,24 +47,34 @@
 <script src="./components/empleado-vehiculos-page/empleado-vehiculos-page-controller.js"></script>
 <script src="./components/empleado-vehiculos-page/empleado-vehiculos-page-view.js"></script>
 
+<script src="./components/not-found-page/not-found-page-controller.js"></script>
+<script src="./components/not-found-page/not-found-page-view.js"></script>
+
 <script>
    let router, mensajes;
    async function init() {
-       let model = new GestorServicios();
+       let model = new CarRentalOnline();
 
        router = new Router();
-       mensajes = new Mensajes();
-       router.addRouter(/\/gestor\-servicios\/not\-found/, new NotFoundPageController(model));
+      // mensajes = new Mensajes();
+       router.addRouter(/\/car\-rental\-online\/not\-found/, new NotFoundPageController(model));
    
+       router.addRouter(/\/car\-rental\-online\/invitado$/, new InvitadoHomePageController(model));
+       router.addRouter(/\/car\-rental\-online\/cliente$/, new ClienteHomePageController(model));
+       router.addRouter(/\/car\-rental\-online\/empleado$/, new EmpleadoHomePageController(model));
+
        router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSignupPageController(model));
-       router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSigninPageController(model));
+       router.addRouter(/\/car\-rental\-online\/signin$/, new InvitadoSigninPageController(model));
+
+       router.addRouter(/\/car\-rental\-online\/cliente-perfil$/, new ClientePerfilPageController(model));
+       router.addRouter(/\/car\-rental\-online\/empleado-perfil$/, new EmpleadoPerfilPageController(model));
 
        router.handleLocation();
    }
 </script>
 
-<body>
-   <main>
+<body onload="init()">
+   <main id="contents">
       <header>
          <h1>Car Rental Online</h1>
       </header>

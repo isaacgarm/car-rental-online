@@ -1,0 +1,79 @@
+<header>
+
+    <h1>Car Rental Online</h1>
+</header>
+<nav>
+    <a href="empleado-reservas-page.html"><b>Vehiculos</b></a>
+    <a href="empleado-verhiculos-page.html"><b>Vehiculos</b></a>
+    <a href="index.html"><b>Salir</b></a>
+
+</nav>
+<div class="status-bar">
+    <ul>
+        <li class="red"><b>Ok</b></li>
+        <li class="green"><b>Error</b></li>
+        <li class="blue">Info</li>
+    </ul>
+</div>
+<section>
+
+    <h2>Perfil Empleado</h2>
+
+
+    <form action="/cliente/index.html" method="POST">
+
+        <label for="usuarioDni"><b>DNI</b></label>
+        <p class="margin-top0">12345678A</p>
+
+
+        <div class="form-row">
+            <label for="usuarioNombres"><b>Nombres*</b></label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Ingrese nombres" maxlength="20"
+                pattern="[A-Za-z]+">
+        </div>
+
+        <div class="form-row">
+            <label for="usuarioApellidos"><b>Apellidos*</b></label>
+            <input type="text" id="apellido" name="apellido" required placeholder="Ingrese apellidos"
+                maxlength="20" pattern="[A-Za-z]+">
+        </div>
+
+        <br>
+
+
+        <label for="usuarioDireccion"><b>Dirección*</b></label>
+        <textarea id="direccion" name="direccion" rows="3" cols="10" required
+            placeholder="Ingrese dirección"></textarea>
+
+
+        <div class="form-row">
+            <label for="usuarioEmail"><b>E-mail*</b></label>
+            <input type="text" id="e-mail" name="e-mail" required placeholder="Ingrese correo"
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+">
+        </div>
+
+
+        <div class="form-row">
+            <label for="usuarioTelefono "><b>Teléfono*</b></label>
+            <input type="tel" id="telefono" name="telefono" required placeholder="Ingrese teléfono"
+                pattern="[0-9]+">
+        </div>
+
+        <br>
+
+        <div class="form-row">
+            <label for="usuarioPassword"><b>Contraseña*</b></label>
+            <input type="password" id="contrasena" name="contrasena" required placeholder="Ingrese contraseña">
+        </div>
+
+
+        <div class="form-row">
+            <label for="usuarioPassword2"><b>Repita la contraseña*</b></label>
+            <input type="password" id="contrasena" name="contrasena" required placeholder="Repita contraseña">
+        </div>
+
+        <p> <small>*Campos obligatorios</small></p>
+        <div class="boton-centrado">
+            <input type="submit" value="Guardar">
+        </div>
+    </form>
