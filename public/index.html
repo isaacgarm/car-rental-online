@@ -7,6 +7,22 @@
    <meta charset="UTF-8">
 </head>
 
+<script src="./model/car-rental-online.js"></script>
+<script src="./model/usuario.js"></script>
+<script src="./model/rol.js"></script>
+<script src="./model/empleado.js"></script>
+<script src="./model/cliente.js"></script>
+<script src="./model/etiqueta.js"></script>
+<script src="./model/tipo-vehiculo.js"></script>
+<script src="./model/vehiculo.js"></script>
+<script src="./model/reserva.js"></script>
+<script src="./components/commons/view.js"></script>
+<script src="./components/commons/page-view.js"></script>
+<script src="./components/commons/router.js"></script>
+<script src="./components/commons/controller.js"></script>
+<script src="./components/commons/page-controller.js"></script>
+<!-- <script src="./components/mensajes/mensajes-view.js"></script>
+<script src="./components/mensajes/mensajes.js"></script> -->
 <script src="./components/invitado-signup-page/invitado-signup-page-controller.js"></script>
 <script src="./components/invitado-signup-page/invitado-signup-page-view.js"></script>
 <script src="./components/invitado-signin-page/invitado-signin-page-controller.js"></script>
@@ -21,21 +37,21 @@
 <script>
    let router, mensajes;
    async function init() {
-       let model = new GestorServicios();
+       let model = new CarRentalOnline();
 
        router = new Router();
-       mensajes = new Mensajes();
-       router.addRouter(/\/gestor\-servicios\/not\-found/, new NotFoundPageController(model));
+      // mensajes = new Mensajes();
+     // router.addRouter(/\/car\-rental\-online\/not\-found/, new NotFoundPageController(model));
    
        router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSignupPageController(model));
-       router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSigninPageController(model));
+       router.addRouter(/\/car\-rental\-online\/signin$/, new InvitadoSigninPageController(model));
 
        router.handleLocation();
    }
 </script>
 
-<body>
-   <main>
+<body onload="init()">
+   <main id="contents">
       <header>
          <h1>Car Rental Online</h1>
       </header>
