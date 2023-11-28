@@ -47,6 +47,9 @@
 <script src="./components/empleado-vehiculos-page/empleado-vehiculos-page-controller.js"></script>
 <script src="./components/empleado-vehiculos-page/empleado-vehiculos-page-view.js"></script>
 
+<script src="./components/invitado-disponibilidad-page/invitado-disponibilidad-page-controller.js"></script>
+<script src="./components/invitado-disponibilidad-page/invitado-disponibilidad-page-view.js"></script>
+
 <script src="./components/not-found-page/not-found-page-controller.js"></script>
 <script src="./components/not-found-page/not-found-page-view.js"></script>
 
@@ -68,6 +71,8 @@
 
        router.addRouter(/\/car\-rental\-online\/cliente-perfil$/, new ClientePerfilPageController(model));
        router.addRouter(/\/car\-rental\-online\/empleado-perfil$/, new EmpleadoPerfilPageController(model));
+
+       router.addRouter(/\/car\-rental\-online\/invitado-disponibilidad$/, new InvitadoDisponibilidadPageController(model));
 
        router.handleLocation();
    }

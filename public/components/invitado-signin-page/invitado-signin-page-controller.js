@@ -3,20 +3,21 @@ class InvitadoSigninPageController extends PageController {
     super(model);
     this.view = new InvitadoSigninPageView();
   }
+  get usuarioRol() { return this.view.usuarioRolInputValue; }
+  get usuarioEmail() { return this.view.usuarioEmailInputValue; }
+  get usuarioPassword() { return this.view.usuarioPasswordInputValue; }
   async signin(event) {
     event.preventDefault();
-    const usuarioEmail = this.view.usuarioEmail;
-    const usuarioPassword = this.view.usuarioPassword;
-    const rolUsuario = this.view.rolUsuario;
-    console.log("Inicio de sesión:", {
-      usuarioEmail,
-      usuarioPassword,
-      rolUsuario,
-    });
-    if (rolUsuario === "Cliente"){
-        event.target.href = "/car-rental-online/cliente";         
+    this.view.form.reportValidity();
+    let valid = this.view.form.checkValidity();
+    if(valid){
+      let usuario = this.model.signin(this.usuarioRol,this.usuarioEmail,this.usuarioPassword);
+    }
+
+    if (usarioRol === "Cliente"){
+        event.target.href = "cliente-home-page";         
     }else{
-        event.target.href = "/car-rental-online/empleado";
+        event.target.href = "empleado-home-page";
     }
     router.route(event);
   }
