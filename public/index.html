@@ -47,6 +47,9 @@
 <script src="./components/empleado-vehiculos-page/empleado-vehiculos-page-controller.js"></script>
 <script src="./components/empleado-vehiculos-page/empleado-vehiculos-page-view.js"></script>
 
+<script src="./components/not-found-page/not-found-page-controller.js"></script>
+<script src="./components/not-found-page/not-found-page-view.js"></script>
+
 <script>
    let router, mensajes;
    async function init() {
@@ -54,7 +57,7 @@
 
        router = new Router();
       // mensajes = new Mensajes();
-       //router.addRouter(/\/car\-rental\-online\/not\-found/, new NotFoundPageController(model));
+       router.addRouter(/\/car\-rental\-online\/not\-found/, new NotFoundPageController(model));
    
        router.addRouter(/\/car\-rental\-online\/invitado$/, new InvitadoHomePageController(model));
        router.addRouter(/\/car\-rental\-online\/cliente$/, new ClienteHomePageController(model));
