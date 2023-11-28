@@ -1,6 +1,6 @@
 class InvitadoHomePageController extends PageController {
     constructor(model) {
         super(model);
-        this.view = new InvitadoHomePageController();
+        this.view = new InvitadoHomePageView();
     }
 }
