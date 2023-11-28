@@ -1,6 +1,6 @@
 class InvitadoSignupPageView extends PageView {
     constructor() {
-      super("invitado-signup-page-view");
+      super("invitado-signup-page");
     }
     get form() {
         return document.getElementById('agregarFormId');
