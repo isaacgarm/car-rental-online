@@ -3,4 +3,7 @@ class ClienteHomePageController extends PageController {
       super(model);
       this.view = new ClienteHomePageView();
   }
+  async signout(event) {
+      this.model.signout();
+  }
 }

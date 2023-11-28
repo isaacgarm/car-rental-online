@@ -3,4 +3,7 @@ class EmpleadoHomePageController extends PageController {
     super(model);
     this.view = new EmpleadoHomePageView();
   }
+  async signout(event) {
+    this.model.signout();
+}
 }
