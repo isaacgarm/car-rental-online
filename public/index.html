@@ -35,6 +35,11 @@
 <script src="./components/invitado-signin-page/invitado-signin-page-controller.js"></script>
 <script src="./components/invitado-signin-page/invitado-signin-page-view.js"></script>
 
+<script src="./components/cliente-perfil-page/cliente-perfil-page-controller.js"></script>
+<script src="./components/cliente-perfil-page/cliente-perfil-page-view.js"></script>
+<script src="./components/empleado-perfil-page/empleado-perfil-page-controller.js"></script>
+<script src="./components/empleado-perfil-page/empleado-perfil-page-controller.js"></script>
+
 <script src="./components/empleado-agregar-vehiculo-page/empleado-agregar-vehiculo-page-controller.js"></script>
 <script src="./components/empleado-agregar-vehiculo-page/empleado-agregar-vehiculo-page-view.js"></script>
 <script src="./components/empleado-vehiculo-page/empleado-vehiculo-page-controller.js"></script>
@@ -51,12 +56,15 @@
       // mensajes = new Mensajes();
        //router.addRouter(/\/car\-rental\-online\/not\-found/, new NotFoundPageController(model));
    
-       router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSignupPageController(model));
-       router.addRouter(/\/car\-rental\-online\/signin$/, new InvitadoSigninPageController(model));
-
        router.addRouter(/\/car\-rental\-online\/invitado$/, new InvitadoHomePageController(model));
        router.addRouter(/\/car\-rental\-online\/cliente$/, new ClienteHomePageController(model));
        router.addRouter(/\/car\-rental\-online\/empleado$/, new EmpleadoHomePageController(model));
+
+       router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSignupPageController(model));
+       router.addRouter(/\/car\-rental\-online\/signin$/, new InvitadoSigninPageController(model));
+
+       router.addRouter(/\/car\-rental\-online\/clienteperfil$/, new ClientePerfilPageController(model));
+       router.addRouter(/\/car\-rental\-online\/empleadoperfil$/, new EmpleadoPerfilPageController(model));
 
        router.handleLocation();
    }
