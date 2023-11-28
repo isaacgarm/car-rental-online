@@ -3,4 +3,7 @@ class ClientePerfilPageController extends PageController {
         super(model);
         this.view = new ClientePerfilPageView();
     }
+    async signout(event) {
+        this.model.signout();
+    }
   }
