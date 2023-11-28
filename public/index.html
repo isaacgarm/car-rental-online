@@ -23,10 +23,18 @@
 <script src="./components/commons/page-controller.js"></script>
 <!-- <script src="./components/mensajes/mensajes-view.js"></script>
 <script src="./components/mensajes/mensajes.js"></script> -->
+<script src="./components/invitado-home-page/invitado-home-page-controller.js"></script>
+<script src="./components/invitado-home-page/invitado-home-page-view.js"></script>
+<script src="./components/cliente-home-page/cliente-home-page-controller.js"></script>
+<script src="./components/cliente-home-page/cliente-home-page-view.js"></script>
+<script src="./components/empleado-home-page/empleado-home-page-controller.js"></script>
+<script src="./components/empleado-home-page/empleado-home-page-view.js"></script>
+
 <script src="./components/invitado-signup-page/invitado-signup-page-controller.js"></script>
 <script src="./components/invitado-signup-page/invitado-signup-page-view.js"></script>
 <script src="./components/invitado-signin-page/invitado-signin-page-controller.js"></script>
 <script src="./components/invitado-signin-page/invitado-signin-page-view.js"></script>
+
 <script src="./components/empleado-agregar-vehiculo-page/empleado-agregar-vehiculo-page-controller.js"></script>
 <script src="./components/empleado-agregar-vehiculo-page/empleado-agregar-vehiculo-page-view.js"></script>
 <script src="./components/empleado-vehiculo-page/empleado-vehiculo-page-controller.js"></script>
@@ -45,6 +53,10 @@
    
        router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSignupPageController(model));
        router.addRouter(/\/car\-rental\-online\/signin$/, new InvitadoSigninPageController(model));
+
+       router.addRouter(/\/car\-rental\-online\/invitado$/, new InvitadoHomePageController(model));
+       router.addRouter(/\/car\-rental\-online\/cliente$/, new ClienteHomePageController(model));
+       router.addRouter(/\/car\-rental\-online\/empleado$/, new EmpleadoHomePageController(model));
 
        router.handleLocation();
    }
