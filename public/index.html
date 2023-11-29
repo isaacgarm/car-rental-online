@@ -47,6 +47,9 @@
 <script src="./components/empleado-vehiculos-page/empleado-vehiculos-page-controller.js"></script>
 <script src="./components/empleado-vehiculos-page/empleado-vehiculos-page-view.js"></script>
 
+<!-- <script src="./components/invitado-disponibilidad-page/invitado-disponibilidad-page-controller.js"></script>
+<script src="./components/invitado-disponibilidad-page/invitado-disponibilidad-page-view.js"></script> -->
+
 <script src="./components/not-found-page/not-found-page-controller.js"></script>
 <script src="./components/not-found-page/not-found-page-view.js"></script>
 
@@ -59,15 +62,17 @@
       // mensajes = new Mensajes();
        router.addRouter(/\/car\-rental\-online\/not\-found/, new NotFoundPageController(model));
    
-       router.addRouter(/\/car\-rental\-online\/invitado$/, new InvitadoHomePageController(model));
-       router.addRouter(/\/car\-rental\-online\/cliente$/, new ClienteHomePageController(model));
-       router.addRouter(/\/car\-rental\-online\/empleado$/, new EmpleadoHomePageController(model));
+       router.addRouter(/\/car\-rental\-online\/invitado-home-page$/, new InvitadoHomePageController(model));
+       router.addRouter(/\/car\-rental\-online\/cliente-home-page$/, new ClienteHomePageController(model));
+       router.addRouter(/\/car\-rental\-online\/empleado-home-page$/, new EmpleadoHomePageController(model));
 
-       router.addRouter(/\/car\-rental\-online\/signup$/, new InvitadoSignupPageController(model));
-       router.addRouter(/\/car\-rental\-online\/signin$/, new InvitadoSigninPageController(model));
+       router.addRouter(/\/car\-rental\-online\/invitado-signup-page$/, new InvitadoSignupPageController(model));
+       router.addRouter(/\/car\-rental\-online\/invitado-signin-page$/, new InvitadoSigninPageController(model));
 
-       router.addRouter(/\/car\-rental\-online\/cliente-perfil$/, new ClientePerfilPageController(model));
-       router.addRouter(/\/car\-rental\-online\/empleado-perfil$/, new EmpleadoPerfilPageController(model));
+       router.addRouter(/\/car\-rental\-online\/cliente-perfil-page$/, new ClientePerfilPageController(model));
+       router.addRouter(/\/car\-rental\-online\/empleado-perfil-page$/, new EmpleadoPerfilPageController(model));
+
+      // router.addRouter(/\/car\-rental\-online\/invitado-disponibilidad$/, new InvitadoDisponibilidadPageController(model));
 
        router.handleLocation();
    }

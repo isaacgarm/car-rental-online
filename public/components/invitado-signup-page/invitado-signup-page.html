@@ -2,13 +2,13 @@
   <h1>Car Rental Online</h1>
 </header>
 <nav>
-  <a href="login.html"><b>Ingreso</b></a>
+  <a href="invitado-signup-page" onclick="router.route(event);">Ingreso</a>
   <a href="listar-disponibilidad.html"><b>Disponibilidad</b></a>
 </nav>
 <div class="status-bar">
   <ul>
-    <li class="red"><b>Ok</b></li>
-    <li class="green"><b>Error</b></li>
+    <li class="green"><b>Ok</b></li>
+    <li class="red"><b>Error</b></li>
     <li class="blue">Info</li>
   </ul>
 </div>
@@ -17,8 +17,8 @@
 
   <form id="agregarFormId" method="GET" action="">
     <div class="form-row3">
-      <label for="rolUsuario">Rol de Usuario*</label>
-      <select id="rolUsuario" name="rolusuario">
+      <label for="usuarioRol">Rol de Usuario*</label>
+      <select id="usuarioRol" name="usaurioRol">
         <option value="Cliente">Cliente</option>
         <option value="Empleado">Empleado</option>
       </select>
@@ -66,8 +66,8 @@
       <label for="usuarioEmail"><b>E-mail*</b></label>
       <input
         type="text"
-        id="e-mail"
-        name="e-mail"
+        id="email"
+        name="email"
         required
         placeholder="Ingrese correo"
         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+"
@@ -101,10 +101,10 @@
     <br />
 
     <div class="form-row">
-      <label for="usuarioPassword"><b>Contraseña*</b></label>
+      <label for="usuarioPassword1"><b>Contraseña*</b></label>
       <input
         type="password"
-        id="contrasena"
+        id="contrasena1"
         name="contrasena"
         required
         placeholder="Ingrese contraseña"
@@ -115,7 +115,7 @@
       <label for="usuarioPassword2"><b>Repita la contraseña*</b></label>
       <input
         type="password"
-        id="contrasena"
+        id="contrasena2"
         name="contrasena"
         required
         placeholder="Repita contraseña"

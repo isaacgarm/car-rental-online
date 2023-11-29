@@ -6,12 +6,12 @@ class InvitadoSignupPageView extends PageView {
         return document.getElementById('agregarFormId');
       }
     
-      get rolUsuarioSelect() {
+      get usuarioRolSelect() {
         return document.getElementById('rol');
       }
     
-      get rolUsuarioSelectValue() {
-        return this.rolUsuarioSelect.value;
+      get usuarioRolSelectValue() {
+        return this.usuarioRolSelect.value;
       }
     
       get usuarioDniInput() {
@@ -39,7 +39,7 @@ class InvitadoSignupPageView extends PageView {
       }
     
       get emailInput() {
-        return document.getElementById('e-mail');
+        return document.getElementById('email');
       }
     
       get emailInputValue() {
@@ -62,11 +62,19 @@ class InvitadoSignupPageView extends PageView {
         return this.direccionInput.value;
       }
     
-      get contrasenaInput() {
-        return document.getElementById('contrasena');
+      get contrasena1Input() {
+        return document.getElementById('contrasena1');
       }
     
-      get contrasenaInputValue() {
-        return this.contrasenaInput.value;
+      get contrasena1InputValue() {
+        return this.contrasena1Input.value;
+      }
+
+      get contrasena2Input() {
+        return document.getElementById('contrasena2');
+      }
+    
+      get contrasena2InputValue() {
+        return this.contrasena2Input.value;
       }
 }

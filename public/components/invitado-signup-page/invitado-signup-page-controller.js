@@ -4,8 +4,8 @@ class InvitadoSignupPageController extends PageController {
     this.view = new InvitadoSignupPageView();
   }
 
-  get rolUsuario() {
-    return this.view.rolUsuarioSelectValue;
+  get usuarioRol() {
+    return this.view.usuarioRolSelectValue;
   }
 
   get usuarioDni() {
@@ -42,6 +42,7 @@ class InvitadoSignupPageController extends PageController {
     let valid = this.view.form.checkValidity();
 
     if (valid) {
+      this.model.signup(this.usuarioRol)
       console.log("Invitado registrado:", {
         rolUsuario: this.rolUsuario,
         usuarioDni: this.usuarioDni,
