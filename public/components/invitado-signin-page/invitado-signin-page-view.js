@@ -14,6 +14,6 @@ class InvitadoSigninPageView extends PageView {
   }
 
   get usuarioRol() {
-    return document.getElementById("rolUsuario").value;
+    return document.getElementById("usuarioRol").value;
   }
 }
