@@ -51,7 +51,7 @@ class CarRentalOnline {
     cliente.apellidos = obj.apellidos;
     cliente.dni = obj.dni;
     cliente.direccion = obj.direccion;
-    cliente.rol = obj.rol;
+    cliente.rol = Rol.Cliente;
     cliente.email = obj.email;
     cliente.password = obj.password;
     cliente.telefono = obj.telefono;
@@ -71,7 +71,7 @@ class CarRentalOnline {
     empleado.apellidos = obj.apellidos;
     empleado.dni = obj.dni;
     empleado.direccion = obj.direccion;
-    empleado.rol = obj.rol;
+    empleado.rol = Rol.Empleado;
     empleado.email = obj.email;
     empleado.password = obj.password;
     empleado.telefono = obj.telefono;
@@ -133,12 +133,17 @@ class CarRentalOnline {
   }
 
   signup(obj) {
-    if (obj.rol === Rol.Cliente) {
-      this.agregarCliente(obj);
-    } else if (obj.rol === Rol.Empleado) {
-      this.agregarEmpleado(obj);
+
+    if (obj.password === obj.password2) {
+      if (obj.rol === Rol.Cliente) {
+        this.agregarCliente(obj);
+      } else if (obj.rol === Rol.Empleado) {
+        this.agregarEmpleado(obj);
+      } else {
+        throw new Error("No se ha seleccionado un rol válido");
+      }
     } else {
-      throw new Error("No se ha seleccionado un rol válido");
+      throw new Error("La contraseña no coincide.");
     }
   }
 

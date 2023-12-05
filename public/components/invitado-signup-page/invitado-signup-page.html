@@ -70,7 +70,7 @@
         name="email"
         required
         placeholder="Ingrese correo"
-        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+"
+        pattern="[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-]([\.]?[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-])+@[a-zA-Z0-9]([^@&%$\/\(\)=?¿!\.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"
       />
     </div>
 
@@ -105,7 +105,7 @@
       <input
         type="password"
         id="contrasena1"
-        name="contrasena"
+        name="contrasena1"
         required
         placeholder="Ingrese contraseña"
       />
@@ -121,14 +121,14 @@
         placeholder="Repita contraseña"
       />
     </div>
-    
+
     <p><small>*Campos obligatorios</small></p>
     <input
-    id="agregarInputButtonId"
-    value="Registrarse"
-    name="accion"
-    type="submit"
-    onclick="router.controller.signup(event);"
-  />
+      id="agregarInputButtonId"
+      value="Registrarse"
+      name="accion"
+      type="submit"
+      onclick="router.controller.signup(event);"
+    />
   </form>
 </section>

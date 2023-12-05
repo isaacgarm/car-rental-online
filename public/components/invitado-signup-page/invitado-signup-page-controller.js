@@ -32,54 +32,34 @@ class InvitadoSignupPageController extends PageController {
     return this.view.direccionInputValue;
   }
 
-  get contrasena() {
-    return this.view.contrasenaInputValue;
+  get contrasena1() {
+    return this.view.contrasena1InputValue;
+  }
+
+  get contrasena2() {
+    return this.view.contrasena2InputValue;
   }
 
   async signup(event) {
     event.preventDefault();
     this.view.form.reportValidity();
     let valid = this.view.form.checkValidity();
-    console.log(this.usuarioRol);
     if (valid) {
       let usuario = {
-        nombre: this.nombre,
-        apellido: this.apellido,
+        nombres: this.nombre,
+        apellidos: this.apellido,
         dni: this.usuarioDni,
         direccion: this.direccion,
         email: this.email,
-        password: this.contrasena,
-        rol:this.usuarioRol,
+        password: this.contrasena1,
+        rol: this.usuarioRol,
         telefono: this.telefono,
+        password2: this.contrasena2,
       };
 
-      model.signup(usuario)
-      // if (usuarioRol === Rol.Cliente) {
-      //   cliente = this.model.agregarCliente(
-      //     this.nombre,
-      //     this.apellido,
-      //     this.usuarioDni,
-      //     this.direccion,
-      //     this.email,
+      this.model.signup(usuario);
 
-      //     this.contrasena,
-      //     this.telefono
-      //   );
-      //   model.signup(cliente);
-      // } else {
-      //   empleado = this.model.agregarEmpleado(
-      //     this.nombre,
-      //     this.apellido,
-      //     this.usuarioDni,
-      //     this.direccion,
-      //     this.email,
-      //     this.contrasena,
-      //     this.telefono
-      //   );
-      //   model.signup(empleado);
-      // }
-
-      if (usuarioRol === "Cliente") {
+      if (this.usuarioRol === "Cliente") {
         event.target.href = "/car-rental-online/cliente-home-page";
       } else {
         event.target.href = "/car-rental-online/empleado-home-page";
