@@ -138,15 +138,25 @@ class CarRentalOnline {
     }
   }
 
+  // signup(obj) {
+  //   const collection = obj.rol === "Cliente" ? this._clientes : this._empleados;
+
+  //   if (collection.find((user) => user.email === obj.email)) {
+  //     throw new Error("El email ya está registrado.");
+  //   }
+
+  //   const nuevoUsuario = { ...obj };
+  //   collection.push(nuevoUsuario);
+  // }
+
   signup(obj) {
-    const collection = obj.rol === "Cliente" ? this._clientes : this._empleados;
-
-    if (collection.find((user) => user.email === obj.email)) {
-      throw new Error("El email ya está registrado.");
+    if (obj.rol === Rol.Cliente) {
+      this.agregarCliente(obj);
+    } else if (obj.rol === Rol.Empleado) {
+      this.agregarEmpleado(obj);
+    } else {
+      throw new Error("No se ha seleccionado un rol válido");
     }
-
-    const nuevoUsuario = { ...obj };
-    collection.push(nuevoUsuario);
   }
 
   signout() {

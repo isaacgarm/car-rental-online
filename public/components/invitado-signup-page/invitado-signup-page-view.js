@@ -7,7 +7,7 @@ class InvitadoSignupPageView extends PageView {
       }
     
       get usuarioRolSelect() {
-        return document.getElementById('rol');
+        return document.getElementById('usuarioRol');
       }
     
       get usuarioRolSelectValue() {

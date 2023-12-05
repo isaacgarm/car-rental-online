@@ -51,7 +51,7 @@ describe("car-rental-online", function () {
     email: "cliente1@gmail.com",
     password: "Password5",
     telefono: "333222111",
-    rol: Rol.Empelado,
+    rol: Rol.Empleado,
   };
 
   const EMPLEADOS = [
@@ -95,6 +95,17 @@ describe("car-rental-online", function () {
     password: "Password1",
     telefono: "333222111",
     rol: Rol.Empleado,
+  };
+
+  const empleadoCliente = {
+    nombres: "Empleado 1",
+    apellidos: "Apellido 1",
+    dni: "12345678A",
+    direccion: "Direccion 1",
+    email: "empleado1@gmail.com",
+    password: "Password2",
+    telefono: "333222111",
+    rol: Rol.Cliente,
   };
 
   const VEHICULOS = [
@@ -421,20 +432,26 @@ describe("car-rental-online", function () {
     carRental.signup(cliente1);
     assert.throws(() => {
       carRental.signup(cliente1);
-    }, "El email ya está registrado.");
+    }, "El cliente ya existe");
   });
 
   it("signup empleado que ya existe", function () {
     carRental.signup(empleado1);
     assert.throws(() => {
       carRental.signup(empleado1);
-    }, "El email ya está registrado.");
+    }, "El empleado ya existe.");
   });
 
-  it("signup de cliente como empelado con el mismo email", function () {
+  it("signup de cliente como empleado con el mismo email", function () {
     carRental.signup(cliente1);
     carRental.signup(clienteEmpleado);
     assert.equal(carRental._empleados.length, 1);
+  });
+
+  it("signup de empleado como cliente con el mismo email", function () {
+    carRental.signup(empleado1);
+    carRental.signup(empleadoCliente);
+    assert.equal(carRental._clientes.length, 1);
   });
 
   //Apartado 13

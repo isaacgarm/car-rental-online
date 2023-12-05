@@ -2,8 +2,8 @@
   <h1>Car Rental Online</h1>
 </header>
 <nav>
-  <a href="invitado-signup-page" onclick="router.route(event);">Ingreso</a>
-  <a href="listar-disponibilidad.html"><b>Disponibilidad</b></a>
+  <a href="invitado-signin-page" onclick="router.route(event);">Ingreso</a>
+  <a href="listar-disponibilidad-page"><b>Disponibilidad</b></a>
 </nav>
 <div class="status-bar">
   <ul>
@@ -121,10 +121,14 @@
         placeholder="Repita contraseña"
       />
     </div>
-
+    
     <p><small>*Campos obligatorios</small></p>
-    <div class="boton-centrado">
-      <input type="submit" value="Guardar" />
-    </div>
+    <input
+    id="agregarInputButtonId"
+    value="Registrarse"
+    name="accion"
+    type="submit"
+    onclick="router.controller.signup(event);"
+  />
   </form>
 </section>
