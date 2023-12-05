@@ -5,15 +5,27 @@ class InvitadoSigninPageView extends PageView {
   get form() {
     return document.getElementById("signinFormId");
   }
-  get usuarioEmail() {
-    return document.getElementById("usuarioEmail").value;
+  get usuarioEmailInput() {
+    return document.getElementById("usuarioEmail");
   }
 
-  get usuarioPassword() {
-    return document.getElementById("usuarioPassword").value;
+  get usuarioEmailInputValue() {
+    return this.usuarioEmailInput.value;
   }
 
-  get usuarioRol() {
-    return document.getElementById("usuarioRol").value;
+  get usuarioPasswordInput() {
+    return document.getElementById("usuarioPassword");
+  }
+
+  get usuarioPasswordInputValue() {
+    return this.usuarioPasswordInput.value;
+  }
+
+  get usuarioRolInput() {
+    return document.getElementById("usuarioRol");
+  }
+
+  get usuarioRolInputValue() {
+    return this.usuarioRolInput.value;
   }
 }

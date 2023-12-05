@@ -18,12 +18,12 @@ class InvitadoSigninPageController extends PageController {
     let valid = this.view.form.checkValidity();
     if (valid) {
       this.model.signin(
-        this.usuarioRol,
         this.usuarioEmail,
-        this.usuarioPassword
+        this.usuarioPassword,
+        this.usuarioRol,
       );
 
-      if (usarioRol === "Cliente") {
+      if (this.usuarioRol === "Cliente") {
         event.target.href = "/car-rental-online/cliente-home-page";
       } else {
         event.target.href = "/car-rental-online/empleado-home-page";

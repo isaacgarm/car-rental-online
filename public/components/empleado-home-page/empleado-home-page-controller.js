@@ -5,5 +5,6 @@ class EmpleadoHomePageController extends PageController {
   }
   async signout(event) {
     this.model.signout();
-}
+    router.route(event);
+  }
 }
