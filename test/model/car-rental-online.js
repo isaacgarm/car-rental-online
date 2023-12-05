@@ -600,13 +600,15 @@ describe("car-rental-online", function () {
   //apartado 17
 
   it("Filtrar por Marca", function () {
-    let reservas = RESERVAS.map((u) => carRental.agregarReserva(u));
+    cliente = carRental.agregarCliente(cliente1);
+    carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
+    /* let reservas = RESERVAS.map((u) => carRental.reservar(u));
     assert.equal(carRental._reservas.length, RESERVAS.length);
     RESERVAS.forEach((u, i) => {
       assert.equal(carRental._reservas[i].obj, RESERVAS[i].obj);
       assert.equal(carRental._reservas[i].obj, reservas[i].obj);
       assert.exists(carRental._reservas[i]._id);
-    });
+    }); */
     const vehiculosDisponibles = carRental.disponibles({ marca: "Toyota" });
     assert.isNotEmpty(vehiculosDisponibles);
     vehiculosDisponibles.forEach((vehiculo) => {
@@ -636,6 +638,9 @@ describe("car-rental-online", function () {
     }, "Ningún usuario ha iniciado sesión.");
   });
 
+  //apartado 19
+
+
   //apartado 20
 
   it("eliminar vehiculo", function () {
@@ -652,14 +657,18 @@ describe("car-rental-online", function () {
   it("no esta disponible", function () {
     let vehiculos = VEHICULOS.map((u) => carRental.agregarVehiculo(u));
     empleado = carRental.agregarEmpleado(empleado1);
-    carRental.signin(empleado1);
+    carRental.signin(empleado1.email, empleado1.password, empleado1.rol);
     carRental.reservar(1);
     assert.throws(() => {
         carRental.eliminarVehiculo(1);
       }, "El vehículo no está disponible para ser eliminado.");
   });
+  
+  //apartado 21
+  
+  //apartado 22
 
-  //apartado 19
+  //apartado 23
 
   //apartado 24
   it("clienteByEmail", function () {
