@@ -72,6 +72,9 @@
        router.addRouter(/\/car\-rental\-online\/cliente-perfil-page$/, new ClientePerfilPageController(model));
        router.addRouter(/\/car\-rental\-online\/empleado-perfil-page$/, new EmpleadoPerfilPageController(model));
 
+       router.addRouter(/\/car\-rental\-online\/empleado-vehiculo-page$/, new EmpleadoVehiculoPageController(model));
+       
+
       // router.addRouter(/\/car\-rental\-online\/invitado-disponibilidad$/, new InvitadoDisponibilidadPageController(model));
 
        router.handleLocation();
