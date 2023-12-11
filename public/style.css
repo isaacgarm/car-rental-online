@@ -6,6 +6,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 a {
@@ -16,6 +17,7 @@ header,
 nav,
 section,
 footer {
+
   width: 80%;
   margin: 0 auto;
 }
@@ -356,7 +358,6 @@ h3 {
 .contenido {
   width: 80%;
   margin: 0 auto;
-  margin-bottom: 400px;
   text-align: center;
 }
 
