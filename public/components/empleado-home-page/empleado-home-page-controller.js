@@ -7,4 +7,8 @@ class EmpleadoHomePageController extends PageController {
     this.model.signout();
     router.route(event);
   }
+  async refresh(url) {
+    await super.refresh(url);
+    mensajes.refresh();
+  }
 }

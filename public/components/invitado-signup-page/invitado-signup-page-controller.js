@@ -45,26 +45,34 @@ class InvitadoSignupPageController extends PageController {
     this.view.form.reportValidity();
     let valid = this.view.form.checkValidity();
     if (valid) {
-      let usuario = {
-        nombres: this.nombre,
-        apellidos: this.apellido,
-        dni: this.usuarioDni,
-        direccion: this.direccion,
-        email: this.email,
-        password: this.contrasena1,
-        rol: this.usuarioRol,
-        telefono: this.telefono,
-        password2: this.contrasena2,
-      };
+      try {
+        let usuario = {
+          nombres: this.nombre,
+          apellidos: this.apellido,
+          dni: this.usuarioDni,
+          direccion: this.direccion,
+          email: this.email,
+          password: this.contrasena1,
+          rol: this.usuarioRol,
+          telefono: this.telefono,
+          password2: this.contrasena2,
+        };
 
-      this.model.signup(usuario);
+        this.model.signup(usuario);
+        await mensajes.agregarSuccces("Usuario registrado");
 
-      if (this.usuarioRol === "Cliente") {
-        event.target.href = "/car-rental-online/cliente-home-page";
-      } else {
-        event.target.href = "/car-rental-online/empleado-home-page";
+        if (this.usuarioRol === "Cliente") {
+          event.target.href = "/car-rental-online/cliente-home-page";
+        } else {
+          event.target.href = "/car-rental-online/empleado-home-page";
+        }
+        router.route(event);
+      } catch (e) {
+        console.error(e);
+        await mensajes.agregarError(e.message ? e.message : e);
+        mensajes.refresh();
+      } finally {
       }
-      router.route(event);
     }
   }
 }
