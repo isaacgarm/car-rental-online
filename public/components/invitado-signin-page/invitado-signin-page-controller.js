@@ -29,12 +29,14 @@ class InvitadoSigninPageController extends PageController {
         } else {
           event.target.href = "/car-rental-online/empleado-home-page";
         }
+        
         router.route(event);
       } catch (e) {
         console.error(e);
         await mensajes.agregarError(e.message ? e.message : e);
-      } finally {
         mensajes.refresh();
+      } finally {
+
       }
     }
   }
