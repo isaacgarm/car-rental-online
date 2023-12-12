@@ -233,46 +233,51 @@ class CarRentalOnline {
 
   setPerfil(perfil) {
     // Verificar si la contraseña
-    if (perfil.password !== perfil.password2) {
+    if (perfil.password == perfil.password2) {
+      // Si las contraseñas coinciden
+      console.log("Contraseña verificada");
+      this.usuario.password = perfil.password;
+      this.usuario.dni = dni;
+      this.usuario.nombres = nombres;
+      this.usuario.apellidos = apellidos;
+      this.usuario.direccion = direccion;
+      this.usuario.email = email;
+      this.usuario.telefono = telefono;
+    } else{
       throw new Error("Las contraseñas no coinciden");
     }
-    // Si las contraseñas coinciden
-    console.log("Contraseña verificada");
-    this.usuario.password = perfil.password;
-
-    this.usuario.dni = dni;
-    this.usuario.nombres = nombres ;
-    this.usuario.apellidos = apellidos;
-    this.usuario.direccion = direccion;
-    this.usuario.email = email;
-    this.usuario.telefono = telefono;
   }
 
   //Apartado 16
   reservar(vehiculoId, inicio, fin) {
     // Verificar que el cliente ha iniciado sesión
     if (!this.usuario) {
-        throw new Error("Ningún usuario ha iniciado sesión.");
+      throw new Error("Ningún usuario ha iniciado sesión.");
     }
 
     // Verificar que el vehículo existe
-    let vehiculo = this._vehiculos.find((vehiculo) => vehiculo._id === vehiculoId);
+    let vehiculo = this._vehiculos.find(
+      (vehiculo) => vehiculo._id === vehiculoId
+    );
     if (!vehiculo) {
-        throw new Error("Vehiculo no encontrado.");
+      throw new Error("Vehiculo no encontrado.");
     }
     // Verificar disponibilidad del vehículo en las fechas de reserva
     const estaDisponible = this.disponibilidad(vehiculoId, inicio, fin);
-    
+
     if (!estaDisponible) {
-        throw new Error("El vehículo no está disponible en las fechas seleccionadas.");
+      throw new Error(
+        "El vehículo no está disponible en las fechas seleccionadas."
+      );
     }
-   // console.log("¿Disponible:",estaDisponible);
+    // console.log("¿Disponible:",estaDisponible);
     // Calcular el costo de la reserva
 
     const costoPorDia = vehiculo.costoDia;
     const fechaInicio = new Date(inicio);
     const fechaFin = new Date(fin);
-    const diasReserva = Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
+    const diasReserva =
+      Math.floor((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24)) + 1;
     const costoTotal = costoPorDia * diasReserva;
 
     // Crear objeto reserva
@@ -294,7 +299,7 @@ class CarRentalOnline {
     this._reservas.push(reserva);
 
     return reserva;
-}
+  }
 
   cancelar(numero) {
     const reservaCancelarIndex = this._reservas.findIndex(
