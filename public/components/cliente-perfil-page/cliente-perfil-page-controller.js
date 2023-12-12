@@ -3,6 +3,13 @@ class ClientePerfilPageController extends PageController {
         super(model);
         this.view = new ClientePerfilPageView();
     }
+
+
+    async setPerfil(event){
+        this.model.setPerfil();
+
+        
+    }
     async signout(event) {
         this.model.signout();
     }

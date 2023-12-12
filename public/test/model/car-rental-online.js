@@ -705,6 +705,26 @@ describe("car-rental-online", function () {
     reserva = carRental.agregarReserva(reserva1.vehiculoId, reserva1.inicio, reserva1.fin);
     assert.deepEqual(reserva, carRental.reservaById(reserva1._id));
   });
+
+  it("setPerfil, contraseñas no coinciden", function () { //PRUEBA DEL DOM
+    let cliente = carRental.agregarCliente(cliente1);
+    carRental.signin(cliente.email, cliente.password, cliente.rol);
+    console.log(cliente);
+    let password2;
+    const contrasena = carRental.setPerfil(cliente);
+    assert.throws(() => {
+      carRental.setPerfil(cliente);
+    }, "Las contraseñas no coinciden.");
+  });
+
+  it("setPerfil", function () { //PRUEBA DEL DOM2
+    let cliente = carRental.agregarCliente(cliente1);
+    carRental.signin(cliente1.email, cliente1.password, cliente1.rol);
+
+    const contrasena = carRental.setPerfil(cliente1);
+    assert.deepEqual(contrasena, cliente.password);
+  });
+  
 });
 
 
