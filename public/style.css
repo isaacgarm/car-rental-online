@@ -346,6 +346,11 @@ footer {
   text-align: center;
 }
 
+div#mensajes {
+  border-top: 1px SOLID BLACK;
+  border-bottom: 1px SOLID BLACK;
+}
+
 /*Pablo*/
 h3 {
   color: #0F2C59;
