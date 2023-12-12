@@ -17,18 +17,25 @@ class InvitadoSigninPageController extends PageController {
     this.view.form.reportValidity();
     let valid = this.view.form.checkValidity();
     if (valid) {
-      this.model.signin(
-        this.usuarioEmail,
-        this.usuarioPassword,
-        this.usuarioRol,
-      );
-
-      if (this.usuarioRol === "Cliente") {
-        event.target.href = "/car-rental-online/cliente-home-page";
-      } else {
-        event.target.href = "/car-rental-online/empleado-home-page";
+      try {
+        this.model.signin(
+          this.usuarioEmail,
+          this.usuarioPassword,
+          this.usuarioRol
+        );
+        await mensajes.agregarSuccces("Sesión iniciada");
+        if (this.usuarioRol === "Cliente") {
+          event.target.href = "/car-rental-online/cliente-home-page";
+        } else {
+          event.target.href = "/car-rental-online/empleado-home-page";
+        }
+        router.route(event);
+      } catch (e) {
+        console.error(e);
+        await mensajes.agregarError(e.message ? e.message : e);
+      } finally {
+        mensajes.refresh();
       }
-      router.route(event);
     }
   }
 }

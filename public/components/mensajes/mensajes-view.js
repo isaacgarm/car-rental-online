@@ -22,6 +22,7 @@ class MensajesView extends View {
 
 
 	async refresh() {
+		console.log(this.mensajesList);
 		if (!this.mensajesList) return;
 		else
 			if (this.infos.length == 0 && this.errors.length == 0 && this.success.length == 0) this.mensajesList.innerHTML = '&nbsp;';
