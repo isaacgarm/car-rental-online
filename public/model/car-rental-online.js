@@ -221,19 +221,19 @@ class CarRentalOnline {
 
   setPerfil(perfil) {
     // Verificar si la contraseña
-    if (perfil.password !== perfil.password2) {
+    if (perfil.password == perfil.password2) {
+      // Si las contraseñas coinciden
+      console.log("Contraseña verificada");
+      this.usuario.password = perfil.password;
+      this.usuario.dni = dni;
+      this.usuario.nombres = nombres;
+      this.usuario.apellidos = apellidos;
+      this.usuario.direccion = direccion;
+      this.usuario.email = email;
+      this.usuario.telefono = telefono;
+    } else{
       throw new Error("Las contraseñas no coinciden");
     }
-    // Si las contraseñas coinciden
-    console.log("Contraseña verificada");
-    this.usuario.password = perfil.password;
-
-    this.usuario.dni = dni;
-    this.usuario.nombres = nombres ;
-    this.usuario.apellidos = apellidos;
-    this.usuario.direccion = direccion;
-    this.usuario.email = email;
-    this.usuario.telefono = telefono;
   }
 
   //Apartado 16
