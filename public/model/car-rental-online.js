@@ -221,7 +221,7 @@ class CarRentalOnline {
 
   setPerfil(perfil) {
     // Verificar si la contraseña
-    if (perfil.password == perfil.password2) {
+    if (perfil.password === perfil.password2) {
       // Si las contraseñas coinciden
       console.log("Contraseña verificada");
       this.usuario.password = perfil.password;

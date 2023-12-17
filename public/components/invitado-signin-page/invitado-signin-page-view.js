@@ -2,7 +2,7 @@ class InvitadoSigninPageView extends PageView {
   constructor() {
     super("invitado-signin-page");
   }
-  get form() {
+  get form() { //traerse el formulario
     return document.getElementById("signinFormId");
   }
   get usuarioEmailInput() {

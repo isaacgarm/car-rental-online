@@ -732,12 +732,13 @@ describe("car-rental-online", function () {
   it("setPerfil, contraseñas no coinciden", function () { //PRUEBA DEL DOM
     let cliente = carRental.agregarCliente(cliente1);
     carRental.signin(cliente.email, cliente.password, cliente.rol);
-    console.log(cliente);
+    //console.log(cliente);
     let password2;
     const contrasena = carRental.setPerfil(cliente);
+    console.log(contrasena);
     assert.throws(() => {
-      carRental.setPerfil(cliente);
-    }, "Las contraseñas no coinciden.");
+      carRental.setPerfil(constrasena);
+    }, "Las contraseñas no coinciden");
   });
 
   it("setPerfil", function () { //PRUEBA DEL DOM2
