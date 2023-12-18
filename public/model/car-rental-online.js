@@ -133,7 +133,6 @@ class CarRentalOnline {
   }
 
   signup(obj) {
-
     if (obj.password === obj.password2) {
       if (obj.rol === Rol.Cliente) {
         this.agregarCliente(obj);
@@ -224,14 +223,14 @@ class CarRentalOnline {
     if (perfil.password === perfil.password2) {
       // Si las contraseñas coinciden
       console.log("Contraseña verificada");
+      this.usuario.nombres = perfil.nombres;
+      this.usuario.apellidos = perfil.apellidos;
+      this.usuario.dni = perfil.dni;
+      this.usuario.direccion = perfil.direccion;
+      this.usuario.email = perfil.email;
+      this.usuario.telefono = perfil.telefono;
       this.usuario.password = perfil.password;
-      this.usuario.dni = dni;
-      this.usuario.nombres = nombres;
-      this.usuario.apellidos = apellidos;
-      this.usuario.direccion = direccion;
-      this.usuario.email = email;
-      this.usuario.telefono = telefono;
-    } else{
+    } else {
       throw new Error("Las contraseñas no coinciden");
     }
   }

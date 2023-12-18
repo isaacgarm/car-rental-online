@@ -1,80 +1,131 @@
 <header>
-
-    <h1>Car Rental Online</h1>
+  <h1>Car Rental Online</h1>
 </header>
 <nav>
-    <a href="cliente-reservas-page" onclick="router.route(event);">Reservas</a>
-    <a href="cliente-disponibilidad-page" onclick="router.route(event);">Disponibilidad</a>
-    <a href="invitado-home-page" onclick="router.controller.signout(event)">Salir</a>
-
+  <a href="cliente-reservas-page" onclick="router.route(event);">Reservas</a>
+  <a href="cliente-disponibilidad-page" onclick="router.route(event);"
+    >Disponibilidad</a
+  >
+  <a href="invitado-home-page" onclick="router.controller.signout(event)"
+    >Salir</a
+  >
 </nav>
 <div class="status-bar">
-     <ul id = "estado">
-        <li class="green"><b>Ok</b></li>
-        <li class="red"><b>Error</b></li>
-        <li class="blue">Info</li>
-    </ul>
+  <ul id="estado">
+    <li class="green"><b>Ok</b></li>
+    <li class="red"><b>Error</b></li>
+    <li class="blue">Info</li>
+  </ul>
 </div>
 <section>
+  <h2>Perfil Cliente</h2>
 
-    <h2>Perfil Cliente</h2>
+  <form id="setPerfilFormId" action="/cliente/index.html" method="POST">
+    <div class="form-row3">
+      <label for="dni">DNI*</label>
+      <input
+        type="text"
+        id="dni"
+        name="dni"
+        required
+        placeholder="Ingrese DNI"
+        pattern="[0-9]{8}[A-Za-z]"
+      />
+    </div>
 
+    <div class="form-row">
+      <label for="usuarioNombres"><b>Nombres*</b></label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        required
+        placeholder="Ingrese nombres"
+        maxlength="20"
+        pattern="[A-Za-z]+"
+      />
+    </div>
 
-    <form action="/cliente/index.html" method="POST">
+    <div class="form-row">
+      <label for="apellido"><b>Apellidos*</b></label>
+      <input
+        type="text"
+        id="apellido"
+        name="apellido"
+        required
+        placeholder="Ingrese apellidos"
+        maxlength="20"
+        pattern="[A-Za-z]+"
+      />
+    </div>
 
-        <label for="usuarioDni"><b>DNI</b></label>
-        <p class="margin-top0">12345678A</p>
+    <br />
 
+    <label for="direccion"><b>Dirección*</b></label>
+    <textarea
+      id="direccion"
+      name="direccion"
+      rows="3"
+      cols="10"
+      required
+      placeholder="Ingrese dirección"
+    ></textarea>
 
-        <div class="form-row">
-            <label for="usuarioNombres"><b>Nombres*</b></label>
-            <input type="text" id="nombre" name="nombre" required placeholder="Ingrese nombres" maxlength="20"
-                pattern="[A-Za-z]+">
-        </div>
+    <div class="form-row">
+      <label for="email"><b>E-mail*</b></label>
+      <input
+        type="text"
+        id="email"
+        name="e-mail"
+        required
+        placeholder="Ingrese correo"
+        pattern="[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-]([\.]?[a-zA-Z0-9!#$%&'*\/=?^_`\{\|\}~\+\-])+@[a-zA-Z0-9]([^@&%$\/\(\)=?¿!\.,:;]|\d)+[a-zA-Z0-9][\.][a-zA-Z]{2,4}([\.][a-zA-Z]{2})?"
+      />
+    </div>
 
-        <div class="form-row">
-            <label for="usuarioApellidos"><b>Apellidos*</b></label>
-            <input type="text" id="apellido" name="apellido" required placeholder="Ingrese apellidos"
-                maxlength="20" pattern="[A-Za-z]+">
-        </div>
+    <div class="form-row">
+      <label for="telefono "><b>Teléfono*</b></label>
+      <input
+        type="tel"
+        id="telefono"
+        name="telefono"
+        required
+        placeholder="Ingrese teléfono"
+        pattern="[0-9]+"
+      />
+    </div>
 
-        <br>
+    <br />
 
+    <div class="form-row">
+      <label for="contrasena1"><b>Contraseña*</b></label>
+      <input
+        type="password"
+        id="contrasena1"
+        name="contrasena"
+        required
+        placeholder="Ingrese contraseña"
+      />
+    </div>
 
-        <label for="usuarioDireccion"><b>Dirección*</b></label>
-        <textarea id="direccion" name="direccion" rows="3" cols="10" required
-            placeholder="Ingrese dirección"></textarea>
+    <div class="form-row">
+      <label for="contrasena2"><b>Repita la contraseña*</b></label>
+      <input
+        type="password"
+        id="contrasena2"
+        name="contrasena2"
+        required
+        placeholder="Repita contraseña"
+      />
+    </div>
 
-
-        <div class="form-row">
-            <label for="usuarioEmail"><b>E-mail*</b></label>
-            <input type="text" id="e-mail" name="e-mail" required placeholder="Ingrese correo"
-                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+">
-        </div>
-
-
-        <div class="form-row">
-            <label for="usuarioTelefono "><b>Teléfono*</b></label>
-            <input type="tel" id="telefono" name="telefono" required placeholder="Ingrese teléfono"
-                pattern="[0-9]+">
-        </div>
-
-        <br>
-
-        <div class="form-row">
-            <label for="usuarioPassword"><b>Contraseña*</b></label>
-            <input type="password" id="contrasena" name="contrasena" required placeholder="Ingrese contraseña">
-        </div>
-
-
-        <div class="form-row">
-            <label for="usuarioPassword2"><b>Repita la contraseña*</b></label>
-            <input type="password" id="contrasena" name="contrasena" required placeholder="Repita contraseña">
-        </div>
-
-        <p> <small>*Campos obligatorios</small></p>
-        <div class="boton-centrado">
-            <input type="submit" value="Guardar">
-        </div>
-        
-    </form>
+    <p><small>*Campos obligatorios</small></p>
+    <input
+      id="agregarInputButtonId"
+      value="Guardar"
+      name="accion"
+      type="submit"
+      onclick="router.controller.setPerfil(event);"
+    />
+  </form>
+</section>
