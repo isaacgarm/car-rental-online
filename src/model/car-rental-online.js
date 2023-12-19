@@ -33,17 +33,13 @@ class CarRentalOnline {
     return this._clientes;
   }
 
-  set clientes(clientes){
-    this._clientes = clientes
+  setClientes(clientes) {
+    this._clientes = clientes;
   }
 
-  // setClientes(clientes) {
-  //   clientes.map((c) => {
-  //     let cliente = this.agregarCliente(c);
-  //     Object.assign(cliente, c);
-  //     return cliente;
-  //   });
-  // }
+  setEmpleados(empleados) {
+    this._empleados = empleados;
+  }
 
   getVehiculos() {
     return this._vehiculos;
@@ -163,9 +159,9 @@ class CarRentalOnline {
 
   signup(obj) {
     if (obj.rol === Rol.Cliente) {
-      this.agregarCliente(obj);
+      return this.agregarCliente(obj);
     } else if (obj.rol === Rol.Empleado) {
-      this.agregarEmpleado(obj);
+      return this.agregarEmpleado(obj);
     } else {
       throw new Error("No se ha seleccionado un rol válido");
     }
@@ -419,56 +415,54 @@ class CarRentalOnline {
   }
 
   reservas(clienteId) {
-    const cliente = this._clientes.find((cliente) => cliente._id === clienteId);
+    const cliente = this._clientes.find((cliente) => cliente._id == clienteId);
 
     if (!cliente) {
       throw new Error("Cliente no encontrado.");
     }
 
     const reservasCliente = this._reservas.filter(
-      (reserva) => reserva.clienteId === clienteId
+      (reserva) => reserva.clienteId == clienteId
     );
 
     return reservasCliente;
   }
 
   clienteByEmail(email) {
-    return this._clientes.find((cliente) => cliente.email === email) || null;
+    return this._clientes.find((cliente) => cliente.email == email) || null;
   }
 
   empleadoByEmail(email) {
-    return this._empleados.find((empleado) => empleado.email === email) || null;
+    return this._empleados.find((empleado) => empleado.email == email) || null;
   }
 
   vehiculoPorMatricula(matricula) {
     return (
-      this._vehiculos.find((vehiculo) => vehiculo.matricula === matricula) ||
+      this._vehiculos.find((vehiculo) => vehiculo.matricula == matricula) ||
       null
     );
   }
 
   reservaByNumero(numero) {
-    return this._reservas.find((reserva) => reserva.numero === numero) || null;
+    return this._reservas.find((reserva) => reserva.numero == numero) || null;
   }
 
   clienteById(clienteId) {
-    return this._clientes.find((cliente) => cliente.id === clienteId) || null;
+    return this._clientes.find((cliente) => cliente._id == clienteId);
   }
 
   empleadoById(empleadoId) {
-    return (
-      this._empleados.find((empleado) => empleado.id === empleadoId) || null
-    );
+    return this._empleados.find((empleado) => empleado._id == empleadoId);
   }
 
   vehiculoById(vehiculoId) {
     return (
-      this._vehiculos.find((vehiculo) => vehiculo.id === vehiculoId) || null
+      this._vehiculos.find((vehiculo) => vehiculo._id == vehiculoId) || null
     );
   }
 
   reservaById(reservaId) {
-    return this._reservas.find((reserva) => reserva.id === reservaId) || null;
+    return this._reservas.find((reserva) => reserva._id == reservaId) || null;
   }
 }
 
