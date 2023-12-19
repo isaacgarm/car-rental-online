@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test-model": ".\\node_modules\\.bin\\mocha .\\test\\model\\**\\*.js --reporter spec",
-    "start": "node ."
+    "start": "node .",
+    "test-rest": ".\\node_modules\\.bin\\mocha .\\test\\rest\\**\\*.js --reporter spec"
+
+    
   },
   "keywords": [],
   "author": "",

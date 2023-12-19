@@ -33,6 +33,18 @@ class CarRentalOnline {
     return this._clientes;
   }
 
+  set clientes(clientes){
+    this._clientes = clientes
+  }
+
+  // setClientes(clientes) {
+  //   clientes.map((c) => {
+  //     let cliente = this.agregarCliente(c);
+  //     Object.assign(cliente, c);
+  //     return cliente;
+  //   });
+  // }
+
   getVehiculos() {
     return this._vehiculos;
   }
@@ -243,7 +255,7 @@ class CarRentalOnline {
       this.usuario.direccion = direccion;
       this.usuario.email = email;
       this.usuario.telefono = telefono;
-    } else{
+    } else {
       throw new Error("Las contraseñas no coinciden");
     }
   }
