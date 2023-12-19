@@ -36,6 +36,12 @@ class ClientePerfilPageController extends PageController {
     return this.view.contrasena2InputValue;
   }
 
+  getPerfil() {
+    //Obtenemos el perfil (es el getPerfil)
+    return this.model.perfil();
+  }
+
+
   async setPerfil(event) {
     event.preventDefault();
     this.view.form.reportValidity();

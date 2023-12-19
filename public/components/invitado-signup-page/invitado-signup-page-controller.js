@@ -61,11 +61,7 @@ class InvitadoSignupPageController extends PageController {
         this.model.signup(usuario);
         await mensajes.agregarSuccces("Usuario registrado");
 
-        if (this.usuarioRol === "Cliente") {
-          event.target.href = "/car-rental-online/cliente-home-page";
-        } else {
-          event.target.href = "/car-rental-online/empleado-home-page";
-        }
+        event.target.href = "/car-rental-online/invitado-home-page";
         router.route(event);
       } catch (e) {
         console.error(e);

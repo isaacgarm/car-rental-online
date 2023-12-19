@@ -3,4 +3,8 @@ class InvitadoHomePageController extends PageController {
         super(model);
         this.view = new InvitadoHomePageView();
     }
+    async refresh(url) {
+        await super.refresh(url);
+        mensajes.refresh();
+      }
 }
