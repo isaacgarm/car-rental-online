@@ -140,7 +140,7 @@ class CarRentalOnline {
       (u) => u.email === email && u.password === password
     );
     if (user) {
-      this.usuario = user;
+      return user;
     } else {
       throw new Error("Credenciales inválidas.");
     }
