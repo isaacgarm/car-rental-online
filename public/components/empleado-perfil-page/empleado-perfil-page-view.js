@@ -35,7 +35,7 @@ class EmpleadoPerfilPageView extends PageView {
       return document.getElementById('apellido');
     }
   
-    get apellidoValue() {
+    get apellidoInputValue() {
       return this.apellidoInput.value;
     }
 

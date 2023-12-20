@@ -220,9 +220,11 @@ class CarRentalOnline {
 
   setPerfil(perfil) {
     // Verificar si la contraseña
+  console.log("Contraseña", perfil.password2);
     if (perfil.password === perfil.password2) {
       // Si las contraseñas coinciden
       console.log("Contraseña verificada");
+      console.log(perfil);
       this.usuario.nombres = perfil.nombres;
       this.usuario.apellidos = perfil.apellidos;
       this.usuario.dni = perfil.dni;
@@ -230,6 +232,7 @@ class CarRentalOnline {
       this.usuario.email = perfil.email;
       this.usuario.telefono = perfil.telefono;
       this.usuario.password = perfil.password;
+      
     } else {
       throw new Error("Las contraseñas no coinciden");
     }

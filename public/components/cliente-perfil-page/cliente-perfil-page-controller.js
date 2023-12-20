@@ -55,6 +55,7 @@ class ClientePerfilPageController extends PageController {
           direccion: this.direccion,
           email: this.email,
           telefono: this.telefono,
+          rol: "Cliente",
           password: this.contrasena1,
           password2: this.contrasena2,
         };
