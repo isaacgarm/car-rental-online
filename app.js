@@ -112,61 +112,12 @@ app.post("/car-rental-online/api/signin", (req, res) => {
   //usuario =[];
 });
 
-// app.put("/car-rental-online/api/usuarios/:id", (req, res) => {
-//   let id = req.params.id;
-//   console.log(id);
-//   let cliente = model.clienteById(id);
-//   if (!cliente) {
-//     let empleado = model.empleadoById(id);
-//     if (!empleado) {
-//       res.status(404).json({
-//         message: `Usuario con id ${id} no encontrado`,
-//       });
-//     }
-//   } else {
-//     try {
-//       model.setPerfil();
-//       res.status(200).json(usuario.email);
-//     } catch (e) {
-//       console.error(e);
-//       res.status(500).json({ message: e.message });
-//     }
-//   }
-//   //usuario =[];
-// });
 
 app.put("/car-rental-online/api/usuarios/:id", (req, res) => {
-  let id = req.params.id;
-  console.log(id);
-
-  let cliente = model.clienteById(id);
-  console.log(cliente);
-  let empleado = null;
-
-  if (!cliente) {
-
-    empleado = model.empleadoById(id);
-
-    if (!empleado) {
-
-      return res.status(404).json({
-        message: `Usuario con id ${id} no encontrado`,
-      });
-    }
-  }
-
+  let usuario = req.body;
   try {
-    console.log(cliente);
-    if (cliente) {
-      model.setPerfil(cliente);
-    } else if (empleado) {
-      model.setPerfil(empleado);
-    }
-
-    res.status(200).json({
-      message: "Perfil actualizado exitosamente",
-      email: cliente ? cliente.email : empleado.email,
-    });
+    model.setPerfil(usuario);
+    res.status(200).json(usuario);
   } catch (e) {
     console.error(e);
     res.status(500).json({ message: e.message });

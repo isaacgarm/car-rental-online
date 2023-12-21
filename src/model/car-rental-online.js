@@ -10,14 +10,13 @@ class CarRentalOnline {
   _empleados;
   _vehiculos;
   _reservas;
-  usuario;
+
   constructor() {
     this._vehiculos = [];
     this._clientes = [];
     this._empleados = [];
     this.lastId = 0;
     this.lastNumRes = 0;
-    this.usuario = null;
     this._reservas = [];
   }
 
@@ -167,9 +166,6 @@ class CarRentalOnline {
     }
   }
 
-  signout() {
-    this.usuario = null;
-  }
 
   disponibilidad(vehiculoId, inicio, fin) {
     const reservaExistente = this._reservas.find(
@@ -241,16 +237,45 @@ class CarRentalOnline {
 
   setPerfil(perfil) {
     // Verificar si la contraseña
-    if (perfil.password === perfil.password2) {
+ 
+    if (perfil._password == perfil._password2) {
       // Si las contraseñas coinciden
+      let usuario;
+      console.log(perfil);
+      if(perfil._rol=="Cliente"){
+        usuario = this.clienteById(perfil._id);
+        let cliente = new Cliente();
+        Object.assign(cliente, usuario);
+        usuario = cliente;
+       
+        
+      }else {
+        usuario = this.empleadoById(perfil._id);
+        let empleado = new Empleado();
+        Object.assign(Empleado, usuario);
+        usuario = empleado;
+       
+      }
       console.log("Contraseña verificada");
-      this.usuario.password = perfil.password;
-      this.usuario.dni = dni;
-      this.usuario.nombres = nombres;
-      this.usuario.apellidos = apellidos;
-      this.usuario.direccion = direccion;
-      this.usuario.email = email;
-      this.usuario.telefono = telefono;
+ 
+      usuario._nombres = perfil._nombres;
+      usuario._apellidos = perfil._apellidos;
+      usuario._dni = perfil._dni;
+      usuario._direccion = perfil._direccion;
+      usuario._email = perfil._email;
+      usuario._telefono = perfil._telefono;
+      usuario._password = perfil._password;
+      console.log("Usu", usuario);
+      console.log("perfil",perfil);
+      
+
+      // if(usuario.rol=="Cliente"){
+      //   this._clientes.push(usuario);
+      // }else{
+      //   this._empleados.push(usuario);
+      // }
+      return usuario;
+      
     } else {
       throw new Error("Las contraseñas no coinciden");
     }
