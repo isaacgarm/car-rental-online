@@ -91,6 +91,7 @@ app.get("/car-rental-online/api/empleados/:empleadoId", (req, res) => {
 
 app.post("/car-rental-online/api/signup", (req, res) => {
   let usuario = req.body;
+  console.log(usuario);
   try {
     usuario = model.signup(usuario);
     res.status(200).json(usuario);
@@ -104,7 +105,7 @@ app.post("/car-rental-online/api/signin", (req, res) => {
   let usuario = req.body;
   try {
     model.signin(usuario.email, usuario.password, usuario.rol);
-    res.status(200).json(usuario.email);
+    res.status(200).json(usuario);
   } catch (e) {
     console.error(e);
     res.status(500).json({ message: e.message });

@@ -104,26 +104,28 @@ describe(URL, function () {
   });
 
   it(`PUT ${URL}/clientes`, async function () {
-    let CLIENTES2 = [{
-      nombres: "Cliente 5",
-      apellidos: "Apellido 5",
-      dni: "12345678F",
-      direccion: "Direccion 5",
-      email: "cliente5@gmail.com",
-      password: "Password5",
-      telefono: "333222111",
-      rol: "Cliente",
-    },
-    {
-      nombres: "Cliente 6",
-      apellidos: "Apellido 6",
-      dni: "12345678G",
-      direccion: "Direccion 6",
-      email: "cliente6@gmail.com",
-      password: "Password6",
-      telefono: "555559999",
-      rol: "Cliente",
-    }];
+    let CLIENTES2 = [
+      {
+        nombres: "Cliente 5",
+        apellidos: "Apellido 5",
+        dni: "12345678F",
+        direccion: "Direccion 5",
+        email: "cliente5@gmail.com",
+        password: "Password5",
+        telefono: "333222111",
+        rol: "Cliente",
+      },
+      {
+        nombres: "Cliente 6",
+        apellidos: "Apellido 6",
+        dni: "12345678G",
+        direccion: "Direccion 6",
+        email: "cliente6@gmail.com",
+        password: "Password6",
+        telefono: "555559999",
+        rol: "Cliente",
+      },
+    ];
     let response = await chai.request(URL).put(`/clientes`).send(CLIENTES2);
     assert.equal(response.status, 200);
     assert.isTrue(response.ok);
@@ -163,20 +165,37 @@ describe(URL, function () {
     assert.equal(cliente.body, CLIENTES[0].body);
   });
 
-
-
   //Signin
 
-  it(`GET ${URL}/clientes/:clienteId`, async function () {
-    let clienteId = clientes[0]._id;
-    let response = await chai.request(URL).get(`/clientes/${clienteId}`).send();
+  it(`POST ${URL}/signin`, async function () {
+    let response = await chai.request(URL).post(`/signin`).send({
+      email: EMPLEADOS[0].email,
+      password: EMPLEADOS[0].password,
+      rol: EMPLEADOS[0].rol,
+    });
     assert.equal(response.status, 200);
     assert.isTrue(response.ok);
-    let cliente = response.body;
-    assert.exists(cliente._id);
-    assert.equal(cliente.body, CLIENTES[0].body);
+    let empleado = response.body;
+    assert.exists(empleado.id);
+    assert.equal(empleado.rol, EMPLEADOS[0].rol);
+    assert.equal(empleado.email, EMPLEADOS[0].email);
+    assert.equal(empleado.password, EMPLEADOS[0].password);
   });
-
-
-
+  //     await chai.request(URL).post(`/signup`).send(CLIENTES[0]);
+  //     let response = await chai.request(URL).post(`/signin`).send({
+  //       email: CLIENTES[0].email,
+  //       password: CLIENTES[0].password,
+  //       rol: CLIENTES[0].rol,
+  //     });
+  //     console.log(response.body);
+  //     assert.equal(response.status, 200);
+  //     assert.isTrue(response.ok);
+  //     let resultado = response.body;
+  //     console.log("Es resutado", resultado);
+  //     assert.exists(resultado.id);
+  //     assert.equal(resultado.rol, CLIENTES[0].rol);
+  //     assert.equal(resultado.email, CLIENTES[0].email);
+  //     assert.equal(resultado.password, CLIENTES[0].password);
+  //   });
+  // });
 });
