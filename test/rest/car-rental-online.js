@@ -153,14 +153,35 @@ describe(URL, function () {
 
   //Signup
 
-  it(`GET ${URL}/clientes/:clienteId`, async function () {
-    let clienteId = clientes[0]._id;
-    let response = await chai.request(URL).get(`/clientes/${clienteId}`).send();
+  it(`POST ${URL}/signup`, async function () {
+
+    // let CLIENTE = {
+    //   nombres: "Cliente 5",
+    //   apellidos: "Apellido 5",
+    //   dni: "12345678F",
+    //   direccion: "Direccion 5",
+    //   email: "cliente5@gmail.com",
+    //   password: "Password5",
+    //   password2: "Password5",
+    //   telefono: "333222111",
+    //   rol: "Cliente",    
+    // };
+    let cliente1 = await chai.request(URL).post(`/signup`).send(CLIENTES[0]);
+    let response = await chai.request(URL).post(`/signup`).send({    
+      email: cliente1.email,
+      password: cliente1.password,
+      rol: cliente1.rol});
     assert.equal(response.status, 200);
     assert.isTrue(response.ok);
-    let cliente = response.body;
-    assert.exists(cliente._id);
-    assert.equal(cliente.body, CLIENTES[0].body);
+    let usuario = response.body;
+    assert.exists(usuario._id);
+    assert.deepEqual(usuario._nombres, cliente1._nombres);
+
+    response = await chai.request(URL).get(`/signup/${usuario._id}`).send();   
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let respuesta = response.body;
+    assert.deepEqual(respuesta, cliente1);
   });
 
 
