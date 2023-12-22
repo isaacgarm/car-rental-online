@@ -153,6 +153,65 @@ describe(URL, function () {
     assert.equal(cliente.body, CLIENTES[0].body);
   });
 
+    //Empleado
+    it(`GET ${URL}/empleados`, async function () {
+      let response = await chai.request(URL).get("/empleados").send();
+      assert.equal(response.status, 200);
+      assert.isTrue(response.ok);
+      let resultado = response.body;
+      assert.deepEqual(resultado, empleados);
+    });
+  
+    it(`PUT ${URL}/empleados`, async function () {
+      let EMPLEADOS2 = [
+        {
+          nombres: "Empleado 5",
+          apellidos: "Apellido 5",
+          dni: "12345678F",
+          direccion: "Direccion 5",
+          email: "empleado5@gmail.com",
+          password: "Password5",
+          telefono: "333222111",
+          rol: "Empleado",
+        },
+        {
+          nombres: "Empleado 6",
+          apellidos: "Apellido 6",
+          dni: "12345678G",
+          direccion: "Direccion 6",
+          email: "empleado6@gmail.com",
+          password: "Password6",
+          telefono: "555559999",
+          rol: "Empleado",
+        },
+      ];
+      let response = await chai.request(URL).put(`/empleados`).send(EMPLEADOS2);
+      assert.equal(response.status, 200);
+      assert.isTrue(response.ok);
+      let resultado = response.body;
+      assert.equal(resultado.length, EMPLEADOS2.length);
+      resultado.forEach((c, ic) => {
+        assert.deepEqual(c.obj, EMPLEADOS2[ic].obj);
+      });
+  
+      clientes = resultado;
+      response = await chai.request(URL).get(`/empleados`).send();
+      assert.equal(response.status, 200);
+      assert.isTrue(response.ok);
+      resultado = response.body;
+      assert.deepEqual(resultado, clientes);
+    });
+  
+    it(`GET ${URL}/empleados/:empleadoId`, async function () {
+      let empleadoId = empleados[0]._id;
+      let response = await chai.request(URL).get(`/empleados/${empleadoId}`).send();
+      assert.equal(response.status, 200);
+      assert.isTrue(response.ok);
+      let empleado = response.body;
+      assert.exists(empleado._id);
+      assert.equal(empleado.body, CLIENTES[0].body);
+    });
+
   //Signup
 
   it(`POST ${URL}/signup`, async function () {
