@@ -104,7 +104,7 @@ describe(URL, function () {
   });
 
   it(`PUT ${URL}/clientes`, async function () {
-    let CLIENTE2 = {
+    let CLIENTES2 = [{
       nombres: "Cliente 5",
       apellidos: "Apellido 5",
       dni: "12345678F",
@@ -113,14 +113,24 @@ describe(URL, function () {
       password: "Password5",
       telefono: "333222111",
       rol: "Cliente",
-    };
-    let response = await chai.request(URL).put(`/clientes`).send(CLIENTE2);
+    },
+    {
+      nombres: "Cliente 6",
+      apellidos: "Apellido 6",
+      dni: "12345678G",
+      direccion: "Direccion 6",
+      email: "cliente6@gmail.com",
+      password: "Password6",
+      telefono: "555559999",
+      rol: "Cliente",
+    }];
+    let response = await chai.request(URL).put(`/clientes`).send(CLIENTES2);
     assert.equal(response.status, 200);
     assert.isTrue(response.ok);
     let resultado = response.body;
-    assert.equal(resultado.length, CLIENTE2.length);
+    assert.equal(resultado.length, CLIENTES2.length);
     resultado.forEach((c, ic) => {
-      assert.deepEqual(c.obj, CLIENTE2[ic].obj);
+      assert.deepEqual(c.obj, CLIENTES2[ic].obj);
     });
 
     clientes = resultado;
