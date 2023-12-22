@@ -150,9 +150,18 @@ describe(URL, function () {
     assert.isTrue(response.ok);
     let cliente = response.body;
     assert.exists(cliente._id);
-    assert.equal(cliente.body, CLIENTES[0].body);
+    assert.equal(cliente.body, CLIENTES[0].body); 
   });
 
+  it(`GET ${URL}/clientes`, async function () { //clientes con el email
+    let clienteEmail = clientes[0]._email;
+    let response = await chai.request(URL).get(`/clientes/${clienteEmail}`).send();
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let cliente = response.body;
+    assert.exists(cliente._id);
+    assert.equal(cliente.body, CLIENTES[0].body); 
+  });
     //Empleado
     it(`GET ${URL}/empleados`, async function () {
       let response = await chai.request(URL).get("/empleados").send();
