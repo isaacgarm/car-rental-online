@@ -150,4 +150,33 @@ describe(URL, function () {
     assert.exists(cliente._id);
     assert.equal(cliente.body, CLIENTES[0].body);
   });
+
+  //Signup
+
+  it(`GET ${URL}/clientes/:clienteId`, async function () {
+    let clienteId = clientes[0]._id;
+    let response = await chai.request(URL).get(`/clientes/${clienteId}`).send();
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let cliente = response.body;
+    assert.exists(cliente._id);
+    assert.equal(cliente.body, CLIENTES[0].body);
+  });
+
+
+
+  //Signin
+
+  it(`GET ${URL}/clientes/:clienteId`, async function () {
+    let clienteId = clientes[0]._id;
+    let response = await chai.request(URL).get(`/clientes/${clienteId}`).send();
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let cliente = response.body;
+    assert.exists(cliente._id);
+    assert.equal(cliente.body, CLIENTES[0].body);
+  });
+
+
+
 });
