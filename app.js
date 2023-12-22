@@ -110,7 +110,6 @@ app.post("/car-rental-online/api/signin", (req, res) => {
     console.error(e);
     res.status(500).json({ message: e.message });
   }
-  //usuario =[];
 });
 
 

@@ -150,130 +150,217 @@ describe(URL, function () {
     assert.isTrue(response.ok);
     let cliente = response.body;
     assert.exists(cliente._id);
-    assert.equal(cliente.body, CLIENTES[0].body); 
+    assert.equal(cliente.body, CLIENTES[0].body);
   });
 
-  it(`GET ${URL}/clientes`, async function () { //clientes con el email
-    let clienteEmail = clientes[0]._email;
-    let response = await chai.request(URL).get(`/clientes/${clienteEmail}`).send();
+  it(`GET ${URL}/clientes?email=`, async function () {
+    //clientes con el email
+    let response = await chai
+      .request(URL)
+      .get(`/clientes?email=${CLIENTES[0].email}`)
+      .send();
     assert.equal(response.status, 200);
     assert.isTrue(response.ok);
-    let cliente = response.body;
-    assert.exists(cliente._id);
-    assert.equal(cliente.body, CLIENTES[0].body); 
+    let resultado = response.body;
+    assert.deepEqual(resultado.body, CLIENTES[0].body);
   });
-    //Empleado
-    it(`GET ${URL}/empleados`, async function () {
-      let response = await chai.request(URL).get("/empleados").send();
-      assert.equal(response.status, 200);
-      assert.isTrue(response.ok);
-      let resultado = response.body;
-      assert.deepEqual(resultado, empleados);
+  //Empleado
+  it(`GET ${URL}/empleados`, async function () {
+    let response = await chai.request(URL).get("/empleados").send();
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let resultado = response.body;
+    assert.deepEqual(resultado, empleados);
+  });
+
+  it(`PUT ${URL}/empleados`, async function () {
+    let EMPLEADOS2 = [
+      {
+        nombres: "Empleado 5",
+        apellidos: "Apellido 5",
+        dni: "12345678F",
+        direccion: "Direccion 5",
+        email: "empleado5@gmail.com",
+        password: "Password5",
+        telefono: "333222111",
+        rol: "Empleado",
+      },
+      {
+        nombres: "Empleado 6",
+        apellidos: "Apellido 6",
+        dni: "12345678G",
+        direccion: "Direccion 6",
+        email: "empleado6@gmail.com",
+        password: "Password6",
+        telefono: "555559999",
+        rol: "Empleado",
+      },
+    ];
+    let response = await chai.request(URL).put(`/empleados`).send(EMPLEADOS2);
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let resultado = response.body;
+    assert.equal(resultado.length, EMPLEADOS2.length);
+    resultado.forEach((c, ic) => {
+      assert.deepEqual(c.obj, EMPLEADOS2[ic].obj);
     });
-  
-    it(`PUT ${URL}/empleados`, async function () {
-      let EMPLEADOS2 = [
-        {
-          nombres: "Empleado 5",
-          apellidos: "Apellido 5",
-          dni: "12345678F",
-          direccion: "Direccion 5",
-          email: "empleado5@gmail.com",
-          password: "Password5",
-          telefono: "333222111",
-          rol: "Empleado",
-        },
-        {
-          nombres: "Empleado 6",
-          apellidos: "Apellido 6",
-          dni: "12345678G",
-          direccion: "Direccion 6",
-          email: "empleado6@gmail.com",
-          password: "Password6",
-          telefono: "555559999",
-          rol: "Empleado",
-        },
-      ];
-      let response = await chai.request(URL).put(`/empleados`).send(EMPLEADOS2);
-      assert.equal(response.status, 200);
-      assert.isTrue(response.ok);
-      let resultado = response.body;
-      assert.equal(resultado.length, EMPLEADOS2.length);
-      resultado.forEach((c, ic) => {
-        assert.deepEqual(c.obj, EMPLEADOS2[ic].obj);
-      });
-  
-      clientes = resultado;
-      response = await chai.request(URL).get(`/empleados`).send();
-      assert.equal(response.status, 200);
-      assert.isTrue(response.ok);
-      resultado = response.body;
-      assert.deepEqual(resultado, clientes);
-    });
-  
-    it(`GET ${URL}/empleados/:empleadoId`, async function () {
-      let empleadoId = empleados[0]._id;
-      let response = await chai.request(URL).get(`/empleados/${empleadoId}`).send();
-      assert.equal(response.status, 200);
-      assert.isTrue(response.ok);
-      let empleado = response.body;
-      assert.exists(empleado._id);
-      assert.equal(empleado.body, CLIENTES[0].body);
-    });
+
+    empleados = resultado;
+    response = await chai.request(URL).get(`/empleados`).send();
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    resultado = response.body;
+    assert.deepEqual(resultado, empleados);
+  });
+
+  it(`GET ${URL}/empleados/:empleadoId`, async function () {
+    let empleadoId = empleados[0]._id;
+    let response = await chai
+      .request(URL)
+      .get(`/empleados/${empleadoId}`)
+      .send();
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let empleado = response.body;
+    assert.exists(empleado._id);
+    assert.equal(empleado.body, EMPLEADOS[0].body);
+  });
+
+  it(`GET ${URL}/empleados?email=`, async function () {
+    //empleados con el email
+    let response = await chai
+      .request(URL)
+      .get(`/empleados?email=${EMPLEADOS[0].email}`)
+      .send();
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let resultado = response.body;
+    assert.deepEqual(resultado.body, EMPLEADOS[0].body);
+  });
 
   //Signup
 
   it(`POST ${URL}/signup`, async function () {
-    let cliente =
-      {
-        nombres: "Cliente 5",
-        apellidos: "Apellido 5",
-        dni: "12345678F",
-        direccion: "Direccion 5",
-        email: "cliente5@gmail.com",
-        password: "Password5",
-        telefono: "333222111",
-        rol: "Cliente",
-      }
+    let cliente = {
+      nombres: "Cliente 5",
+      apellidos: "Apellido 5",
+      dni: "12345678F",
+      direccion: "Direccion 5",
+      email: "cliente5@gmail.com",
+      password: "Password5",
+      password: "Password5",
+      telefono: "333222111",
+      rol: "Cliente",
+    };
     let response = await chai.request(URL).post(`/signup`).send(cliente);
     assert.equal(response.status, 200);
     assert.isTrue(response.ok);
     let usuario = response.body;
     assert.exists(usuario._id);
-    assert.deepEqual(usuario._nombres, cliente.nombres);
+    assert.deepEqual(usuario._rol, cliente.rol);
+    assert.deepEqual(usuario.body, cliente.body);
   });
 
-  //Signin
-
-  it(`POST ${URL}/signin`, async function () {
-    let response = await chai.request(URL).post(`/signin`).send({
-      email: EMPLEADOS[0].email,
-      password: EMPLEADOS[0].password,
-      rol: EMPLEADOS[0].rol,
-    });
+  //Signup con DNI repetido
+  it(`POST ${URL}/signup`, async function () {
+    let cliente = {
+      nombres: "Cliente 5",
+      apellidos: "Apellido 5",
+      dni: "12345678A",
+      direccion: "Direccion 5",
+      email: "cliente5@gmail.com",
+      password: "Password5",
+      password: "Password5",
+      telefono: "333222111",
+      rol: "Cliente",
+    };
+    let response = await chai.request(URL).post(`/signup`).send(cliente);
+    assert.equal(response.status, 200);
+    let response2 = await chai.request(URL).post(`/signup`).send(cliente);
+    assert.equal(response2.status, 500);
+    assert.isFalse(response2.ok);
+    let error = response.body;
+    assert.exists(error);
+  });
+  //Signup Empleado
+  it(`POST ${URL}/signup`, async function () {
+    let empleado = {
+      nombres: "Empleado 5",
+      apellidos: "Apellido 5",
+      dni: "12345678F",
+      direccion: "Direccion 5",
+      email: "empelado@gmail.com",
+      password: "Password5",
+      password: "Password5",
+      telefono: "333222111",
+      rol: "Empleado",
+    };
+    let response = await chai.request(URL).post(`/signup`).send(empleado);
     assert.equal(response.status, 200);
     assert.isTrue(response.ok);
-    let empleado = response.body;
-    assert.exists(empleado.id);
-    assert.equal(empleado.rol, EMPLEADOS[0].rol);
-    assert.equal(empleado.email, EMPLEADOS[0].email);
-    assert.equal(empleado.password, EMPLEADOS[0].password);
+    let usuario = response.body;
+    assert.exists(usuario._id);
+    assert.deepEqual(usuario._rol, empleado.rol);
+    assert.deepEqual(usuario.body, empleado.body);
   });
-  //     await chai.request(URL).post(`/signup`).send(CLIENTES[0]);
-  //     let response = await chai.request(URL).post(`/signin`).send({
-  //       email: CLIENTES[0].email,
-  //       password: CLIENTES[0].password,
-  //       rol: CLIENTES[0].rol,
-  //     });
-  //     console.log(response.body);
-  //     assert.equal(response.status, 200);
-  //     assert.isTrue(response.ok);
-  //     let resultado = response.body;
-  //     console.log("Es resutado", resultado);
-  //     assert.exists(resultado.id);
-  //     assert.equal(resultado.rol, CLIENTES[0].rol);
-  //     assert.equal(resultado.email, CLIENTES[0].email);
-  //     assert.equal(resultado.password, CLIENTES[0].password);
-  //   });
-  // });
+
+  it(`POST ${URL}/signup`, async function () {
+    let empleado = {
+      nombres: "Empleado 5",
+      apellidos: "Apellido 5",
+      dni: "12345678F",
+      direccion: "Direccion 5",
+      email: "empelado@gmail.com",
+      password: "Password5",
+      password: "Password5",
+      telefono: "333222111",
+      rol: "Empleado",
+    };
+    let response = await chai.request(URL).post(`/signup`).send(empleado);
+    assert.equal(response.status, 200);
+    let response2 = await chai.request(URL).post(`/signup`).send(empleado);
+    assert.equal(response2.status, 500);
+    assert.isFalse(response2.ok);
+    let error = response.body;
+    assert.exists(error);
+  });
+
+  //Signin Cliente
+
+  it(`POST ${URL}/signin`, async function () {
+    await chai.request(URL).post(`/signup`).send(CLIENTES[0]);
+    let clienteCredenciales = {
+      email: "cliente1@gmail.com",
+      password: "Password1",
+      rol: "Cliente",
+    };
+    let response = await chai
+      .request(URL)
+      .post(`/signin`)
+      .send(clienteCredenciales);
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let usuario = response.body;
+    assert.deepEqual(usuario.email, clienteCredenciales.email);
+    assert.deepEqual(usuario.password, clienteCredenciales.password);
+    assert.deepEqual(usuario.rol, clienteCredenciales.rol);
+  });
+
+  //Signin Empleado
+
+  it(`POST ${URL}/signin`, async function () {
+    await chai.request(URL).post(`/signup`).send(EMPLEADOS[0]);
+    let empleadoCredenciales = {
+      email: "empleado1@gmail.com",
+      password: "Password1",
+      rol: "Empleado",
+    };
+    let response = await chai.request(URL).post(`/signin`).send(empleadoCredenciales);
+    assert.equal(response.status, 200);
+    assert.isTrue(response.ok);
+    let usuario = response.body;
+    assert.deepEqual(usuario.email, empleadoCredenciales.email);
+    assert.deepEqual(usuario.password, empleadoCredenciales.password);
+    assert.deepEqual(usuario.rol, empleadoCredenciales.rol);
+  });
 });
